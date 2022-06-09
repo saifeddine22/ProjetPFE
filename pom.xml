@@ -54,7 +54,7 @@
         <hibernate.version>5.6.7.Final</hibernate.version>
         <!-- The liquibase version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
-        <liquibase.version>4.6.1</liquibase.version>
+        <liquibase.version>4.9.1</liquibase.version>
         <liquibase-hibernate5.version>4.6.1</liquibase-hibernate5.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <jaxb-runtime.version>2.3.3</jaxb-runtime.version>
@@ -1010,6 +1010,22 @@
                                     <artifactId>jhipster-framework</artifactId>
                                     <version>${jhipster-dependencies.version}</version>
                                 </dependency>
+
+
+                                <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-spatial -->
+                                <dependency>
+                                    <groupId>org.hibernate</groupId>
+                                    <artifactId>hibernate-spatial</artifactId>
+                                    <version>5.4.1.Final</version>
+                                </dependency>
+                                <!-- https://mvnrepository.com/artifact/com.github.lonnyj/liquibase-spatial -->
+                                <dependency>
+                                    <groupId>com.github.lonnyj</groupId>
+                                    <artifactId>liquibase-spatial</artifactId>
+                                    <version>1.2.1</version>
+                                </dependency>
+
+                                
                             </dependencies>
                         </plugin>
                     </plugins>
