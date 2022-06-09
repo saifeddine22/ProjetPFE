@@ -1018,7 +1018,7 @@
                                     <artifactId>hibernate-spatial</artifactId>
                                     <version>5.4.1.Final</version>
                                 </dependency>
-                                <!-- https://mvnrepository.com/artifact/com.github.lonnyj/liquibase-spatial -->
+                                <!-- https://mvnrepository.com/artifact/com.github.lonnyj/liquibase-spatial z-->
                                 <dependency>
                                     <groupId>com.github.lonnyj</groupId>
                                     <artifactId>liquibase-spatial</artifactId>
