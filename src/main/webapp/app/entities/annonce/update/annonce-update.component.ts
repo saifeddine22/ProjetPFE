@@ -1,0 +1,163 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
+
+import { IAnnonce, Annonce } from '../annonce.model';
+import { AnnonceService } from '../service/annonce.service';
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
+import { ICommune } from 'app/entities/commune/commune.model';
+import { CommuneService } from 'app/entities/commune/service/commune.service';
+import { IActivite } from 'app/entities/activite/activite.model';
+import { ActiviteService } from 'app/entities/activite/service/activite.service';
+
+@Component({
+  selector: 'jhi-annonce-update',
+  templateUrl: './annonce-update.component.html',
+})
+export class AnnonceUpdateComponent implements OnInit {
+  isSaving = false;
+
+  usersSharedCollection: IUser[] = [];
+  communesSharedCollection: ICommune[] = [];
+  activitesSharedCollection: IActivite[] = [];
+
+  editForm = this.fb.group({
+    id: [],
+    titre: [null, [Validators.required]],
+    description: [null, [Validators.required]],
+    adresse: [null, [Validators.required]],
+    geometry: [null, [Validators.required]],
+    status: [],
+    user: [null, Validators.required],
+    commune: [],
+    activite: [null, Validators.required],
+  });
+
+  constructor(
+    protected annonceService: AnnonceService,
+    protected userService: UserService,
+    protected communeService: CommuneService,
+    protected activiteService: ActiviteService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.data.subscribe(({ annonce }) => {
+      this.updateForm(annonce);
+
+      this.loadRelationshipsOptions();
+    });
+  }
+
+  previousState(): void {
+    window.history.back();
+  }
+
+  save(): void {
+    this.isSaving = true;
+    const annonce = this.createFromForm();
+    if (annonce.id !== undefined) {
+      this.subscribeToSaveResponse(this.annonceService.update(annonce));
+    } else {
+      this.subscribeToSaveResponse(this.annonceService.create(annonce));
+    }
+  }
+
+  trackUserById(_index: number, item: IUser): number {
+    return item.id!;
+  }
+
+  trackCommuneById(_index: number, item: ICommune): number {
+    return item.id!;
+  }
+
+  trackActiviteById(_index: number, item: IActivite): number {
+    return item.id!;
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IAnnonce>>): void {
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
+      next: () => this.onSaveSuccess(),
+      error: () => this.onSaveError(),
+    });
+  }
+
+  protected onSaveSuccess(): void {
+    this.previousState();
+  }
+
+  protected onSaveError(): void {
+    // Api for inheritance.
+  }
+
+  protected onSaveFinalize(): void {
+    this.isSaving = false;
+  }
+
+  protected updateForm(annonce: IAnnonce): void {
+    this.editForm.patchValue({
+      id: annonce.id,
+      titre: annonce.titre,
+      description: annonce.description,
+      adresse: annonce.adresse,
+      geometry: annonce.geometry,
+      status: annonce.status,
+      user: annonce.user,
+      commune: annonce.commune,
+      activite: annonce.activite,
+    });
+
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, annonce.user);
+    this.communesSharedCollection = this.communeService.addCommuneToCollectionIfMissing(this.communesSharedCollection, annonce.commune);
+    this.activitesSharedCollection = this.activiteService.addActiviteToCollectionIfMissing(
+      this.activitesSharedCollection,
+      annonce.activite
+    );
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.userService
+      .query()
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
+      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
+
+    this.communeService
+      .query()
+      .pipe(map((res: HttpResponse<ICommune[]>) => res.body ?? []))
+      .pipe(
+        map((communes: ICommune[]) => this.communeService.addCommuneToCollectionIfMissing(communes, this.editForm.get('commune')!.value))
+      )
+      .subscribe((communes: ICommune[]) => (this.communesSharedCollection = communes));
+
+    this.activiteService
+      .query()
+      .pipe(map((res: HttpResponse<IActivite[]>) => res.body ?? []))
+      .pipe(
+        map((activites: IActivite[]) =>
+          this.activiteService.addActiviteToCollectionIfMissing(activites, this.editForm.get('activite')!.value)
+        )
+      )
+      .subscribe((activites: IActivite[]) => (this.activitesSharedCollection = activites));
+  }
+
+  protected createFromForm(): IAnnonce {
+    return {
+      ...new Annonce(),
+      id: this.editForm.get(['id'])!.value,
+      titre: this.editForm.get(['titre'])!.value,
+      description: this.editForm.get(['description'])!.value,
+      adresse: this.editForm.get(['adresse'])!.value,
+      geometry: this.editForm.get(['geometry'])!.value,
+      status: this.editForm.get(['status'])!.value,
+      user: this.editForm.get(['user'])!.value,
+      commune: this.editForm.get(['commune'])!.value,
+      activite: this.editForm.get(['activite'])!.value,
+    };
+  }
+}

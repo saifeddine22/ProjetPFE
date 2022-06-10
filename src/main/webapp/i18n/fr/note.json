@@ -1,0 +1,25 @@
+{
+  "bricoviteApp": {
+    "note": {
+      "home": {
+        "title": "Notes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Note",
+        "createOrEditLabel": "Créer ou éditer un Note",
+        "notFound": "Aucun Note trouvé"
+      },
+      "created": "Un nouveau Note a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Note avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Note avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Note {{ id }} ?"
+      },
+      "detail": {
+        "title": "Note"
+      },
+      "id": "ID",
+      "valeur": "Valeur",
+      "annonce": "Annonce"
+    }
+  }
+}

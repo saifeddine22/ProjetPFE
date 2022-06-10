@@ -1,0 +1,29 @@
+{
+  "bricoviteApp": {
+    "province": {
+      "home": {
+        "title": "Provinces",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Province",
+        "createOrEditLabel": "Create or edit a Province",
+        "notFound": "No Provinces found"
+      },
+      "created": "A new Province is created with identifier {{ param }}",
+      "updated": "A Province is updated with identifier {{ param }}",
+      "deleted": "A Province is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Province {{ id }}?"
+      },
+      "detail": {
+        "title": "Province"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "nomAr": "Nom Ar",
+      "geometry": "Geometry",
+      "attachement": "Attachement",
+      "commune": "Commune",
+      "region": "Region"
+    }
+  }
+}

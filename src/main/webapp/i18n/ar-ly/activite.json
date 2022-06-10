@@ -1,0 +1,27 @@
+{
+  "bricoviteApp": {
+    "activite": {
+      "home": {
+        "title": "Activites",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Activite",
+        "createOrEditLabel": "Create or edit a Activite",
+        "notFound": "No Activites found"
+      },
+      "created": "A new Activite is created with identifier {{ param }}",
+      "updated": "A Activite is updated with identifier {{ param }}",
+      "deleted": "A Activite is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Activite {{ id }}?"
+      },
+      "detail": {
+        "title": "Activite"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "nomAr": "Nom Ar",
+      "annonce": "Annonce",
+      "categorie": "Categorie"
+    }
+  }
+}

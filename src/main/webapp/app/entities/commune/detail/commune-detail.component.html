@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="commune">
+      <h2 data-cy="communeDetailsHeading"><span jhiTranslate="bricoviteApp.commune.detail.title">Commune</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ commune.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.commune.nom">Nom</span></dt>
+        <dd>
+          <span>{{ commune.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.commune.nomAr">Nom Ar</span></dt>
+        <dd>
+          <span>{{ commune.nomAr }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.commune.geometry">Geometry</span></dt>
+        <dd>
+          <span>{{ commune.geometry }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.commune.attachement">Attachement</span></dt>
+        <dd>
+          <span>{{ commune.attachement }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.commune.province">Province</span></dt>
+        <dd>
+          <div *ngIf="commune.province">
+            <a [routerLink]="['/province', commune.province?.id, 'view']">{{ commune.province?.nom }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/commune', commune.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

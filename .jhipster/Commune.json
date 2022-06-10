@@ -1,0 +1,48 @@
+{
+  "applications": "*",
+  "changelogDate": "20220610103424",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "commune",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nomAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "geometry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "attachement",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Commune",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "titre",
+      "otherEntityName": "annonce",
+      "otherEntityRelationshipName": "commune",
+      "relationshipName": "annonce",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "nom",
+      "otherEntityName": "province",
+      "otherEntityRelationshipName": "commune",
+      "relationshipName": "province",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

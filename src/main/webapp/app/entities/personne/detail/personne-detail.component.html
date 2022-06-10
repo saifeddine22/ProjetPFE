@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="personne">
+      <h2 data-cy="personneDetailsHeading"><span jhiTranslate="bricoviteApp.personne.detail.title">Personne</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ personne.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.personne.cnie">Cnie</span></dt>
+        <dd>
+          <span>{{ personne.cnie }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.personne.user">User</span></dt>
+        <dd>
+          <!-- <span>{{ personne.user?.firstName }}</span> -->
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/personne', personne.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

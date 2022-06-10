@@ -7,6 +7,16 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "الكيانات",
+        "personne": "Personne",
+        "annonce": "Annonce",
+        "photo": "Photo",
+        "region": "Region",
+        "province": "Province",
+        "commune": "Commune",
+        "activite": "Activite",
+        "categorie": "Categorie",
+        "commentaire": "Commentaire",
+        "note": "Note",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

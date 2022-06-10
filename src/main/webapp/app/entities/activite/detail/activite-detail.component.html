@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="activite">
+      <h2 data-cy="activiteDetailsHeading"><span jhiTranslate="bricoviteApp.activite.detail.title">Activite</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ activite.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.activite.nom">Nom</span></dt>
+        <dd>
+          <span>{{ activite.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.activite.nomAr">Nom Ar</span></dt>
+        <dd>
+          <span>{{ activite.nomAr }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.activite.categorie">Categorie</span></dt>
+        <dd>
+          <div *ngIf="activite.categorie">
+            <a [routerLink]="['/categorie', activite.categorie?.id, 'view']">{{ activite.categorie?.nom }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/activite', activite.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-annonce-heading" data-cy="AnnonceCreateUpdateHeading" jhiTranslate="bricoviteApp.annonce.home.createOrEditLabel">
+        Create or edit a Annonce
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.titre" for="field_titre">Titre</label>
+          <input type="text" class="form-control" name="titre" id="field_titre" data-cy="titre" formControlName="titre" />
+          <div *ngIf="editForm.get('titre')!.invalid && (editForm.get('titre')!.dirty || editForm.get('titre')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('titre')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+          <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('description')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.adresse" for="field_adresse">Adresse</label>
+          <input type="text" class="form-control" name="adresse" id="field_adresse" data-cy="adresse" formControlName="adresse" />
+          <div *ngIf="editForm.get('adresse')!.invalid && (editForm.get('adresse')!.dirty || editForm.get('adresse')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('adresse')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.geometry" for="field_geometry">Geometry</label>
+          <input type="text" class="form-control" name="geometry" id="field_geometry" data-cy="geometry" formControlName="geometry" />
+          <div *ngIf="editForm.get('geometry')!.invalid && (editForm.get('geometry')!.dirty || editForm.get('geometry')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('geometry')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.status" for="field_status">Status</label>
+          <input type="checkbox" class="form-check" name="status" id="field_status" data-cy="status" formControlName="status" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              <!--  {{ userOption.firstName }} -->
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['user'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.commune" for="field_commune">Commune</label>
+          <select class="form-control" id="field_commune" data-cy="commune" name="commune" formControlName="commune">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="communeOption.id === editForm.get('commune')!.value?.id ? editForm.get('commune')!.value : communeOption"
+              *ngFor="let communeOption of communesSharedCollection; trackBy: trackCommuneById"
+            >
+              {{ communeOption.nom }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.activite" for="field_activite">Activite</label>
+          <select class="form-control" id="field_activite" data-cy="activite" name="activite" formControlName="activite">
+            <option *ngIf="!editForm.get('activite')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="activiteOption.id === editForm.get('activite')!.value?.id ? editForm.get('activite')!.value : activiteOption"
+              *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
+            >
+              {{ activiteOption.nom }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['activite'])!.invalid && (editForm.get(['activite'])!.dirty || editForm.get(['activite'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['activite'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
