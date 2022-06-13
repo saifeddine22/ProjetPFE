@@ -33,7 +33,9 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="nom"><span jhiTranslate="bricoviteApp.categorie.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nomFr">
+            <span jhiTranslate="bricoviteApp.categorie.nomFr">Nom Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="nomAr">
             <span jhiTranslate="bricoviteApp.categorie.nomAr">Nom Ar</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -45,7 +47,7 @@
           <td>
             <a [routerLink]="['/categorie', categorie.id, 'view']">{{ categorie.id }}</a>
           </td>
-          <td>{{ categorie.nom }}</td>
+          <td>{{ categorie.nomFr }}</td>
           <td>{{ categorie.nomAr }}</td>
           <td class="text-end">
             <div class="btn-group">

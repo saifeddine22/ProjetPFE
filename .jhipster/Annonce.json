@@ -65,14 +65,14 @@
       "relationshipValidateRules": "required"
     },
     {
-      "otherEntityField": "nom",
+      "otherEntityField": "nomFr",
       "otherEntityName": "commune",
       "otherEntityRelationshipName": "annonce",
       "relationshipName": "commune",
       "relationshipType": "many-to-one"
     },
     {
-      "otherEntityField": "nom",
+      "otherEntityField": "nomFr",
       "otherEntityName": "activite",
       "otherEntityRelationshipName": "annonce",
       "relationshipName": "activite",

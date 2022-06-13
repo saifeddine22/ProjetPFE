@@ -22,17 +22,59 @@ public class Commune implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nom")
-    private String nom;
+    @Column(name = "code_reg")
+    private Double codeReg;
+
+    @Column(name = "code_prov")
+    private Double codeProv;
+
+    @Column(name = "province_fr")
+    private String provinceFr;
+
+    @Column(name = "province_ar")
+    private String provinceAr;
+
+    @Column(name = "region_fr")
+    private String regionFr;
+
+    @Column(name = "region_ar")
+    private String regionAr;
+
+    @Column(name = "cercle_fr")
+    private String cercleFr;
+
+    @Column(name = "code_cercle")
+    private Double codeCercle;
+
+    @Column(name = "com_fr")
+    private String comFr;
+
+    @Column(name = "code_com")
+    private Double codeCom;
+
+    @Column(name = "centre_fr")
+    private String centreFr;
+
+    @Column(name = "cod_ac")
+    private Double codAc;
+
+    @Column(name = "com_ar")
+    private String comAr;
+
+    @Column(name = "cc")
+    private Double cc;
+
+    @Column(name = "centre_ar")
+    private String centreAr;
 
     @Column(name = "nom_ar")
     private String nomAr;
 
+    @Column(name = "nom_fr")
+    private String nomFr;
+
     @Column(name = "geometry")
     private String geometry;
-
-    @Column(name = "attachement")
-    private String attachement;
 
     @OneToMany(mappedBy = "commune")
     @JsonIgnoreProperties(value = { "photos", "commentaires", "notes", "user", "commune", "activite" }, allowSetters = true)
@@ -58,17 +100,199 @@ public class Commune implements Serializable {
         this.id = id;
     }
 
-    public String getNom() {
-        return this.nom;
+    public Double getCodeReg() {
+        return this.codeReg;
     }
 
-    public Commune nom(String nom) {
-        this.setNom(nom);
+    public Commune codeReg(Double codeReg) {
+        this.setCodeReg(codeReg);
         return this;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setCodeReg(Double codeReg) {
+        this.codeReg = codeReg;
+    }
+
+    public Double getCodeProv() {
+        return this.codeProv;
+    }
+
+    public Commune codeProv(Double codeProv) {
+        this.setCodeProv(codeProv);
+        return this;
+    }
+
+    public void setCodeProv(Double codeProv) {
+        this.codeProv = codeProv;
+    }
+
+    public String getProvinceFr() {
+        return this.provinceFr;
+    }
+
+    public Commune provinceFr(String provinceFr) {
+        this.setProvinceFr(provinceFr);
+        return this;
+    }
+
+    public void setProvinceFr(String provinceFr) {
+        this.provinceFr = provinceFr;
+    }
+
+    public String getProvinceAr() {
+        return this.provinceAr;
+    }
+
+    public Commune provinceAr(String provinceAr) {
+        this.setProvinceAr(provinceAr);
+        return this;
+    }
+
+    public void setProvinceAr(String provinceAr) {
+        this.provinceAr = provinceAr;
+    }
+
+    public String getRegionFr() {
+        return this.regionFr;
+    }
+
+    public Commune regionFr(String regionFr) {
+        this.setRegionFr(regionFr);
+        return this;
+    }
+
+    public void setRegionFr(String regionFr) {
+        this.regionFr = regionFr;
+    }
+
+    public String getRegionAr() {
+        return this.regionAr;
+    }
+
+    public Commune regionAr(String regionAr) {
+        this.setRegionAr(regionAr);
+        return this;
+    }
+
+    public void setRegionAr(String regionAr) {
+        this.regionAr = regionAr;
+    }
+
+    public String getCercleFr() {
+        return this.cercleFr;
+    }
+
+    public Commune cercleFr(String cercleFr) {
+        this.setCercleFr(cercleFr);
+        return this;
+    }
+
+    public void setCercleFr(String cercleFr) {
+        this.cercleFr = cercleFr;
+    }
+
+    public Double getCodeCercle() {
+        return this.codeCercle;
+    }
+
+    public Commune codeCercle(Double codeCercle) {
+        this.setCodeCercle(codeCercle);
+        return this;
+    }
+
+    public void setCodeCercle(Double codeCercle) {
+        this.codeCercle = codeCercle;
+    }
+
+    public String getComFr() {
+        return this.comFr;
+    }
+
+    public Commune comFr(String comFr) {
+        this.setComFr(comFr);
+        return this;
+    }
+
+    public void setComFr(String comFr) {
+        this.comFr = comFr;
+    }
+
+    public Double getCodeCom() {
+        return this.codeCom;
+    }
+
+    public Commune codeCom(Double codeCom) {
+        this.setCodeCom(codeCom);
+        return this;
+    }
+
+    public void setCodeCom(Double codeCom) {
+        this.codeCom = codeCom;
+    }
+
+    public String getCentreFr() {
+        return this.centreFr;
+    }
+
+    public Commune centreFr(String centreFr) {
+        this.setCentreFr(centreFr);
+        return this;
+    }
+
+    public void setCentreFr(String centreFr) {
+        this.centreFr = centreFr;
+    }
+
+    public Double getCodAc() {
+        return this.codAc;
+    }
+
+    public Commune codAc(Double codAc) {
+        this.setCodAc(codAc);
+        return this;
+    }
+
+    public void setCodAc(Double codAc) {
+        this.codAc = codAc;
+    }
+
+    public String getComAr() {
+        return this.comAr;
+    }
+
+    public Commune comAr(String comAr) {
+        this.setComAr(comAr);
+        return this;
+    }
+
+    public void setComAr(String comAr) {
+        this.comAr = comAr;
+    }
+
+    public Double getCc() {
+        return this.cc;
+    }
+
+    public Commune cc(Double cc) {
+        this.setCc(cc);
+        return this;
+    }
+
+    public void setCc(Double cc) {
+        this.cc = cc;
+    }
+
+    public String getCentreAr() {
+        return this.centreAr;
+    }
+
+    public Commune centreAr(String centreAr) {
+        this.setCentreAr(centreAr);
+        return this;
+    }
+
+    public void setCentreAr(String centreAr) {
+        this.centreAr = centreAr;
     }
 
     public String getNomAr() {
@@ -84,6 +308,19 @@ public class Commune implements Serializable {
         this.nomAr = nomAr;
     }
 
+    public String getNomFr() {
+        return this.nomFr;
+    }
+
+    public Commune nomFr(String nomFr) {
+        this.setNomFr(nomFr);
+        return this;
+    }
+
+    public void setNomFr(String nomFr) {
+        this.nomFr = nomFr;
+    }
+
     public String getGeometry() {
         return this.geometry;
     }
@@ -95,19 +332,6 @@ public class Commune implements Serializable {
 
     public void setGeometry(String geometry) {
         this.geometry = geometry;
-    }
-
-    public String getAttachement() {
-        return this.attachement;
-    }
-
-    public Commune attachement(String attachement) {
-        this.setAttachement(attachement);
-        return this;
-    }
-
-    public void setAttachement(String attachement) {
-        this.attachement = attachement;
     }
 
     public Set<Annonce> getAnnonces() {
@@ -178,10 +402,24 @@ public class Commune implements Serializable {
     public String toString() {
         return "Commune{" +
             "id=" + getId() +
-            ", nom='" + getNom() + "'" +
+            ", codeReg=" + getCodeReg() +
+            ", codeProv=" + getCodeProv() +
+            ", provinceFr='" + getProvinceFr() + "'" +
+            ", provinceAr='" + getProvinceAr() + "'" +
+            ", regionFr='" + getRegionFr() + "'" +
+            ", regionAr='" + getRegionAr() + "'" +
+            ", cercleFr='" + getCercleFr() + "'" +
+            ", codeCercle=" + getCodeCercle() +
+            ", comFr='" + getComFr() + "'" +
+            ", codeCom=" + getCodeCom() +
+            ", centreFr='" + getCentreFr() + "'" +
+            ", codAc=" + getCodAc() +
+            ", comAr='" + getComAr() + "'" +
+            ", cc=" + getCc() +
+            ", centreAr='" + getCentreAr() + "'" +
             ", nomAr='" + getNomAr() + "'" +
+            ", nomFr='" + getNomFr() + "'" +
             ", geometry='" + getGeometry() + "'" +
-            ", attachement='" + getAttachement() + "'" +
             "}";
     }
 }

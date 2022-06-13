@@ -17,10 +17,10 @@ export class RegionUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    nom: [],
+    codeReg: [],
+    nomFr: [],
     nomAr: [],
     geometry: [],
-    attachement: [],
   });
 
   constructor(protected regionService: RegionService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
@@ -67,10 +67,10 @@ export class RegionUpdateComponent implements OnInit {
   protected updateForm(region: IRegion): void {
     this.editForm.patchValue({
       id: region.id,
-      nom: region.nom,
+      codeReg: region.codeReg,
+      nomFr: region.nomFr,
       nomAr: region.nomAr,
       geometry: region.geometry,
-      attachement: region.attachement,
     });
   }
 
@@ -78,10 +78,10 @@ export class RegionUpdateComponent implements OnInit {
     return {
       ...new Region(),
       id: this.editForm.get(['id'])!.value,
-      nom: this.editForm.get(['nom'])!.value,
+      codeReg: this.editForm.get(['codeReg'])!.value,
+      nomFr: this.editForm.get(['nomFr'])!.value,
       nomAr: this.editForm.get(['nomAr'])!.value,
       geometry: this.editForm.get(['geometry'])!.value,
-      attachement: this.editForm.get(['attachement'])!.value,
     };
   }
 }

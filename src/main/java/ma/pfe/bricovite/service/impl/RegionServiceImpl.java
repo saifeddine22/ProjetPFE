@@ -45,17 +45,17 @@ public class RegionServiceImpl implements RegionService {
         return regionRepository
             .findById(region.getId())
             .map(existingRegion -> {
-                if (region.getNom() != null) {
-                    existingRegion.setNom(region.getNom());
+                if (region.getCodeReg() != null) {
+                    existingRegion.setCodeReg(region.getCodeReg());
+                }
+                if (region.getNomFr() != null) {
+                    existingRegion.setNomFr(region.getNomFr());
                 }
                 if (region.getNomAr() != null) {
                     existingRegion.setNomAr(region.getNomAr());
                 }
                 if (region.getGeometry() != null) {
                     existingRegion.setGeometry(region.getGeometry());
-                }
-                if (region.getAttachement() != null) {
-                    existingRegion.setAttachement(region.getAttachement());
                 }
 
                 return existingRegion;

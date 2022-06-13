@@ -45,17 +45,26 @@ public class ProvinceServiceImpl implements ProvinceService {
         return provinceRepository
             .findById(province.getId())
             .map(existingProvince -> {
-                if (province.getNom() != null) {
-                    existingProvince.setNom(province.getNom());
+                if (province.getCodeReg() != null) {
+                    existingProvince.setCodeReg(province.getCodeReg());
+                }
+                if (province.getCodeProv() != null) {
+                    existingProvince.setCodeProv(province.getCodeProv());
+                }
+                if (province.getNomFr() != null) {
+                    existingProvince.setNomFr(province.getNomFr());
                 }
                 if (province.getNomAr() != null) {
                     existingProvince.setNomAr(province.getNomAr());
                 }
+                if (province.getRegionFr() != null) {
+                    existingProvince.setRegionFr(province.getRegionFr());
+                }
+                if (province.getRegionAr() != null) {
+                    existingProvince.setRegionAr(province.getRegionAr());
+                }
                 if (province.getGeometry() != null) {
                     existingProvince.setGeometry(province.getGeometry());
-                }
-                if (province.getAttachement() != null) {
-                    existingProvince.setAttachement(province.getAttachement());
                 }
 
                 return existingProvince;

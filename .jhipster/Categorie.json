@@ -6,7 +6,7 @@
   "entityTableName": "categorie",
   "fields": [
     {
-      "fieldName": "nom",
+      "fieldName": "nomFr",
       "fieldType": "String"
     },
     {
@@ -21,7 +21,7 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "nom",
+      "otherEntityField": "nomFr",
       "otherEntityName": "activite",
       "otherEntityRelationshipName": "categorie",
       "relationshipName": "activite",

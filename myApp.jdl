@@ -19,33 +19,50 @@ image ImageBlob
 }
 
 entity Region {
-nom String
+codeReg Double
+nomFr String
 nomAr String
 geometry String
-attachement String
 }
 
 entity Province {
-nom String
+codeReg Double
+codeProv Double
+nomFr String
 nomAr String
+regionFr String
+regionAr String
 geometry String
-attachement String
 }
 
 entity Commune {
-nom String
+codeReg Double
+codeProv Double
+provinceFr String
+provinceAr String
+regionFr String
+regionAr String
+cercleFr String
+codeCercle Double
+comFr String
+codeCom Double
+centreFr String
+codAc Double
+comAr String
+cc Double
+centreAr String
 nomAr String
+nomFr String
 geometry String
-attachement String
 }
 
 entity Activite {
-nom String
+nomFr String
 nomAr String
 }
 
 entity Categorie {
-nom String
+nomFr String
 nomAr String
 }
 
@@ -59,11 +76,11 @@ valeur Integer
 }
 
 relationship OneToMany {
-	Region{province(nom)} to Province{region(nom) required}
-    Province{commune(nom)} to Commune{province(nom) required}
-    Commune{annonce(titre)} to Annonce{commune(nom)}
-    Activite{annonce(titre)} to Annonce{activite(nom) required}
-    Categorie{activite(nom)} to Activite{categorie(nom) required}
+	Region{province(nomFr)} to Province{region(nomFr) required}
+    Province{commune(nomFr)} to Commune{province(nomFr) required}
+    Commune{annonce(titre)} to Annonce{commune(nomFr)}
+    Activite{annonce(titre)} to Annonce{activite(nomFr) required}
+    Categorie{activite(nomFr)} to Activite{categorie(nomFr) required}
     Annonce to Photo{annonce}
     Annonce{commentaire(details)} to Commentaire{annonce(titre)}
     Annonce{note(valeur)} to Note{annonce(titre)}

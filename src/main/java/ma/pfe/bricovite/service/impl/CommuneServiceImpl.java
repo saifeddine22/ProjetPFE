@@ -45,17 +45,59 @@ public class CommuneServiceImpl implements CommuneService {
         return communeRepository
             .findById(commune.getId())
             .map(existingCommune -> {
-                if (commune.getNom() != null) {
-                    existingCommune.setNom(commune.getNom());
+                if (commune.getCodeReg() != null) {
+                    existingCommune.setCodeReg(commune.getCodeReg());
+                }
+                if (commune.getCodeProv() != null) {
+                    existingCommune.setCodeProv(commune.getCodeProv());
+                }
+                if (commune.getProvinceFr() != null) {
+                    existingCommune.setProvinceFr(commune.getProvinceFr());
+                }
+                if (commune.getProvinceAr() != null) {
+                    existingCommune.setProvinceAr(commune.getProvinceAr());
+                }
+                if (commune.getRegionFr() != null) {
+                    existingCommune.setRegionFr(commune.getRegionFr());
+                }
+                if (commune.getRegionAr() != null) {
+                    existingCommune.setRegionAr(commune.getRegionAr());
+                }
+                if (commune.getCercleFr() != null) {
+                    existingCommune.setCercleFr(commune.getCercleFr());
+                }
+                if (commune.getCodeCercle() != null) {
+                    existingCommune.setCodeCercle(commune.getCodeCercle());
+                }
+                if (commune.getComFr() != null) {
+                    existingCommune.setComFr(commune.getComFr());
+                }
+                if (commune.getCodeCom() != null) {
+                    existingCommune.setCodeCom(commune.getCodeCom());
+                }
+                if (commune.getCentreFr() != null) {
+                    existingCommune.setCentreFr(commune.getCentreFr());
+                }
+                if (commune.getCodAc() != null) {
+                    existingCommune.setCodAc(commune.getCodAc());
+                }
+                if (commune.getComAr() != null) {
+                    existingCommune.setComAr(commune.getComAr());
+                }
+                if (commune.getCc() != null) {
+                    existingCommune.setCc(commune.getCc());
+                }
+                if (commune.getCentreAr() != null) {
+                    existingCommune.setCentreAr(commune.getCentreAr());
                 }
                 if (commune.getNomAr() != null) {
                     existingCommune.setNomAr(commune.getNomAr());
                 }
+                if (commune.getNomFr() != null) {
+                    existingCommune.setNomFr(commune.getNomFr());
+                }
                 if (commune.getGeometry() != null) {
                     existingCommune.setGeometry(commune.getGeometry());
-                }
-                if (commune.getAttachement() != null) {
-                    existingCommune.setAttachement(commune.getAttachement());
                 }
 
                 return existingCommune;

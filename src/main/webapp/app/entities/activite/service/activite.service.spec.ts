@@ -21,7 +21,7 @@ describe('Activite Service', () => {
 
     elemDefault = {
       id: 0,
-      nom: 'AAAAAAA',
+      nomFr: 'AAAAAAA',
       nomAr: 'AAAAAAA',
     };
   });
@@ -58,7 +58,7 @@ describe('Activite Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          nom: 'BBBBBB',
+          nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
         },
         elemDefault
@@ -76,7 +76,7 @@ describe('Activite Service', () => {
     it('should partial update a Activite', () => {
       const patchObject = Object.assign(
         {
-          nom: 'BBBBBB',
+          nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
         },
         new Activite()
@@ -97,7 +97,7 @@ describe('Activite Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          nom: 'BBBBBB',
+          nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
         },
         elemDefault

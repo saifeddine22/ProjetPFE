@@ -21,10 +21,13 @@ describe('Province Service', () => {
 
     elemDefault = {
       id: 0,
-      nom: 'AAAAAAA',
+      codeReg: 0,
+      codeProv: 0,
+      nomFr: 'AAAAAAA',
       nomAr: 'AAAAAAA',
+      regionFr: 'AAAAAAA',
+      regionAr: 'AAAAAAA',
       geometry: 'AAAAAAA',
-      attachement: 'AAAAAAA',
     };
   });
 
@@ -60,10 +63,13 @@ describe('Province Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          nom: 'BBBBBB',
+          codeReg: 1,
+          codeProv: 1,
+          nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
+          regionFr: 'BBBBBB',
+          regionAr: 'BBBBBB',
           geometry: 'BBBBBB',
-          attachement: 'BBBBBB',
         },
         elemDefault
       );
@@ -80,7 +86,9 @@ describe('Province Service', () => {
     it('should partial update a Province', () => {
       const patchObject = Object.assign(
         {
-          nom: 'BBBBBB',
+          codeReg: 1,
+          nomFr: 'BBBBBB',
+          regionFr: 'BBBBBB',
           geometry: 'BBBBBB',
         },
         new Province()
@@ -101,10 +109,13 @@ describe('Province Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          nom: 'BBBBBB',
+          codeReg: 1,
+          codeProv: 1,
+          nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
+          regionFr: 'BBBBBB',
+          regionAr: 'BBBBBB',
           geometry: 'BBBBBB',
-          attachement: 'BBBBBB',
         },
         elemDefault
       );
@@ -156,7 +167,7 @@ describe('Province Service', () => {
       });
 
       it('should add only unique Province to an array', () => {
-        const provinceArray: IProvince[] = [{ id: 123 }, { id: 456 }, { id: 80927 }];
+        const provinceArray: IProvince[] = [{ id: 123 }, { id: 456 }, { id: 38778 }];
         const provinceCollection: IProvince[] = [{ id: 123 }];
         expectedResult = service.addProvinceToCollectionIfMissing(provinceCollection, ...provinceArray);
         expect(expectedResult).toHaveLength(3);

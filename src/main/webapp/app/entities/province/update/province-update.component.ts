@@ -21,10 +21,13 @@ export class ProvinceUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    nom: [],
+    codeReg: [],
+    codeProv: [],
+    nomFr: [],
     nomAr: [],
+    regionFr: [],
+    regionAr: [],
     geometry: [],
-    attachement: [],
     region: [null, Validators.required],
   });
 
@@ -83,10 +86,13 @@ export class ProvinceUpdateComponent implements OnInit {
   protected updateForm(province: IProvince): void {
     this.editForm.patchValue({
       id: province.id,
-      nom: province.nom,
+      codeReg: province.codeReg,
+      codeProv: province.codeProv,
+      nomFr: province.nomFr,
       nomAr: province.nomAr,
+      regionFr: province.regionFr,
+      regionAr: province.regionAr,
       geometry: province.geometry,
-      attachement: province.attachement,
       region: province.region,
     });
 
@@ -105,10 +111,13 @@ export class ProvinceUpdateComponent implements OnInit {
     return {
       ...new Province(),
       id: this.editForm.get(['id'])!.value,
-      nom: this.editForm.get(['nom'])!.value,
+      codeReg: this.editForm.get(['codeReg'])!.value,
+      codeProv: this.editForm.get(['codeProv'])!.value,
+      nomFr: this.editForm.get(['nomFr'])!.value,
       nomAr: this.editForm.get(['nomAr'])!.value,
+      regionFr: this.editForm.get(['regionFr'])!.value,
+      regionAr: this.editForm.get(['regionAr'])!.value,
       geometry: this.editForm.get(['geometry'])!.value,
-      attachement: this.editForm.get(['attachement'])!.value,
       region: this.editForm.get(['region'])!.value,
     };
   }

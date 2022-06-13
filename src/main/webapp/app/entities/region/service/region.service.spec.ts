@@ -21,10 +21,10 @@ describe('Region Service', () => {
 
     elemDefault = {
       id: 0,
-      nom: 'AAAAAAA',
+      codeReg: 0,
+      nomFr: 'AAAAAAA',
       nomAr: 'AAAAAAA',
       geometry: 'AAAAAAA',
-      attachement: 'AAAAAAA',
     };
   });
 
@@ -60,10 +60,10 @@ describe('Region Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          nom: 'BBBBBB',
+          codeReg: 1,
+          nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
           geometry: 'BBBBBB',
-          attachement: 'BBBBBB',
         },
         elemDefault
       );
@@ -80,8 +80,8 @@ describe('Region Service', () => {
     it('should partial update a Region', () => {
       const patchObject = Object.assign(
         {
-          nomAr: 'BBBBBB',
-          attachement: 'BBBBBB',
+          nomFr: 'BBBBBB',
+          geometry: 'BBBBBB',
         },
         new Region()
       );
@@ -101,10 +101,10 @@ describe('Region Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          nom: 'BBBBBB',
+          codeReg: 1,
+          nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
           geometry: 'BBBBBB',
-          attachement: 'BBBBBB',
         },
         elemDefault
       );

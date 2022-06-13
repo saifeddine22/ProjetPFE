@@ -33,11 +33,13 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="nom"><span jhiTranslate="bricoviteApp.activite.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nomFr">
+            <span jhiTranslate="bricoviteApp.activite.nomFr">Nom Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="nomAr">
             <span jhiTranslate="bricoviteApp.activite.nomAr">Nom Ar</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="categorie.nom">
+          <th scope="col" jhiSortBy="categorie.nomFr">
             <span jhiTranslate="bricoviteApp.activite.categorie">Categorie</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
@@ -48,11 +50,11 @@
           <td>
             <a [routerLink]="['/activite', activite.id, 'view']">{{ activite.id }}</a>
           </td>
-          <td>{{ activite.nom }}</td>
+          <td>{{ activite.nomFr }}</td>
           <td>{{ activite.nomAr }}</td>
           <td>
             <div *ngIf="activite.categorie">
-              <a [routerLink]="['/categorie', activite.categorie?.id, 'view']">{{ activite.categorie?.nom }}</a>
+              <a [routerLink]="['/categorie', activite.categorie?.id, 'view']">{{ activite.categorie?.nomFr }}</a>
             </div>
           </td>
           <td class="text-end">

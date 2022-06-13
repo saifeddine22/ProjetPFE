@@ -39,17 +39,26 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class ProvinceResourceIT {
 
-    private static final String DEFAULT_NOM = "AAAAAAAAAA";
-    private static final String UPDATED_NOM = "BBBBBBBBBB";
+    private static final Double DEFAULT_CODE_REG = 1D;
+    private static final Double UPDATED_CODE_REG = 2D;
+
+    private static final Double DEFAULT_CODE_PROV = 1D;
+    private static final Double UPDATED_CODE_PROV = 2D;
+
+    private static final String DEFAULT_NOM_FR = "AAAAAAAAAA";
+    private static final String UPDATED_NOM_FR = "BBBBBBBBBB";
 
     private static final String DEFAULT_NOM_AR = "AAAAAAAAAA";
     private static final String UPDATED_NOM_AR = "BBBBBBBBBB";
 
+    private static final String DEFAULT_REGION_FR = "AAAAAAAAAA";
+    private static final String UPDATED_REGION_FR = "BBBBBBBBBB";
+
+    private static final String DEFAULT_REGION_AR = "AAAAAAAAAA";
+    private static final String UPDATED_REGION_AR = "BBBBBBBBBB";
+
     private static final String DEFAULT_GEOMETRY = "AAAAAAAAAA";
     private static final String UPDATED_GEOMETRY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ATTACHEMENT = "AAAAAAAAAA";
-    private static final String UPDATED_ATTACHEMENT = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/provinces";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -82,10 +91,13 @@ class ProvinceResourceIT {
      */
     public static Province createEntity(EntityManager em) {
         Province province = new Province()
-            .nom(DEFAULT_NOM)
+            .codeReg(DEFAULT_CODE_REG)
+            .codeProv(DEFAULT_CODE_PROV)
+            .nomFr(DEFAULT_NOM_FR)
             .nomAr(DEFAULT_NOM_AR)
-            .geometry(DEFAULT_GEOMETRY)
-            .attachement(DEFAULT_ATTACHEMENT);
+            .regionFr(DEFAULT_REGION_FR)
+            .regionAr(DEFAULT_REGION_AR)
+            .geometry(DEFAULT_GEOMETRY);
         // Add required entity
         Region region;
         if (TestUtil.findAll(em, Region.class).isEmpty()) {
@@ -107,10 +119,13 @@ class ProvinceResourceIT {
      */
     public static Province createUpdatedEntity(EntityManager em) {
         Province province = new Province()
-            .nom(UPDATED_NOM)
+            .codeReg(UPDATED_CODE_REG)
+            .codeProv(UPDATED_CODE_PROV)
+            .nomFr(UPDATED_NOM_FR)
             .nomAr(UPDATED_NOM_AR)
-            .geometry(UPDATED_GEOMETRY)
-            .attachement(UPDATED_ATTACHEMENT);
+            .regionFr(UPDATED_REGION_FR)
+            .regionAr(UPDATED_REGION_AR)
+            .geometry(UPDATED_GEOMETRY);
         // Add required entity
         Region region;
         if (TestUtil.findAll(em, Region.class).isEmpty()) {
@@ -142,10 +157,13 @@ class ProvinceResourceIT {
         List<Province> provinceList = provinceRepository.findAll();
         assertThat(provinceList).hasSize(databaseSizeBeforeCreate + 1);
         Province testProvince = provinceList.get(provinceList.size() - 1);
-        assertThat(testProvince.getNom()).isEqualTo(DEFAULT_NOM);
+        assertThat(testProvince.getCodeReg()).isEqualTo(DEFAULT_CODE_REG);
+        assertThat(testProvince.getCodeProv()).isEqualTo(DEFAULT_CODE_PROV);
+        assertThat(testProvince.getNomFr()).isEqualTo(DEFAULT_NOM_FR);
         assertThat(testProvince.getNomAr()).isEqualTo(DEFAULT_NOM_AR);
+        assertThat(testProvince.getRegionFr()).isEqualTo(DEFAULT_REGION_FR);
+        assertThat(testProvince.getRegionAr()).isEqualTo(DEFAULT_REGION_AR);
         assertThat(testProvince.getGeometry()).isEqualTo(DEFAULT_GEOMETRY);
-        assertThat(testProvince.getAttachement()).isEqualTo(DEFAULT_ATTACHEMENT);
     }
 
     @Test
@@ -178,10 +196,13 @@ class ProvinceResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(province.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
+            .andExpect(jsonPath("$.[*].codeReg").value(hasItem(DEFAULT_CODE_REG.doubleValue())))
+            .andExpect(jsonPath("$.[*].codeProv").value(hasItem(DEFAULT_CODE_PROV.doubleValue())))
+            .andExpect(jsonPath("$.[*].nomFr").value(hasItem(DEFAULT_NOM_FR)))
             .andExpect(jsonPath("$.[*].nomAr").value(hasItem(DEFAULT_NOM_AR)))
-            .andExpect(jsonPath("$.[*].geometry").value(hasItem(DEFAULT_GEOMETRY)))
-            .andExpect(jsonPath("$.[*].attachement").value(hasItem(DEFAULT_ATTACHEMENT)));
+            .andExpect(jsonPath("$.[*].regionFr").value(hasItem(DEFAULT_REGION_FR)))
+            .andExpect(jsonPath("$.[*].regionAr").value(hasItem(DEFAULT_REGION_AR)))
+            .andExpect(jsonPath("$.[*].geometry").value(hasItem(DEFAULT_GEOMETRY)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -214,10 +235,13 @@ class ProvinceResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(province.getId().intValue()))
-            .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
+            .andExpect(jsonPath("$.codeReg").value(DEFAULT_CODE_REG.doubleValue()))
+            .andExpect(jsonPath("$.codeProv").value(DEFAULT_CODE_PROV.doubleValue()))
+            .andExpect(jsonPath("$.nomFr").value(DEFAULT_NOM_FR))
             .andExpect(jsonPath("$.nomAr").value(DEFAULT_NOM_AR))
-            .andExpect(jsonPath("$.geometry").value(DEFAULT_GEOMETRY))
-            .andExpect(jsonPath("$.attachement").value(DEFAULT_ATTACHEMENT));
+            .andExpect(jsonPath("$.regionFr").value(DEFAULT_REGION_FR))
+            .andExpect(jsonPath("$.regionAr").value(DEFAULT_REGION_AR))
+            .andExpect(jsonPath("$.geometry").value(DEFAULT_GEOMETRY));
     }
 
     @Test
@@ -239,7 +263,14 @@ class ProvinceResourceIT {
         Province updatedProvince = provinceRepository.findById(province.getId()).get();
         // Disconnect from session so that the updates on updatedProvince are not directly saved in db
         em.detach(updatedProvince);
-        updatedProvince.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY).attachement(UPDATED_ATTACHEMENT);
+        updatedProvince
+            .codeReg(UPDATED_CODE_REG)
+            .codeProv(UPDATED_CODE_PROV)
+            .nomFr(UPDATED_NOM_FR)
+            .nomAr(UPDATED_NOM_AR)
+            .regionFr(UPDATED_REGION_FR)
+            .regionAr(UPDATED_REGION_AR)
+            .geometry(UPDATED_GEOMETRY);
 
         restProvinceMockMvc
             .perform(
@@ -253,10 +284,13 @@ class ProvinceResourceIT {
         List<Province> provinceList = provinceRepository.findAll();
         assertThat(provinceList).hasSize(databaseSizeBeforeUpdate);
         Province testProvince = provinceList.get(provinceList.size() - 1);
-        assertThat(testProvince.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testProvince.getCodeReg()).isEqualTo(UPDATED_CODE_REG);
+        assertThat(testProvince.getCodeProv()).isEqualTo(UPDATED_CODE_PROV);
+        assertThat(testProvince.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testProvince.getNomAr()).isEqualTo(UPDATED_NOM_AR);
+        assertThat(testProvince.getRegionFr()).isEqualTo(UPDATED_REGION_FR);
+        assertThat(testProvince.getRegionAr()).isEqualTo(UPDATED_REGION_AR);
         assertThat(testProvince.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
-        assertThat(testProvince.getAttachement()).isEqualTo(UPDATED_ATTACHEMENT);
     }
 
     @Test
@@ -327,7 +361,7 @@ class ProvinceResourceIT {
         Province partialUpdatedProvince = new Province();
         partialUpdatedProvince.setId(province.getId());
 
-        partialUpdatedProvince.nom(UPDATED_NOM).geometry(UPDATED_GEOMETRY);
+        partialUpdatedProvince.codeReg(UPDATED_CODE_REG).nomFr(UPDATED_NOM_FR).geometry(UPDATED_GEOMETRY);
 
         restProvinceMockMvc
             .perform(
@@ -341,10 +375,13 @@ class ProvinceResourceIT {
         List<Province> provinceList = provinceRepository.findAll();
         assertThat(provinceList).hasSize(databaseSizeBeforeUpdate);
         Province testProvince = provinceList.get(provinceList.size() - 1);
-        assertThat(testProvince.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testProvince.getCodeReg()).isEqualTo(UPDATED_CODE_REG);
+        assertThat(testProvince.getCodeProv()).isEqualTo(DEFAULT_CODE_PROV);
+        assertThat(testProvince.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testProvince.getNomAr()).isEqualTo(DEFAULT_NOM_AR);
+        assertThat(testProvince.getRegionFr()).isEqualTo(DEFAULT_REGION_FR);
+        assertThat(testProvince.getRegionAr()).isEqualTo(DEFAULT_REGION_AR);
         assertThat(testProvince.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
-        assertThat(testProvince.getAttachement()).isEqualTo(DEFAULT_ATTACHEMENT);
     }
 
     @Test
@@ -359,7 +396,14 @@ class ProvinceResourceIT {
         Province partialUpdatedProvince = new Province();
         partialUpdatedProvince.setId(province.getId());
 
-        partialUpdatedProvince.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY).attachement(UPDATED_ATTACHEMENT);
+        partialUpdatedProvince
+            .codeReg(UPDATED_CODE_REG)
+            .codeProv(UPDATED_CODE_PROV)
+            .nomFr(UPDATED_NOM_FR)
+            .nomAr(UPDATED_NOM_AR)
+            .regionFr(UPDATED_REGION_FR)
+            .regionAr(UPDATED_REGION_AR)
+            .geometry(UPDATED_GEOMETRY);
 
         restProvinceMockMvc
             .perform(
@@ -373,10 +417,13 @@ class ProvinceResourceIT {
         List<Province> provinceList = provinceRepository.findAll();
         assertThat(provinceList).hasSize(databaseSizeBeforeUpdate);
         Province testProvince = provinceList.get(provinceList.size() - 1);
-        assertThat(testProvince.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testProvince.getCodeReg()).isEqualTo(UPDATED_CODE_REG);
+        assertThat(testProvince.getCodeProv()).isEqualTo(UPDATED_CODE_PROV);
+        assertThat(testProvince.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testProvince.getNomAr()).isEqualTo(UPDATED_NOM_AR);
+        assertThat(testProvince.getRegionFr()).isEqualTo(UPDATED_REGION_FR);
+        assertThat(testProvince.getRegionAr()).isEqualTo(UPDATED_REGION_AR);
         assertThat(testProvince.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
-        assertThat(testProvince.getAttachement()).isEqualTo(UPDATED_ATTACHEMENT);
     }
 
     @Test

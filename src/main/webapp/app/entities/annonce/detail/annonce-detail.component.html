@@ -41,13 +41,13 @@
         <dt><span jhiTranslate="bricoviteApp.annonce.commune">Commune</span></dt>
         <dd>
           <div *ngIf="annonce.commune">
-            <a [routerLink]="['/commune', annonce.commune?.id, 'view']">{{ annonce.commune?.nom }}</a>
+            <a [routerLink]="['/commune', annonce.commune?.id, 'view']">{{ annonce.commune?.nomFr }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.activite">Activite</span></dt>
         <dd>
           <div *ngIf="annonce.activite">
-            <a [routerLink]="['/activite', annonce.activite?.id, 'view']">{{ annonce.activite?.nom }}</a>
+            <a [routerLink]="['/activite', annonce.activite?.id, 'view']">{{ annonce.activite?.nomFr }}</a>
           </div>
         </dd>
       </dl>

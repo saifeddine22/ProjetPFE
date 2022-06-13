@@ -21,7 +21,7 @@ export class ActiviteUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    nom: [],
+    nomFr: [],
     nomAr: [],
     categorie: [null, Validators.required],
   });
@@ -81,7 +81,7 @@ export class ActiviteUpdateComponent implements OnInit {
   protected updateForm(activite: IActivite): void {
     this.editForm.patchValue({
       id: activite.id,
-      nom: activite.nom,
+      nomFr: activite.nomFr,
       nomAr: activite.nomAr,
       categorie: activite.categorie,
     });
@@ -108,7 +108,7 @@ export class ActiviteUpdateComponent implements OnInit {
     return {
       ...new Activite(),
       id: this.editForm.get(['id'])!.value,
-      nom: this.editForm.get(['nom'])!.value,
+      nomFr: this.editForm.get(['nomFr'])!.value,
       nomAr: this.editForm.get(['nomAr'])!.value,
       categorie: this.editForm.get(['categorie'])!.value,
     };

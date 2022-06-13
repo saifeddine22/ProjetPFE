@@ -6,7 +6,63 @@
   "entityTableName": "commune",
   "fields": [
     {
-      "fieldName": "nom",
+      "fieldName": "codeReg",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "codeProv",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "provinceFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "provinceAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regionFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regionAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cercleFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codeCercle",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "comFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codeCom",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "centreFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codAc",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "comAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cc",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "centreAr",
       "fieldType": "String"
     },
     {
@@ -14,11 +70,11 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "geometry",
+      "fieldName": "nomFr",
       "fieldType": "String"
     },
     {
-      "fieldName": "attachement",
+      "fieldName": "geometry",
       "fieldType": "String"
     }
   ],
@@ -36,7 +92,7 @@
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityField": "nom",
+      "otherEntityField": "nomFr",
       "otherEntityName": "province",
       "otherEntityRelationshipName": "commune",
       "relationshipName": "province",

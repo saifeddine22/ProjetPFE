@@ -21,7 +21,7 @@ describe('Categorie Service', () => {
 
     elemDefault = {
       id: 0,
-      nom: 'AAAAAAA',
+      nomFr: 'AAAAAAA',
       nomAr: 'AAAAAAA',
     };
   });
@@ -58,7 +58,7 @@ describe('Categorie Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          nom: 'BBBBBB',
+          nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
         },
         elemDefault
@@ -76,7 +76,7 @@ describe('Categorie Service', () => {
     it('should partial update a Categorie', () => {
       const patchObject = Object.assign(
         {
-          nom: 'BBBBBB',
+          nomFr: 'BBBBBB',
         },
         new Categorie()
       );
@@ -96,7 +96,7 @@ describe('Categorie Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          nom: 'BBBBBB',
+          nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
         },
         elemDefault

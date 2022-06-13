@@ -6,7 +6,15 @@
   "entityTableName": "province",
   "fields": [
     {
-      "fieldName": "nom",
+      "fieldName": "codeReg",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "codeProv",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "nomFr",
       "fieldType": "String"
     },
     {
@@ -14,11 +22,15 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "geometry",
+      "fieldName": "regionFr",
       "fieldType": "String"
     },
     {
-      "fieldName": "attachement",
+      "fieldName": "regionAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "geometry",
       "fieldType": "String"
     }
   ],
@@ -29,14 +41,14 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "nom",
+      "otherEntityField": "nomFr",
       "otherEntityName": "commune",
       "otherEntityRelationshipName": "province",
       "relationshipName": "commune",
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityField": "nom",
+      "otherEntityField": "nomFr",
       "otherEntityName": "region",
       "otherEntityRelationshipName": "province",
       "relationshipName": "region",

@@ -14,9 +14,9 @@
         <dd>
           <span>{{ activite.id }}</span>
         </dd>
-        <dt><span jhiTranslate="bricoviteApp.activite.nom">Nom</span></dt>
+        <dt><span jhiTranslate="bricoviteApp.activite.nomFr">Nom Fr</span></dt>
         <dd>
-          <span>{{ activite.nom }}</span>
+          <span>{{ activite.nomFr }}</span>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.activite.nomAr">Nom Ar</span></dt>
         <dd>
@@ -25,7 +25,7 @@
         <dt><span jhiTranslate="bricoviteApp.activite.categorie">Categorie</span></dt>
         <dd>
           <div *ngIf="activite.categorie">
-            <a [routerLink]="['/categorie', activite.categorie?.id, 'view']">{{ activite.categorie?.nom }}</a>
+            <a [routerLink]="['/categorie', activite.categorie?.id, 'view']">{{ activite.categorie?.nomFr }}</a>
           </div>
         </dd>
       </dl>

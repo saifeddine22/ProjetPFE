@@ -14,16 +14,58 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="nom" type="varchar(255)">
+            <column name="code_reg" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="code_prov" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="province_fr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="province_ar" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="region_fr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="region_ar" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cercle_fr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="code_cercle" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="com_fr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="code_com" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="centre_fr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cod_ac" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="com_ar" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cc" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="centre_ar" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="nom_ar" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="geometry" type="varchar(255)">
+            <column name="nom_fr" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="attachement" type="varchar(255)">
+            <column name="geometry" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="province_id" type="bigint">
@@ -50,10 +92,24 @@
                   tableName="commune"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="nom" type="string"/>
+            <column name="code_reg" type="numeric"/>
+            <column name="code_prov" type="numeric"/>
+            <column name="province_fr" type="string"/>
+            <column name="province_ar" type="string"/>
+            <column name="region_fr" type="string"/>
+            <column name="region_ar" type="string"/>
+            <column name="cercle_fr" type="string"/>
+            <column name="code_cercle" type="numeric"/>
+            <column name="com_fr" type="string"/>
+            <column name="code_com" type="numeric"/>
+            <column name="centre_fr" type="string"/>
+            <column name="cod_ac" type="numeric"/>
+            <column name="com_ar" type="string"/>
+            <column name="cc" type="numeric"/>
+            <column name="centre_ar" type="string"/>
             <column name="nom_ar" type="string"/>
+            <column name="nom_fr" type="string"/>
             <column name="geometry" type="string"/>
-            <column name="attachement" type="string"/>
             <column name="province_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

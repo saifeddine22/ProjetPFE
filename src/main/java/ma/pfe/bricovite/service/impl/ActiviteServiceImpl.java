@@ -45,8 +45,8 @@ public class ActiviteServiceImpl implements ActiviteService {
         return activiteRepository
             .findById(activite.getId())
             .map(existingActivite -> {
-                if (activite.getNom() != null) {
-                    existingActivite.setNom(activite.getNom());
+                if (activite.getNomFr() != null) {
+                    existingActivite.setNomFr(activite.getNomFr());
                 }
                 if (activite.getNomAr() != null) {
                     existingActivite.setNomAr(activite.getNomAr());

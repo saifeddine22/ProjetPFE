@@ -51,10 +51,10 @@
           <th scope="col" jhiSortBy="user.firstName">
             <span jhiTranslate="bricoviteApp.annonce.user">User</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="commune.nom">
+          <th scope="col" jhiSortBy="commune.nomFr">
             <span jhiTranslate="bricoviteApp.annonce.commune">Commune</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="activite.nom">
+          <th scope="col" jhiSortBy="activite.nomFr">
             <span jhiTranslate="bricoviteApp.annonce.activite">Activite</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
@@ -71,16 +71,16 @@
           <td>{{ annonce.geometry }}</td>
           <td>{{ annonce.status }}</td>
           <td>
-            <!--  {{ annonce.user?.firstName }} -->
+            <!-- {{ annonce.user?.firstName }} -->
           </td>
           <td>
             <div *ngIf="annonce.commune">
-              <a [routerLink]="['/commune', annonce.commune?.id, 'view']">{{ annonce.commune?.nom }}</a>
+              <a [routerLink]="['/commune', annonce.commune?.id, 'view']">{{ annonce.commune?.nomFr }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="annonce.activite">
-              <a [routerLink]="['/activite', annonce.activite?.id, 'view']">{{ annonce.activite?.nom }}</a>
+              <a [routerLink]="['/activite', annonce.activite?.id, 'view']">{{ annonce.activite?.nomFr }}</a>
             </div>
           </td>
           <td class="text-end">

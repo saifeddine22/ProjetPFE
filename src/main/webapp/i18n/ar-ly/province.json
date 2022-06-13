@@ -18,10 +18,13 @@
         "title": "Province"
       },
       "id": "ID",
-      "nom": "Nom",
+      "codeReg": "Code Reg",
+      "codeProv": "Code Prov",
+      "nomFr": "Nom Fr",
       "nomAr": "Nom Ar",
+      "regionFr": "Region Fr",
+      "regionAr": "Region Ar",
       "geometry": "Geometry",
-      "attachement": "Attachement",
       "commune": "Commune",
       "region": "Region"
     }

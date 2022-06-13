@@ -22,8 +22,8 @@ public class Activite implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nom")
-    private String nom;
+    @Column(name = "nom_fr")
+    private String nomFr;
 
     @Column(name = "nom_ar")
     private String nomAr;
@@ -52,17 +52,17 @@ public class Activite implements Serializable {
         this.id = id;
     }
 
-    public String getNom() {
-        return this.nom;
+    public String getNomFr() {
+        return this.nomFr;
     }
 
-    public Activite nom(String nom) {
-        this.setNom(nom);
+    public Activite nomFr(String nomFr) {
+        this.setNomFr(nomFr);
         return this;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNomFr(String nomFr) {
+        this.nomFr = nomFr;
     }
 
     public String getNomAr() {
@@ -146,7 +146,7 @@ public class Activite implements Serializable {
     public String toString() {
         return "Activite{" +
             "id=" + getId() +
-            ", nom='" + getNom() + "'" +
+            ", nomFr='" + getNomFr() + "'" +
             ", nomAr='" + getNomAr() + "'" +
             "}";
     }

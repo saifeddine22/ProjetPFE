@@ -22,17 +22,26 @@ public class Province implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nom")
-    private String nom;
+    @Column(name = "code_reg")
+    private Double codeReg;
+
+    @Column(name = "code_prov")
+    private Double codeProv;
+
+    @Column(name = "nom_fr")
+    private String nomFr;
 
     @Column(name = "nom_ar")
     private String nomAr;
 
+    @Column(name = "region_fr")
+    private String regionFr;
+
+    @Column(name = "region_ar")
+    private String regionAr;
+
     @Column(name = "geometry")
     private String geometry;
-
-    @Column(name = "attachement")
-    private String attachement;
 
     @OneToMany(mappedBy = "province")
     @JsonIgnoreProperties(value = { "annonces", "province" }, allowSetters = true)
@@ -58,17 +67,43 @@ public class Province implements Serializable {
         this.id = id;
     }
 
-    public String getNom() {
-        return this.nom;
+    public Double getCodeReg() {
+        return this.codeReg;
     }
 
-    public Province nom(String nom) {
-        this.setNom(nom);
+    public Province codeReg(Double codeReg) {
+        this.setCodeReg(codeReg);
         return this;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setCodeReg(Double codeReg) {
+        this.codeReg = codeReg;
+    }
+
+    public Double getCodeProv() {
+        return this.codeProv;
+    }
+
+    public Province codeProv(Double codeProv) {
+        this.setCodeProv(codeProv);
+        return this;
+    }
+
+    public void setCodeProv(Double codeProv) {
+        this.codeProv = codeProv;
+    }
+
+    public String getNomFr() {
+        return this.nomFr;
+    }
+
+    public Province nomFr(String nomFr) {
+        this.setNomFr(nomFr);
+        return this;
+    }
+
+    public void setNomFr(String nomFr) {
+        this.nomFr = nomFr;
     }
 
     public String getNomAr() {
@@ -84,6 +119,32 @@ public class Province implements Serializable {
         this.nomAr = nomAr;
     }
 
+    public String getRegionFr() {
+        return this.regionFr;
+    }
+
+    public Province regionFr(String regionFr) {
+        this.setRegionFr(regionFr);
+        return this;
+    }
+
+    public void setRegionFr(String regionFr) {
+        this.regionFr = regionFr;
+    }
+
+    public String getRegionAr() {
+        return this.regionAr;
+    }
+
+    public Province regionAr(String regionAr) {
+        this.setRegionAr(regionAr);
+        return this;
+    }
+
+    public void setRegionAr(String regionAr) {
+        this.regionAr = regionAr;
+    }
+
     public String getGeometry() {
         return this.geometry;
     }
@@ -95,19 +156,6 @@ public class Province implements Serializable {
 
     public void setGeometry(String geometry) {
         this.geometry = geometry;
-    }
-
-    public String getAttachement() {
-        return this.attachement;
-    }
-
-    public Province attachement(String attachement) {
-        this.setAttachement(attachement);
-        return this;
-    }
-
-    public void setAttachement(String attachement) {
-        this.attachement = attachement;
     }
 
     public Set<Commune> getCommunes() {
@@ -178,10 +226,13 @@ public class Province implements Serializable {
     public String toString() {
         return "Province{" +
             "id=" + getId() +
-            ", nom='" + getNom() + "'" +
+            ", codeReg=" + getCodeReg() +
+            ", codeProv=" + getCodeProv() +
+            ", nomFr='" + getNomFr() + "'" +
             ", nomAr='" + getNomAr() + "'" +
+            ", regionFr='" + getRegionFr() + "'" +
+            ", regionAr='" + getRegionAr() + "'" +
             ", geometry='" + getGeometry() + "'" +
-            ", attachement='" + getAttachement() + "'" +
             "}";
     }
 }

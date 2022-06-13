@@ -33,17 +33,59 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="nom"><span jhiTranslate="bricoviteApp.commune.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codeReg">
+            <span jhiTranslate="bricoviteApp.commune.codeReg">Code Reg</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="codeProv">
+            <span jhiTranslate="bricoviteApp.commune.codeProv">Code Prov</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="provinceFr">
+            <span jhiTranslate="bricoviteApp.commune.provinceFr">Province Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="provinceAr">
+            <span jhiTranslate="bricoviteApp.commune.provinceAr">Province Ar</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="regionFr">
+            <span jhiTranslate="bricoviteApp.commune.regionFr">Region Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="regionAr">
+            <span jhiTranslate="bricoviteApp.commune.regionAr">Region Ar</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="cercleFr">
+            <span jhiTranslate="bricoviteApp.commune.cercleFr">Cercle Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="codeCercle">
+            <span jhiTranslate="bricoviteApp.commune.codeCercle">Code Cercle</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="comFr">
+            <span jhiTranslate="bricoviteApp.commune.comFr">Com Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="codeCom">
+            <span jhiTranslate="bricoviteApp.commune.codeCom">Code Com</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="centreFr">
+            <span jhiTranslate="bricoviteApp.commune.centreFr">Centre Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="codAc">
+            <span jhiTranslate="bricoviteApp.commune.codAc">Cod Ac</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="comAr">
+            <span jhiTranslate="bricoviteApp.commune.comAr">Com Ar</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="cc"><span jhiTranslate="bricoviteApp.commune.cc">Cc</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="centreAr">
+            <span jhiTranslate="bricoviteApp.commune.centreAr">Centre Ar</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="nomAr">
             <span jhiTranslate="bricoviteApp.commune.nomAr">Nom Ar</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="nomFr">
+            <span jhiTranslate="bricoviteApp.commune.nomFr">Nom Fr</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="geometry">
             <span jhiTranslate="bricoviteApp.commune.geometry">Geometry</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="attachement">
-            <span jhiTranslate="bricoviteApp.commune.attachement">Attachement</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="province.nom">
+          <th scope="col" jhiSortBy="province.nomFr">
             <span jhiTranslate="bricoviteApp.commune.province">Province</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
@@ -54,13 +96,27 @@
           <td>
             <a [routerLink]="['/commune', commune.id, 'view']">{{ commune.id }}</a>
           </td>
-          <td>{{ commune.nom }}</td>
+          <td>{{ commune.codeReg }}</td>
+          <td>{{ commune.codeProv }}</td>
+          <td>{{ commune.provinceFr }}</td>
+          <td>{{ commune.provinceAr }}</td>
+          <td>{{ commune.regionFr }}</td>
+          <td>{{ commune.regionAr }}</td>
+          <td>{{ commune.cercleFr }}</td>
+          <td>{{ commune.codeCercle }}</td>
+          <td>{{ commune.comFr }}</td>
+          <td>{{ commune.codeCom }}</td>
+          <td>{{ commune.centreFr }}</td>
+          <td>{{ commune.codAc }}</td>
+          <td>{{ commune.comAr }}</td>
+          <td>{{ commune.cc }}</td>
+          <td>{{ commune.centreAr }}</td>
           <td>{{ commune.nomAr }}</td>
+          <td>{{ commune.nomFr }}</td>
           <td>{{ commune.geometry }}</td>
-          <td>{{ commune.attachement }}</td>
           <td>
             <div *ngIf="commune.province">
-              <a [routerLink]="['/province', commune.province?.id, 'view']">{{ commune.province?.nom }}</a>
+              <a [routerLink]="['/province', commune.province?.id, 'view']">{{ commune.province?.nomFr }}</a>
             </div>
           </td>
           <td class="text-end">

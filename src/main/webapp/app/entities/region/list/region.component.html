@@ -33,15 +33,17 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="nom"><span jhiTranslate="bricoviteApp.region.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codeReg">
+            <span jhiTranslate="bricoviteApp.region.codeReg">Code Reg</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="nomFr">
+            <span jhiTranslate="bricoviteApp.region.nomFr">Nom Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="nomAr">
             <span jhiTranslate="bricoviteApp.region.nomAr">Nom Ar</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="geometry">
             <span jhiTranslate="bricoviteApp.region.geometry">Geometry</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="attachement">
-            <span jhiTranslate="bricoviteApp.region.attachement">Attachement</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -51,10 +53,10 @@
           <td>
             <a [routerLink]="['/region', region.id, 'view']">{{ region.id }}</a>
           </td>
-          <td>{{ region.nom }}</td>
+          <td>{{ region.codeReg }}</td>
+          <td>{{ region.nomFr }}</td>
           <td>{{ region.nomAr }}</td>
           <td>{{ region.geometry }}</td>
-          <td>{{ region.attachement }}</td>
           <td class="text-end">
             <div class="btn-group">
               <button type="submit" [routerLink]="['/region', region.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

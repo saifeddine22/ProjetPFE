@@ -21,17 +21,17 @@ public class Region implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nom")
-    private String nom;
+    @Column(name = "code_reg")
+    private Double codeReg;
+
+    @Column(name = "nom_fr")
+    private String nomFr;
 
     @Column(name = "nom_ar")
     private String nomAr;
 
     @Column(name = "geometry")
     private String geometry;
-
-    @Column(name = "attachement")
-    private String attachement;
 
     @OneToMany(mappedBy = "region")
     @JsonIgnoreProperties(value = { "communes", "region" }, allowSetters = true)
@@ -52,17 +52,30 @@ public class Region implements Serializable {
         this.id = id;
     }
 
-    public String getNom() {
-        return this.nom;
+    public Double getCodeReg() {
+        return this.codeReg;
     }
 
-    public Region nom(String nom) {
-        this.setNom(nom);
+    public Region codeReg(Double codeReg) {
+        this.setCodeReg(codeReg);
         return this;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setCodeReg(Double codeReg) {
+        this.codeReg = codeReg;
+    }
+
+    public String getNomFr() {
+        return this.nomFr;
+    }
+
+    public Region nomFr(String nomFr) {
+        this.setNomFr(nomFr);
+        return this;
+    }
+
+    public void setNomFr(String nomFr) {
+        this.nomFr = nomFr;
     }
 
     public String getNomAr() {
@@ -89,19 +102,6 @@ public class Region implements Serializable {
 
     public void setGeometry(String geometry) {
         this.geometry = geometry;
-    }
-
-    public String getAttachement() {
-        return this.attachement;
-    }
-
-    public Region attachement(String attachement) {
-        this.setAttachement(attachement);
-        return this;
-    }
-
-    public void setAttachement(String attachement) {
-        this.attachement = attachement;
     }
 
     public Set<Province> getProvinces() {
@@ -159,10 +159,10 @@ public class Region implements Serializable {
     public String toString() {
         return "Region{" +
             "id=" + getId() +
-            ", nom='" + getNom() + "'" +
+            ", codeReg=" + getCodeReg() +
+            ", nomFr='" + getNomFr() + "'" +
             ", nomAr='" + getNomAr() + "'" +
             ", geometry='" + getGeometry() + "'" +
-            ", attachement='" + getAttachement() + "'" +
             "}";
     }
 }

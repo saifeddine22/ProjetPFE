@@ -29,17 +29,17 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class RegionResourceIT {
 
-    private static final String DEFAULT_NOM = "AAAAAAAAAA";
-    private static final String UPDATED_NOM = "BBBBBBBBBB";
+    private static final Double DEFAULT_CODE_REG = 1D;
+    private static final Double UPDATED_CODE_REG = 2D;
+
+    private static final String DEFAULT_NOM_FR = "AAAAAAAAAA";
+    private static final String UPDATED_NOM_FR = "BBBBBBBBBB";
 
     private static final String DEFAULT_NOM_AR = "AAAAAAAAAA";
     private static final String UPDATED_NOM_AR = "BBBBBBBBBB";
 
     private static final String DEFAULT_GEOMETRY = "AAAAAAAAAA";
     private static final String UPDATED_GEOMETRY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ATTACHEMENT = "AAAAAAAAAA";
-    private static final String UPDATED_ATTACHEMENT = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/regions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -65,7 +65,7 @@ class RegionResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Region createEntity(EntityManager em) {
-        Region region = new Region().nom(DEFAULT_NOM).nomAr(DEFAULT_NOM_AR).geometry(DEFAULT_GEOMETRY).attachement(DEFAULT_ATTACHEMENT);
+        Region region = new Region().codeReg(DEFAULT_CODE_REG).nomFr(DEFAULT_NOM_FR).nomAr(DEFAULT_NOM_AR).geometry(DEFAULT_GEOMETRY);
         return region;
     }
 
@@ -76,7 +76,7 @@ class RegionResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Region createUpdatedEntity(EntityManager em) {
-        Region region = new Region().nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY).attachement(UPDATED_ATTACHEMENT);
+        Region region = new Region().codeReg(UPDATED_CODE_REG).nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY);
         return region;
     }
 
@@ -98,10 +98,10 @@ class RegionResourceIT {
         List<Region> regionList = regionRepository.findAll();
         assertThat(regionList).hasSize(databaseSizeBeforeCreate + 1);
         Region testRegion = regionList.get(regionList.size() - 1);
-        assertThat(testRegion.getNom()).isEqualTo(DEFAULT_NOM);
+        assertThat(testRegion.getCodeReg()).isEqualTo(DEFAULT_CODE_REG);
+        assertThat(testRegion.getNomFr()).isEqualTo(DEFAULT_NOM_FR);
         assertThat(testRegion.getNomAr()).isEqualTo(DEFAULT_NOM_AR);
         assertThat(testRegion.getGeometry()).isEqualTo(DEFAULT_GEOMETRY);
-        assertThat(testRegion.getAttachement()).isEqualTo(DEFAULT_ATTACHEMENT);
     }
 
     @Test
@@ -134,10 +134,10 @@ class RegionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(region.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
+            .andExpect(jsonPath("$.[*].codeReg").value(hasItem(DEFAULT_CODE_REG.doubleValue())))
+            .andExpect(jsonPath("$.[*].nomFr").value(hasItem(DEFAULT_NOM_FR)))
             .andExpect(jsonPath("$.[*].nomAr").value(hasItem(DEFAULT_NOM_AR)))
-            .andExpect(jsonPath("$.[*].geometry").value(hasItem(DEFAULT_GEOMETRY)))
-            .andExpect(jsonPath("$.[*].attachement").value(hasItem(DEFAULT_ATTACHEMENT)));
+            .andExpect(jsonPath("$.[*].geometry").value(hasItem(DEFAULT_GEOMETRY)));
     }
 
     @Test
@@ -152,10 +152,10 @@ class RegionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(region.getId().intValue()))
-            .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
+            .andExpect(jsonPath("$.codeReg").value(DEFAULT_CODE_REG.doubleValue()))
+            .andExpect(jsonPath("$.nomFr").value(DEFAULT_NOM_FR))
             .andExpect(jsonPath("$.nomAr").value(DEFAULT_NOM_AR))
-            .andExpect(jsonPath("$.geometry").value(DEFAULT_GEOMETRY))
-            .andExpect(jsonPath("$.attachement").value(DEFAULT_ATTACHEMENT));
+            .andExpect(jsonPath("$.geometry").value(DEFAULT_GEOMETRY));
     }
 
     @Test
@@ -177,7 +177,7 @@ class RegionResourceIT {
         Region updatedRegion = regionRepository.findById(region.getId()).get();
         // Disconnect from session so that the updates on updatedRegion are not directly saved in db
         em.detach(updatedRegion);
-        updatedRegion.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY).attachement(UPDATED_ATTACHEMENT);
+        updatedRegion.codeReg(UPDATED_CODE_REG).nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY);
 
         restRegionMockMvc
             .perform(
@@ -191,10 +191,10 @@ class RegionResourceIT {
         List<Region> regionList = regionRepository.findAll();
         assertThat(regionList).hasSize(databaseSizeBeforeUpdate);
         Region testRegion = regionList.get(regionList.size() - 1);
-        assertThat(testRegion.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testRegion.getCodeReg()).isEqualTo(UPDATED_CODE_REG);
+        assertThat(testRegion.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testRegion.getNomAr()).isEqualTo(UPDATED_NOM_AR);
         assertThat(testRegion.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
-        assertThat(testRegion.getAttachement()).isEqualTo(UPDATED_ATTACHEMENT);
     }
 
     @Test
@@ -265,7 +265,7 @@ class RegionResourceIT {
         Region partialUpdatedRegion = new Region();
         partialUpdatedRegion.setId(region.getId());
 
-        partialUpdatedRegion.nom(UPDATED_NOM).geometry(UPDATED_GEOMETRY).attachement(UPDATED_ATTACHEMENT);
+        partialUpdatedRegion.codeReg(UPDATED_CODE_REG).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY);
 
         restRegionMockMvc
             .perform(
@@ -279,10 +279,10 @@ class RegionResourceIT {
         List<Region> regionList = regionRepository.findAll();
         assertThat(regionList).hasSize(databaseSizeBeforeUpdate);
         Region testRegion = regionList.get(regionList.size() - 1);
-        assertThat(testRegion.getNom()).isEqualTo(UPDATED_NOM);
-        assertThat(testRegion.getNomAr()).isEqualTo(DEFAULT_NOM_AR);
+        assertThat(testRegion.getCodeReg()).isEqualTo(UPDATED_CODE_REG);
+        assertThat(testRegion.getNomFr()).isEqualTo(DEFAULT_NOM_FR);
+        assertThat(testRegion.getNomAr()).isEqualTo(UPDATED_NOM_AR);
         assertThat(testRegion.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
-        assertThat(testRegion.getAttachement()).isEqualTo(UPDATED_ATTACHEMENT);
     }
 
     @Test
@@ -297,7 +297,7 @@ class RegionResourceIT {
         Region partialUpdatedRegion = new Region();
         partialUpdatedRegion.setId(region.getId());
 
-        partialUpdatedRegion.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY).attachement(UPDATED_ATTACHEMENT);
+        partialUpdatedRegion.codeReg(UPDATED_CODE_REG).nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY);
 
         restRegionMockMvc
             .perform(
@@ -311,10 +311,10 @@ class RegionResourceIT {
         List<Region> regionList = regionRepository.findAll();
         assertThat(regionList).hasSize(databaseSizeBeforeUpdate);
         Region testRegion = regionList.get(regionList.size() - 1);
-        assertThat(testRegion.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testRegion.getCodeReg()).isEqualTo(UPDATED_CODE_REG);
+        assertThat(testRegion.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testRegion.getNomAr()).isEqualTo(UPDATED_NOM_AR);
         assertThat(testRegion.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
-        assertThat(testRegion.getAttachement()).isEqualTo(UPDATED_ATTACHEMENT);
     }
 
     @Test

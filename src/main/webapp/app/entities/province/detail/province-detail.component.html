@@ -14,26 +14,38 @@
         <dd>
           <span>{{ province.id }}</span>
         </dd>
-        <dt><span jhiTranslate="bricoviteApp.province.nom">Nom</span></dt>
+        <dt><span jhiTranslate="bricoviteApp.province.codeReg">Code Reg</span></dt>
         <dd>
-          <span>{{ province.nom }}</span>
+          <span>{{ province.codeReg }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.province.codeProv">Code Prov</span></dt>
+        <dd>
+          <span>{{ province.codeProv }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.province.nomFr">Nom Fr</span></dt>
+        <dd>
+          <span>{{ province.nomFr }}</span>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.province.nomAr">Nom Ar</span></dt>
         <dd>
           <span>{{ province.nomAr }}</span>
         </dd>
+        <dt><span jhiTranslate="bricoviteApp.province.regionFr">Region Fr</span></dt>
+        <dd>
+          <span>{{ province.regionFr }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.province.regionAr">Region Ar</span></dt>
+        <dd>
+          <span>{{ province.regionAr }}</span>
+        </dd>
         <dt><span jhiTranslate="bricoviteApp.province.geometry">Geometry</span></dt>
         <dd>
           <span>{{ province.geometry }}</span>
         </dd>
-        <dt><span jhiTranslate="bricoviteApp.province.attachement">Attachement</span></dt>
-        <dd>
-          <span>{{ province.attachement }}</span>
-        </dd>
         <dt><span jhiTranslate="bricoviteApp.province.region">Region</span></dt>
         <dd>
           <div *ngIf="province.region">
-            <a [routerLink]="['/region', province.region?.id, 'view']">{{ province.region?.nom }}</a>
+            <a [routerLink]="['/region', province.region?.id, 'view']">{{ province.region?.nomFr }}</a>
           </div>
         </dd>
       </dl>

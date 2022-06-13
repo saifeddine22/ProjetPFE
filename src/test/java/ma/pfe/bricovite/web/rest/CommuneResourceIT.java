@@ -39,17 +39,59 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CommuneResourceIT {
 
-    private static final String DEFAULT_NOM = "AAAAAAAAAA";
-    private static final String UPDATED_NOM = "BBBBBBBBBB";
+    private static final Double DEFAULT_CODE_REG = 1D;
+    private static final Double UPDATED_CODE_REG = 2D;
+
+    private static final Double DEFAULT_CODE_PROV = 1D;
+    private static final Double UPDATED_CODE_PROV = 2D;
+
+    private static final String DEFAULT_PROVINCE_FR = "AAAAAAAAAA";
+    private static final String UPDATED_PROVINCE_FR = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PROVINCE_AR = "AAAAAAAAAA";
+    private static final String UPDATED_PROVINCE_AR = "BBBBBBBBBB";
+
+    private static final String DEFAULT_REGION_FR = "AAAAAAAAAA";
+    private static final String UPDATED_REGION_FR = "BBBBBBBBBB";
+
+    private static final String DEFAULT_REGION_AR = "AAAAAAAAAA";
+    private static final String UPDATED_REGION_AR = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CERCLE_FR = "AAAAAAAAAA";
+    private static final String UPDATED_CERCLE_FR = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_CODE_CERCLE = 1D;
+    private static final Double UPDATED_CODE_CERCLE = 2D;
+
+    private static final String DEFAULT_COM_FR = "AAAAAAAAAA";
+    private static final String UPDATED_COM_FR = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_CODE_COM = 1D;
+    private static final Double UPDATED_CODE_COM = 2D;
+
+    private static final String DEFAULT_CENTRE_FR = "AAAAAAAAAA";
+    private static final String UPDATED_CENTRE_FR = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_COD_AC = 1D;
+    private static final Double UPDATED_COD_AC = 2D;
+
+    private static final String DEFAULT_COM_AR = "AAAAAAAAAA";
+    private static final String UPDATED_COM_AR = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_CC = 1D;
+    private static final Double UPDATED_CC = 2D;
+
+    private static final String DEFAULT_CENTRE_AR = "AAAAAAAAAA";
+    private static final String UPDATED_CENTRE_AR = "BBBBBBBBBB";
 
     private static final String DEFAULT_NOM_AR = "AAAAAAAAAA";
     private static final String UPDATED_NOM_AR = "BBBBBBBBBB";
 
+    private static final String DEFAULT_NOM_FR = "AAAAAAAAAA";
+    private static final String UPDATED_NOM_FR = "BBBBBBBBBB";
+
     private static final String DEFAULT_GEOMETRY = "AAAAAAAAAA";
     private static final String UPDATED_GEOMETRY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ATTACHEMENT = "AAAAAAAAAA";
-    private static final String UPDATED_ATTACHEMENT = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/communes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -81,7 +123,25 @@ class CommuneResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Commune createEntity(EntityManager em) {
-        Commune commune = new Commune().nom(DEFAULT_NOM).nomAr(DEFAULT_NOM_AR).geometry(DEFAULT_GEOMETRY).attachement(DEFAULT_ATTACHEMENT);
+        Commune commune = new Commune()
+            .codeReg(DEFAULT_CODE_REG)
+            .codeProv(DEFAULT_CODE_PROV)
+            .provinceFr(DEFAULT_PROVINCE_FR)
+            .provinceAr(DEFAULT_PROVINCE_AR)
+            .regionFr(DEFAULT_REGION_FR)
+            .regionAr(DEFAULT_REGION_AR)
+            .cercleFr(DEFAULT_CERCLE_FR)
+            .codeCercle(DEFAULT_CODE_CERCLE)
+            .comFr(DEFAULT_COM_FR)
+            .codeCom(DEFAULT_CODE_COM)
+            .centreFr(DEFAULT_CENTRE_FR)
+            .codAc(DEFAULT_COD_AC)
+            .comAr(DEFAULT_COM_AR)
+            .cc(DEFAULT_CC)
+            .centreAr(DEFAULT_CENTRE_AR)
+            .nomAr(DEFAULT_NOM_AR)
+            .nomFr(DEFAULT_NOM_FR)
+            .geometry(DEFAULT_GEOMETRY);
         // Add required entity
         Province province;
         if (TestUtil.findAll(em, Province.class).isEmpty()) {
@@ -102,7 +162,25 @@ class CommuneResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Commune createUpdatedEntity(EntityManager em) {
-        Commune commune = new Commune().nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY).attachement(UPDATED_ATTACHEMENT);
+        Commune commune = new Commune()
+            .codeReg(UPDATED_CODE_REG)
+            .codeProv(UPDATED_CODE_PROV)
+            .provinceFr(UPDATED_PROVINCE_FR)
+            .provinceAr(UPDATED_PROVINCE_AR)
+            .regionFr(UPDATED_REGION_FR)
+            .regionAr(UPDATED_REGION_AR)
+            .cercleFr(UPDATED_CERCLE_FR)
+            .codeCercle(UPDATED_CODE_CERCLE)
+            .comFr(UPDATED_COM_FR)
+            .codeCom(UPDATED_CODE_COM)
+            .centreFr(UPDATED_CENTRE_FR)
+            .codAc(UPDATED_COD_AC)
+            .comAr(UPDATED_COM_AR)
+            .cc(UPDATED_CC)
+            .centreAr(UPDATED_CENTRE_AR)
+            .nomAr(UPDATED_NOM_AR)
+            .nomFr(UPDATED_NOM_FR)
+            .geometry(UPDATED_GEOMETRY);
         // Add required entity
         Province province;
         if (TestUtil.findAll(em, Province.class).isEmpty()) {
@@ -134,10 +212,24 @@ class CommuneResourceIT {
         List<Commune> communeList = communeRepository.findAll();
         assertThat(communeList).hasSize(databaseSizeBeforeCreate + 1);
         Commune testCommune = communeList.get(communeList.size() - 1);
-        assertThat(testCommune.getNom()).isEqualTo(DEFAULT_NOM);
+        assertThat(testCommune.getCodeReg()).isEqualTo(DEFAULT_CODE_REG);
+        assertThat(testCommune.getCodeProv()).isEqualTo(DEFAULT_CODE_PROV);
+        assertThat(testCommune.getProvinceFr()).isEqualTo(DEFAULT_PROVINCE_FR);
+        assertThat(testCommune.getProvinceAr()).isEqualTo(DEFAULT_PROVINCE_AR);
+        assertThat(testCommune.getRegionFr()).isEqualTo(DEFAULT_REGION_FR);
+        assertThat(testCommune.getRegionAr()).isEqualTo(DEFAULT_REGION_AR);
+        assertThat(testCommune.getCercleFr()).isEqualTo(DEFAULT_CERCLE_FR);
+        assertThat(testCommune.getCodeCercle()).isEqualTo(DEFAULT_CODE_CERCLE);
+        assertThat(testCommune.getComFr()).isEqualTo(DEFAULT_COM_FR);
+        assertThat(testCommune.getCodeCom()).isEqualTo(DEFAULT_CODE_COM);
+        assertThat(testCommune.getCentreFr()).isEqualTo(DEFAULT_CENTRE_FR);
+        assertThat(testCommune.getCodAc()).isEqualTo(DEFAULT_COD_AC);
+        assertThat(testCommune.getComAr()).isEqualTo(DEFAULT_COM_AR);
+        assertThat(testCommune.getCc()).isEqualTo(DEFAULT_CC);
+        assertThat(testCommune.getCentreAr()).isEqualTo(DEFAULT_CENTRE_AR);
         assertThat(testCommune.getNomAr()).isEqualTo(DEFAULT_NOM_AR);
+        assertThat(testCommune.getNomFr()).isEqualTo(DEFAULT_NOM_FR);
         assertThat(testCommune.getGeometry()).isEqualTo(DEFAULT_GEOMETRY);
-        assertThat(testCommune.getAttachement()).isEqualTo(DEFAULT_ATTACHEMENT);
     }
 
     @Test
@@ -170,10 +262,24 @@ class CommuneResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(commune.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
+            .andExpect(jsonPath("$.[*].codeReg").value(hasItem(DEFAULT_CODE_REG.doubleValue())))
+            .andExpect(jsonPath("$.[*].codeProv").value(hasItem(DEFAULT_CODE_PROV.doubleValue())))
+            .andExpect(jsonPath("$.[*].provinceFr").value(hasItem(DEFAULT_PROVINCE_FR)))
+            .andExpect(jsonPath("$.[*].provinceAr").value(hasItem(DEFAULT_PROVINCE_AR)))
+            .andExpect(jsonPath("$.[*].regionFr").value(hasItem(DEFAULT_REGION_FR)))
+            .andExpect(jsonPath("$.[*].regionAr").value(hasItem(DEFAULT_REGION_AR)))
+            .andExpect(jsonPath("$.[*].cercleFr").value(hasItem(DEFAULT_CERCLE_FR)))
+            .andExpect(jsonPath("$.[*].codeCercle").value(hasItem(DEFAULT_CODE_CERCLE.doubleValue())))
+            .andExpect(jsonPath("$.[*].comFr").value(hasItem(DEFAULT_COM_FR)))
+            .andExpect(jsonPath("$.[*].codeCom").value(hasItem(DEFAULT_CODE_COM.doubleValue())))
+            .andExpect(jsonPath("$.[*].centreFr").value(hasItem(DEFAULT_CENTRE_FR)))
+            .andExpect(jsonPath("$.[*].codAc").value(hasItem(DEFAULT_COD_AC.doubleValue())))
+            .andExpect(jsonPath("$.[*].comAr").value(hasItem(DEFAULT_COM_AR)))
+            .andExpect(jsonPath("$.[*].cc").value(hasItem(DEFAULT_CC.doubleValue())))
+            .andExpect(jsonPath("$.[*].centreAr").value(hasItem(DEFAULT_CENTRE_AR)))
             .andExpect(jsonPath("$.[*].nomAr").value(hasItem(DEFAULT_NOM_AR)))
-            .andExpect(jsonPath("$.[*].geometry").value(hasItem(DEFAULT_GEOMETRY)))
-            .andExpect(jsonPath("$.[*].attachement").value(hasItem(DEFAULT_ATTACHEMENT)));
+            .andExpect(jsonPath("$.[*].nomFr").value(hasItem(DEFAULT_NOM_FR)))
+            .andExpect(jsonPath("$.[*].geometry").value(hasItem(DEFAULT_GEOMETRY)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -206,10 +312,24 @@ class CommuneResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(commune.getId().intValue()))
-            .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
+            .andExpect(jsonPath("$.codeReg").value(DEFAULT_CODE_REG.doubleValue()))
+            .andExpect(jsonPath("$.codeProv").value(DEFAULT_CODE_PROV.doubleValue()))
+            .andExpect(jsonPath("$.provinceFr").value(DEFAULT_PROVINCE_FR))
+            .andExpect(jsonPath("$.provinceAr").value(DEFAULT_PROVINCE_AR))
+            .andExpect(jsonPath("$.regionFr").value(DEFAULT_REGION_FR))
+            .andExpect(jsonPath("$.regionAr").value(DEFAULT_REGION_AR))
+            .andExpect(jsonPath("$.cercleFr").value(DEFAULT_CERCLE_FR))
+            .andExpect(jsonPath("$.codeCercle").value(DEFAULT_CODE_CERCLE.doubleValue()))
+            .andExpect(jsonPath("$.comFr").value(DEFAULT_COM_FR))
+            .andExpect(jsonPath("$.codeCom").value(DEFAULT_CODE_COM.doubleValue()))
+            .andExpect(jsonPath("$.centreFr").value(DEFAULT_CENTRE_FR))
+            .andExpect(jsonPath("$.codAc").value(DEFAULT_COD_AC.doubleValue()))
+            .andExpect(jsonPath("$.comAr").value(DEFAULT_COM_AR))
+            .andExpect(jsonPath("$.cc").value(DEFAULT_CC.doubleValue()))
+            .andExpect(jsonPath("$.centreAr").value(DEFAULT_CENTRE_AR))
             .andExpect(jsonPath("$.nomAr").value(DEFAULT_NOM_AR))
-            .andExpect(jsonPath("$.geometry").value(DEFAULT_GEOMETRY))
-            .andExpect(jsonPath("$.attachement").value(DEFAULT_ATTACHEMENT));
+            .andExpect(jsonPath("$.nomFr").value(DEFAULT_NOM_FR))
+            .andExpect(jsonPath("$.geometry").value(DEFAULT_GEOMETRY));
     }
 
     @Test
@@ -231,7 +351,25 @@ class CommuneResourceIT {
         Commune updatedCommune = communeRepository.findById(commune.getId()).get();
         // Disconnect from session so that the updates on updatedCommune are not directly saved in db
         em.detach(updatedCommune);
-        updatedCommune.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY).attachement(UPDATED_ATTACHEMENT);
+        updatedCommune
+            .codeReg(UPDATED_CODE_REG)
+            .codeProv(UPDATED_CODE_PROV)
+            .provinceFr(UPDATED_PROVINCE_FR)
+            .provinceAr(UPDATED_PROVINCE_AR)
+            .regionFr(UPDATED_REGION_FR)
+            .regionAr(UPDATED_REGION_AR)
+            .cercleFr(UPDATED_CERCLE_FR)
+            .codeCercle(UPDATED_CODE_CERCLE)
+            .comFr(UPDATED_COM_FR)
+            .codeCom(UPDATED_CODE_COM)
+            .centreFr(UPDATED_CENTRE_FR)
+            .codAc(UPDATED_COD_AC)
+            .comAr(UPDATED_COM_AR)
+            .cc(UPDATED_CC)
+            .centreAr(UPDATED_CENTRE_AR)
+            .nomAr(UPDATED_NOM_AR)
+            .nomFr(UPDATED_NOM_FR)
+            .geometry(UPDATED_GEOMETRY);
 
         restCommuneMockMvc
             .perform(
@@ -245,10 +383,24 @@ class CommuneResourceIT {
         List<Commune> communeList = communeRepository.findAll();
         assertThat(communeList).hasSize(databaseSizeBeforeUpdate);
         Commune testCommune = communeList.get(communeList.size() - 1);
-        assertThat(testCommune.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testCommune.getCodeReg()).isEqualTo(UPDATED_CODE_REG);
+        assertThat(testCommune.getCodeProv()).isEqualTo(UPDATED_CODE_PROV);
+        assertThat(testCommune.getProvinceFr()).isEqualTo(UPDATED_PROVINCE_FR);
+        assertThat(testCommune.getProvinceAr()).isEqualTo(UPDATED_PROVINCE_AR);
+        assertThat(testCommune.getRegionFr()).isEqualTo(UPDATED_REGION_FR);
+        assertThat(testCommune.getRegionAr()).isEqualTo(UPDATED_REGION_AR);
+        assertThat(testCommune.getCercleFr()).isEqualTo(UPDATED_CERCLE_FR);
+        assertThat(testCommune.getCodeCercle()).isEqualTo(UPDATED_CODE_CERCLE);
+        assertThat(testCommune.getComFr()).isEqualTo(UPDATED_COM_FR);
+        assertThat(testCommune.getCodeCom()).isEqualTo(UPDATED_CODE_COM);
+        assertThat(testCommune.getCentreFr()).isEqualTo(UPDATED_CENTRE_FR);
+        assertThat(testCommune.getCodAc()).isEqualTo(UPDATED_COD_AC);
+        assertThat(testCommune.getComAr()).isEqualTo(UPDATED_COM_AR);
+        assertThat(testCommune.getCc()).isEqualTo(UPDATED_CC);
+        assertThat(testCommune.getCentreAr()).isEqualTo(UPDATED_CENTRE_AR);
         assertThat(testCommune.getNomAr()).isEqualTo(UPDATED_NOM_AR);
+        assertThat(testCommune.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testCommune.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
-        assertThat(testCommune.getAttachement()).isEqualTo(UPDATED_ATTACHEMENT);
     }
 
     @Test
@@ -319,7 +471,18 @@ class CommuneResourceIT {
         Commune partialUpdatedCommune = new Commune();
         partialUpdatedCommune.setId(commune.getId());
 
-        partialUpdatedCommune.nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY).attachement(UPDATED_ATTACHEMENT);
+        partialUpdatedCommune
+            .codeProv(UPDATED_CODE_PROV)
+            .provinceFr(UPDATED_PROVINCE_FR)
+            .provinceAr(UPDATED_PROVINCE_AR)
+            .regionFr(UPDATED_REGION_FR)
+            .regionAr(UPDATED_REGION_AR)
+            .codeCercle(UPDATED_CODE_CERCLE)
+            .comAr(UPDATED_COM_AR)
+            .cc(UPDATED_CC)
+            .centreAr(UPDATED_CENTRE_AR)
+            .nomFr(UPDATED_NOM_FR)
+            .geometry(UPDATED_GEOMETRY);
 
         restCommuneMockMvc
             .perform(
@@ -333,10 +496,24 @@ class CommuneResourceIT {
         List<Commune> communeList = communeRepository.findAll();
         assertThat(communeList).hasSize(databaseSizeBeforeUpdate);
         Commune testCommune = communeList.get(communeList.size() - 1);
-        assertThat(testCommune.getNom()).isEqualTo(DEFAULT_NOM);
-        assertThat(testCommune.getNomAr()).isEqualTo(UPDATED_NOM_AR);
+        assertThat(testCommune.getCodeReg()).isEqualTo(DEFAULT_CODE_REG);
+        assertThat(testCommune.getCodeProv()).isEqualTo(UPDATED_CODE_PROV);
+        assertThat(testCommune.getProvinceFr()).isEqualTo(UPDATED_PROVINCE_FR);
+        assertThat(testCommune.getProvinceAr()).isEqualTo(UPDATED_PROVINCE_AR);
+        assertThat(testCommune.getRegionFr()).isEqualTo(UPDATED_REGION_FR);
+        assertThat(testCommune.getRegionAr()).isEqualTo(UPDATED_REGION_AR);
+        assertThat(testCommune.getCercleFr()).isEqualTo(DEFAULT_CERCLE_FR);
+        assertThat(testCommune.getCodeCercle()).isEqualTo(UPDATED_CODE_CERCLE);
+        assertThat(testCommune.getComFr()).isEqualTo(DEFAULT_COM_FR);
+        assertThat(testCommune.getCodeCom()).isEqualTo(DEFAULT_CODE_COM);
+        assertThat(testCommune.getCentreFr()).isEqualTo(DEFAULT_CENTRE_FR);
+        assertThat(testCommune.getCodAc()).isEqualTo(DEFAULT_COD_AC);
+        assertThat(testCommune.getComAr()).isEqualTo(UPDATED_COM_AR);
+        assertThat(testCommune.getCc()).isEqualTo(UPDATED_CC);
+        assertThat(testCommune.getCentreAr()).isEqualTo(UPDATED_CENTRE_AR);
+        assertThat(testCommune.getNomAr()).isEqualTo(DEFAULT_NOM_AR);
+        assertThat(testCommune.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testCommune.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
-        assertThat(testCommune.getAttachement()).isEqualTo(UPDATED_ATTACHEMENT);
     }
 
     @Test
@@ -351,7 +528,25 @@ class CommuneResourceIT {
         Commune partialUpdatedCommune = new Commune();
         partialUpdatedCommune.setId(commune.getId());
 
-        partialUpdatedCommune.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR).geometry(UPDATED_GEOMETRY).attachement(UPDATED_ATTACHEMENT);
+        partialUpdatedCommune
+            .codeReg(UPDATED_CODE_REG)
+            .codeProv(UPDATED_CODE_PROV)
+            .provinceFr(UPDATED_PROVINCE_FR)
+            .provinceAr(UPDATED_PROVINCE_AR)
+            .regionFr(UPDATED_REGION_FR)
+            .regionAr(UPDATED_REGION_AR)
+            .cercleFr(UPDATED_CERCLE_FR)
+            .codeCercle(UPDATED_CODE_CERCLE)
+            .comFr(UPDATED_COM_FR)
+            .codeCom(UPDATED_CODE_COM)
+            .centreFr(UPDATED_CENTRE_FR)
+            .codAc(UPDATED_COD_AC)
+            .comAr(UPDATED_COM_AR)
+            .cc(UPDATED_CC)
+            .centreAr(UPDATED_CENTRE_AR)
+            .nomAr(UPDATED_NOM_AR)
+            .nomFr(UPDATED_NOM_FR)
+            .geometry(UPDATED_GEOMETRY);
 
         restCommuneMockMvc
             .perform(
@@ -365,10 +560,24 @@ class CommuneResourceIT {
         List<Commune> communeList = communeRepository.findAll();
         assertThat(communeList).hasSize(databaseSizeBeforeUpdate);
         Commune testCommune = communeList.get(communeList.size() - 1);
-        assertThat(testCommune.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testCommune.getCodeReg()).isEqualTo(UPDATED_CODE_REG);
+        assertThat(testCommune.getCodeProv()).isEqualTo(UPDATED_CODE_PROV);
+        assertThat(testCommune.getProvinceFr()).isEqualTo(UPDATED_PROVINCE_FR);
+        assertThat(testCommune.getProvinceAr()).isEqualTo(UPDATED_PROVINCE_AR);
+        assertThat(testCommune.getRegionFr()).isEqualTo(UPDATED_REGION_FR);
+        assertThat(testCommune.getRegionAr()).isEqualTo(UPDATED_REGION_AR);
+        assertThat(testCommune.getCercleFr()).isEqualTo(UPDATED_CERCLE_FR);
+        assertThat(testCommune.getCodeCercle()).isEqualTo(UPDATED_CODE_CERCLE);
+        assertThat(testCommune.getComFr()).isEqualTo(UPDATED_COM_FR);
+        assertThat(testCommune.getCodeCom()).isEqualTo(UPDATED_CODE_COM);
+        assertThat(testCommune.getCentreFr()).isEqualTo(UPDATED_CENTRE_FR);
+        assertThat(testCommune.getCodAc()).isEqualTo(UPDATED_COD_AC);
+        assertThat(testCommune.getComAr()).isEqualTo(UPDATED_COM_AR);
+        assertThat(testCommune.getCc()).isEqualTo(UPDATED_CC);
+        assertThat(testCommune.getCentreAr()).isEqualTo(UPDATED_CENTRE_AR);
         assertThat(testCommune.getNomAr()).isEqualTo(UPDATED_NOM_AR);
+        assertThat(testCommune.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testCommune.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
-        assertThat(testCommune.getAttachement()).isEqualTo(UPDATED_ATTACHEMENT);
     }
 
     @Test

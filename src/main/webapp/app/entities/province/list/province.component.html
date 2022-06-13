@@ -33,17 +33,28 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="nom"><span jhiTranslate="bricoviteApp.province.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codeReg">
+            <span jhiTranslate="bricoviteApp.province.codeReg">Code Reg</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="codeProv">
+            <span jhiTranslate="bricoviteApp.province.codeProv">Code Prov</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="nomFr">
+            <span jhiTranslate="bricoviteApp.province.nomFr">Nom Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="nomAr">
             <span jhiTranslate="bricoviteApp.province.nomAr">Nom Ar</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="regionFr">
+            <span jhiTranslate="bricoviteApp.province.regionFr">Region Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="regionAr">
+            <span jhiTranslate="bricoviteApp.province.regionAr">Region Ar</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="geometry">
             <span jhiTranslate="bricoviteApp.province.geometry">Geometry</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="attachement">
-            <span jhiTranslate="bricoviteApp.province.attachement">Attachement</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="region.nom">
+          <th scope="col" jhiSortBy="region.nomFr">
             <span jhiTranslate="bricoviteApp.province.region">Region</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
@@ -54,13 +65,16 @@
           <td>
             <a [routerLink]="['/province', province.id, 'view']">{{ province.id }}</a>
           </td>
-          <td>{{ province.nom }}</td>
+          <td>{{ province.codeReg }}</td>
+          <td>{{ province.codeProv }}</td>
+          <td>{{ province.nomFr }}</td>
           <td>{{ province.nomAr }}</td>
+          <td>{{ province.regionFr }}</td>
+          <td>{{ province.regionAr }}</td>
           <td>{{ province.geometry }}</td>
-          <td>{{ province.attachement }}</td>
           <td>
             <div *ngIf="province.region">
-              <a [routerLink]="['/region', province.region?.id, 'view']">{{ province.region?.nom }}</a>
+              <a [routerLink]="['/region', province.region?.id, 'view']">{{ province.region?.nomFr }}</a>
             </div>
           </td>
           <td class="text-end">

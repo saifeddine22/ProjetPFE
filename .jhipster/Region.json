@@ -6,7 +6,11 @@
   "entityTableName": "region",
   "fields": [
     {
-      "fieldName": "nom",
+      "fieldName": "codeReg",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "nomFr",
       "fieldType": "String"
     },
     {
@@ -15,10 +19,6 @@
     },
     {
       "fieldName": "geometry",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "attachement",
       "fieldType": "String"
     }
   ],
@@ -29,7 +29,7 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "nom",
+      "otherEntityField": "nomFr",
       "otherEntityName": "province",
       "otherEntityRelationshipName": "region",
       "relationshipName": "province",

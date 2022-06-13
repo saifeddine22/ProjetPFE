@@ -29,8 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CategorieResourceIT {
 
-    private static final String DEFAULT_NOM = "AAAAAAAAAA";
-    private static final String UPDATED_NOM = "BBBBBBBBBB";
+    private static final String DEFAULT_NOM_FR = "AAAAAAAAAA";
+    private static final String UPDATED_NOM_FR = "BBBBBBBBBB";
 
     private static final String DEFAULT_NOM_AR = "AAAAAAAAAA";
     private static final String UPDATED_NOM_AR = "BBBBBBBBBB";
@@ -59,7 +59,7 @@ class CategorieResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Categorie createEntity(EntityManager em) {
-        Categorie categorie = new Categorie().nom(DEFAULT_NOM).nomAr(DEFAULT_NOM_AR);
+        Categorie categorie = new Categorie().nomFr(DEFAULT_NOM_FR).nomAr(DEFAULT_NOM_AR);
         return categorie;
     }
 
@@ -70,7 +70,7 @@ class CategorieResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Categorie createUpdatedEntity(EntityManager em) {
-        Categorie categorie = new Categorie().nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR);
+        Categorie categorie = new Categorie().nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
         return categorie;
     }
 
@@ -92,7 +92,7 @@ class CategorieResourceIT {
         List<Categorie> categorieList = categorieRepository.findAll();
         assertThat(categorieList).hasSize(databaseSizeBeforeCreate + 1);
         Categorie testCategorie = categorieList.get(categorieList.size() - 1);
-        assertThat(testCategorie.getNom()).isEqualTo(DEFAULT_NOM);
+        assertThat(testCategorie.getNomFr()).isEqualTo(DEFAULT_NOM_FR);
         assertThat(testCategorie.getNomAr()).isEqualTo(DEFAULT_NOM_AR);
     }
 
@@ -126,7 +126,7 @@ class CategorieResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(categorie.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
+            .andExpect(jsonPath("$.[*].nomFr").value(hasItem(DEFAULT_NOM_FR)))
             .andExpect(jsonPath("$.[*].nomAr").value(hasItem(DEFAULT_NOM_AR)));
     }
 
@@ -142,7 +142,7 @@ class CategorieResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(categorie.getId().intValue()))
-            .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
+            .andExpect(jsonPath("$.nomFr").value(DEFAULT_NOM_FR))
             .andExpect(jsonPath("$.nomAr").value(DEFAULT_NOM_AR));
     }
 
@@ -165,7 +165,7 @@ class CategorieResourceIT {
         Categorie updatedCategorie = categorieRepository.findById(categorie.getId()).get();
         // Disconnect from session so that the updates on updatedCategorie are not directly saved in db
         em.detach(updatedCategorie);
-        updatedCategorie.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR);
+        updatedCategorie.nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
 
         restCategorieMockMvc
             .perform(
@@ -179,7 +179,7 @@ class CategorieResourceIT {
         List<Categorie> categorieList = categorieRepository.findAll();
         assertThat(categorieList).hasSize(databaseSizeBeforeUpdate);
         Categorie testCategorie = categorieList.get(categorieList.size() - 1);
-        assertThat(testCategorie.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testCategorie.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testCategorie.getNomAr()).isEqualTo(UPDATED_NOM_AR);
     }
 
@@ -251,7 +251,7 @@ class CategorieResourceIT {
         Categorie partialUpdatedCategorie = new Categorie();
         partialUpdatedCategorie.setId(categorie.getId());
 
-        partialUpdatedCategorie.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR);
+        partialUpdatedCategorie.nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
 
         restCategorieMockMvc
             .perform(
@@ -265,7 +265,7 @@ class CategorieResourceIT {
         List<Categorie> categorieList = categorieRepository.findAll();
         assertThat(categorieList).hasSize(databaseSizeBeforeUpdate);
         Categorie testCategorie = categorieList.get(categorieList.size() - 1);
-        assertThat(testCategorie.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testCategorie.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testCategorie.getNomAr()).isEqualTo(UPDATED_NOM_AR);
     }
 
@@ -281,7 +281,7 @@ class CategorieResourceIT {
         Categorie partialUpdatedCategorie = new Categorie();
         partialUpdatedCategorie.setId(categorie.getId());
 
-        partialUpdatedCategorie.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR);
+        partialUpdatedCategorie.nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
 
         restCategorieMockMvc
             .perform(
@@ -295,7 +295,7 @@ class CategorieResourceIT {
         List<Categorie> categorieList = categorieRepository.findAll();
         assertThat(categorieList).hasSize(databaseSizeBeforeUpdate);
         Categorie testCategorie = categorieList.get(categorieList.size() - 1);
-        assertThat(testCategorie.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testCategorie.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testCategorie.getNomAr()).isEqualTo(UPDATED_NOM_AR);
     }
 

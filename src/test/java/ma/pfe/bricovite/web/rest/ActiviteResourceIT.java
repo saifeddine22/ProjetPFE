@@ -39,8 +39,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class ActiviteResourceIT {
 
-    private static final String DEFAULT_NOM = "AAAAAAAAAA";
-    private static final String UPDATED_NOM = "BBBBBBBBBB";
+    private static final String DEFAULT_NOM_FR = "AAAAAAAAAA";
+    private static final String UPDATED_NOM_FR = "BBBBBBBBBB";
 
     private static final String DEFAULT_NOM_AR = "AAAAAAAAAA";
     private static final String UPDATED_NOM_AR = "BBBBBBBBBB";
@@ -75,7 +75,7 @@ class ActiviteResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Activite createEntity(EntityManager em) {
-        Activite activite = new Activite().nom(DEFAULT_NOM).nomAr(DEFAULT_NOM_AR);
+        Activite activite = new Activite().nomFr(DEFAULT_NOM_FR).nomAr(DEFAULT_NOM_AR);
         // Add required entity
         Categorie categorie;
         if (TestUtil.findAll(em, Categorie.class).isEmpty()) {
@@ -96,7 +96,7 @@ class ActiviteResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Activite createUpdatedEntity(EntityManager em) {
-        Activite activite = new Activite().nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR);
+        Activite activite = new Activite().nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
         // Add required entity
         Categorie categorie;
         if (TestUtil.findAll(em, Categorie.class).isEmpty()) {
@@ -128,7 +128,7 @@ class ActiviteResourceIT {
         List<Activite> activiteList = activiteRepository.findAll();
         assertThat(activiteList).hasSize(databaseSizeBeforeCreate + 1);
         Activite testActivite = activiteList.get(activiteList.size() - 1);
-        assertThat(testActivite.getNom()).isEqualTo(DEFAULT_NOM);
+        assertThat(testActivite.getNomFr()).isEqualTo(DEFAULT_NOM_FR);
         assertThat(testActivite.getNomAr()).isEqualTo(DEFAULT_NOM_AR);
     }
 
@@ -162,7 +162,7 @@ class ActiviteResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(activite.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
+            .andExpect(jsonPath("$.[*].nomFr").value(hasItem(DEFAULT_NOM_FR)))
             .andExpect(jsonPath("$.[*].nomAr").value(hasItem(DEFAULT_NOM_AR)));
     }
 
@@ -196,7 +196,7 @@ class ActiviteResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(activite.getId().intValue()))
-            .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
+            .andExpect(jsonPath("$.nomFr").value(DEFAULT_NOM_FR))
             .andExpect(jsonPath("$.nomAr").value(DEFAULT_NOM_AR));
     }
 
@@ -219,7 +219,7 @@ class ActiviteResourceIT {
         Activite updatedActivite = activiteRepository.findById(activite.getId()).get();
         // Disconnect from session so that the updates on updatedActivite are not directly saved in db
         em.detach(updatedActivite);
-        updatedActivite.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR);
+        updatedActivite.nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
 
         restActiviteMockMvc
             .perform(
@@ -233,7 +233,7 @@ class ActiviteResourceIT {
         List<Activite> activiteList = activiteRepository.findAll();
         assertThat(activiteList).hasSize(databaseSizeBeforeUpdate);
         Activite testActivite = activiteList.get(activiteList.size() - 1);
-        assertThat(testActivite.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testActivite.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testActivite.getNomAr()).isEqualTo(UPDATED_NOM_AR);
     }
 
@@ -305,7 +305,7 @@ class ActiviteResourceIT {
         Activite partialUpdatedActivite = new Activite();
         partialUpdatedActivite.setId(activite.getId());
 
-        partialUpdatedActivite.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR);
+        partialUpdatedActivite.nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
 
         restActiviteMockMvc
             .perform(
@@ -319,7 +319,7 @@ class ActiviteResourceIT {
         List<Activite> activiteList = activiteRepository.findAll();
         assertThat(activiteList).hasSize(databaseSizeBeforeUpdate);
         Activite testActivite = activiteList.get(activiteList.size() - 1);
-        assertThat(testActivite.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testActivite.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testActivite.getNomAr()).isEqualTo(UPDATED_NOM_AR);
     }
 
@@ -335,7 +335,7 @@ class ActiviteResourceIT {
         Activite partialUpdatedActivite = new Activite();
         partialUpdatedActivite.setId(activite.getId());
 
-        partialUpdatedActivite.nom(UPDATED_NOM).nomAr(UPDATED_NOM_AR);
+        partialUpdatedActivite.nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
 
         restActiviteMockMvc
             .perform(
@@ -349,7 +349,7 @@ class ActiviteResourceIT {
         List<Activite> activiteList = activiteRepository.findAll();
         assertThat(activiteList).hasSize(databaseSizeBeforeUpdate);
         Activite testActivite = activiteList.get(activiteList.size() - 1);
-        assertThat(testActivite.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testActivite.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testActivite.getNomAr()).isEqualTo(UPDATED_NOM_AR);
     }
 

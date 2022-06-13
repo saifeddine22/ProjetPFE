@@ -85,7 +85,7 @@
               [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
               *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
             >
-              <!--  {{ userOption.firstName }} -->
+              <!-- {{ userOption.firstName }} -->
             </option>
           </select>
         </div>
@@ -103,7 +103,7 @@
               [ngValue]="communeOption.id === editForm.get('commune')!.value?.id ? editForm.get('commune')!.value : communeOption"
               *ngFor="let communeOption of communesSharedCollection; trackBy: trackCommuneById"
             >
-              {{ communeOption.nom }}
+              {{ communeOption.nomFr }}
             </option>
           </select>
         </div>
@@ -116,7 +116,7 @@
               [ngValue]="activiteOption.id === editForm.get('activite')!.value?.id ? editForm.get('activite')!.value : activiteOption"
               *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
             >
-              {{ activiteOption.nom }}
+              {{ activiteOption.nomFr }}
             </option>
           </select>
         </div>

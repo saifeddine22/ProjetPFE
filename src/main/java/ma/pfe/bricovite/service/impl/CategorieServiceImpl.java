@@ -45,8 +45,8 @@ public class CategorieServiceImpl implements CategorieService {
         return categorieRepository
             .findById(categorie.getId())
             .map(existingCategorie -> {
-                if (categorie.getNom() != null) {
-                    existingCategorie.setNom(categorie.getNom());
+                if (categorie.getNomFr() != null) {
+                    existingCategorie.setNomFr(categorie.getNomFr());
                 }
                 if (categorie.getNomAr() != null) {
                     existingCategorie.setNomAr(categorie.getNomAr());

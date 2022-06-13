@@ -17,7 +17,7 @@ export class CategorieUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    nom: [],
+    nomFr: [],
     nomAr: [],
   });
 
@@ -65,7 +65,7 @@ export class CategorieUpdateComponent implements OnInit {
   protected updateForm(categorie: ICategorie): void {
     this.editForm.patchValue({
       id: categorie.id,
-      nom: categorie.nom,
+      nomFr: categorie.nomFr,
       nomAr: categorie.nomAr,
     });
   }
@@ -74,7 +74,7 @@ export class CategorieUpdateComponent implements OnInit {
     return {
       ...new Categorie(),
       id: this.editForm.get(['id'])!.value,
-      nom: this.editForm.get(['nom'])!.value,
+      nomFr: this.editForm.get(['nomFr'])!.value,
       nomAr: this.editForm.get(['nomAr'])!.value,
     };
   }

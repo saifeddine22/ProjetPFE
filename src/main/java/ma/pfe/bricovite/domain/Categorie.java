@@ -21,8 +21,8 @@ public class Categorie implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nom")
-    private String nom;
+    @Column(name = "nom_fr")
+    private String nomFr;
 
     @Column(name = "nom_ar")
     private String nomAr;
@@ -46,17 +46,17 @@ public class Categorie implements Serializable {
         this.id = id;
     }
 
-    public String getNom() {
-        return this.nom;
+    public String getNomFr() {
+        return this.nomFr;
     }
 
-    public Categorie nom(String nom) {
-        this.setNom(nom);
+    public Categorie nomFr(String nomFr) {
+        this.setNomFr(nomFr);
         return this;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNomFr(String nomFr) {
+        this.nomFr = nomFr;
     }
 
     public String getNomAr() {
@@ -127,7 +127,7 @@ public class Categorie implements Serializable {
     public String toString() {
         return "Categorie{" +
             "id=" + getId() +
-            ", nom='" + getNom() + "'" +
+            ", nomFr='" + getNomFr() + "'" +
             ", nomAr='" + getNomAr() + "'" +
             "}";
     }

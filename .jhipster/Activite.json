@@ -6,7 +6,7 @@
   "entityTableName": "activite",
   "fields": [
     {
-      "fieldName": "nom",
+      "fieldName": "nomFr",
       "fieldType": "String"
     },
     {
@@ -28,7 +28,7 @@
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityField": "nom",
+      "otherEntityField": "nomFr",
       "otherEntityName": "categorie",
       "otherEntityRelationshipName": "activite",
       "relationshipName": "categorie",

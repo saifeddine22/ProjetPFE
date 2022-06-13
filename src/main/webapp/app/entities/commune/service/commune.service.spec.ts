@@ -21,10 +21,24 @@ describe('Commune Service', () => {
 
     elemDefault = {
       id: 0,
-      nom: 'AAAAAAA',
+      codeReg: 0,
+      codeProv: 0,
+      provinceFr: 'AAAAAAA',
+      provinceAr: 'AAAAAAA',
+      regionFr: 'AAAAAAA',
+      regionAr: 'AAAAAAA',
+      cercleFr: 'AAAAAAA',
+      codeCercle: 0,
+      comFr: 'AAAAAAA',
+      codeCom: 0,
+      centreFr: 'AAAAAAA',
+      codAc: 0,
+      comAr: 'AAAAAAA',
+      cc: 0,
+      centreAr: 'AAAAAAA',
       nomAr: 'AAAAAAA',
+      nomFr: 'AAAAAAA',
       geometry: 'AAAAAAA',
-      attachement: 'AAAAAAA',
     };
   });
 
@@ -60,10 +74,24 @@ describe('Commune Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          nom: 'BBBBBB',
+          codeReg: 1,
+          codeProv: 1,
+          provinceFr: 'BBBBBB',
+          provinceAr: 'BBBBBB',
+          regionFr: 'BBBBBB',
+          regionAr: 'BBBBBB',
+          cercleFr: 'BBBBBB',
+          codeCercle: 1,
+          comFr: 'BBBBBB',
+          codeCom: 1,
+          centreFr: 'BBBBBB',
+          codAc: 1,
+          comAr: 'BBBBBB',
+          cc: 1,
+          centreAr: 'BBBBBB',
           nomAr: 'BBBBBB',
+          nomFr: 'BBBBBB',
           geometry: 'BBBBBB',
-          attachement: 'BBBBBB',
         },
         elemDefault
       );
@@ -80,6 +108,10 @@ describe('Commune Service', () => {
     it('should partial update a Commune', () => {
       const patchObject = Object.assign(
         {
+          codeProv: 1,
+          regionFr: 'BBBBBB',
+          cercleFr: 'BBBBBB',
+          codeCercle: 1,
           nomAr: 'BBBBBB',
         },
         new Commune()
@@ -100,10 +132,24 @@ describe('Commune Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          nom: 'BBBBBB',
+          codeReg: 1,
+          codeProv: 1,
+          provinceFr: 'BBBBBB',
+          provinceAr: 'BBBBBB',
+          regionFr: 'BBBBBB',
+          regionAr: 'BBBBBB',
+          cercleFr: 'BBBBBB',
+          codeCercle: 1,
+          comFr: 'BBBBBB',
+          codeCom: 1,
+          centreFr: 'BBBBBB',
+          codAc: 1,
+          comAr: 'BBBBBB',
+          cc: 1,
+          centreAr: 'BBBBBB',
           nomAr: 'BBBBBB',
+          nomFr: 'BBBBBB',
           geometry: 'BBBBBB',
-          attachement: 'BBBBBB',
         },
         elemDefault
       );
@@ -155,7 +201,7 @@ describe('Commune Service', () => {
       });
 
       it('should add only unique Commune to an array', () => {
-        const communeArray: ICommune[] = [{ id: 123 }, { id: 456 }, { id: 53620 }];
+        const communeArray: ICommune[] = [{ id: 123 }, { id: 456 }, { id: 4317 }];
         const communeCollection: ICommune[] = [{ id: 123 }];
         expectedResult = service.addCommuneToCollectionIfMissing(communeCollection, ...communeArray);
         expect(expectedResult).toHaveLength(3);
