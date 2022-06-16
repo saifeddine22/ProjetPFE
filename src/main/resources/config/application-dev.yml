@@ -67,14 +67,14 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: Contactbricovite@gmail.com
-    password: Contact123
+    username: contactbricovite@gmail.com
+    password: xhgdwxvpyblvcnmi
     protocol: smtp
     tls: true
     properties.mail.smtp:
-        auth: true
-        starttls.enable: true
-        ssl.trust: smtp.gmail.com
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
