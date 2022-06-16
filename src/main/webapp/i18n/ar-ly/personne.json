@@ -19,6 +19,7 @@
       },
       "id": "ID",
       "cnie": "Cnie",
+      "typeCompte": "Type Compte",
       "user": "User"
     }
   }

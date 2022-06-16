@@ -8,10 +8,12 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Personne.class)
 public abstract class Personne_ {
 
+	public static volatile SingularAttribute<Personne, String> typeCompte;
 	public static volatile SingularAttribute<Personne, String> cnie;
 	public static volatile SingularAttribute<Personne, Long> id;
 	public static volatile SingularAttribute<Personne, User> user;
 
+	public static final String TYPE_COMPTE = "typeCompte";
 	public static final String CNIE = "cnie";
 	public static final String ID = "id";
 	public static final String USER = "user";

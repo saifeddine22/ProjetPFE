@@ -23,6 +23,10 @@ public class Personne implements Serializable {
     @Column(name = "cnie", nullable = false, unique = true)
     private String cnie;
 
+    @NotNull
+    @Column(name = "type_compte", nullable = false)
+    private String typeCompte;
+
     @OneToOne(optional = false)
     @NotNull
     @JoinColumn(unique = true)
@@ -54,6 +58,19 @@ public class Personne implements Serializable {
 
     public void setCnie(String cnie) {
         this.cnie = cnie;
+    }
+
+    public String getTypeCompte() {
+        return this.typeCompte;
+    }
+
+    public Personne typeCompte(String typeCompte) {
+        this.setTypeCompte(typeCompte);
+        return this;
+    }
+
+    public void setTypeCompte(String typeCompte) {
+        this.typeCompte = typeCompte;
     }
 
     public User getUser() {
@@ -94,6 +111,7 @@ public class Personne implements Serializable {
         return "Personne{" +
             "id=" + getId() +
             ", cnie='" + getCnie() + "'" +
+            ", typeCompte='" + getTypeCompte() + "'" +
             "}";
     }
 }
