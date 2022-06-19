@@ -1,6 +1,7 @@
 
 entity Personne {
 cnie String required unique
+typeCompte String required
 }
 
 

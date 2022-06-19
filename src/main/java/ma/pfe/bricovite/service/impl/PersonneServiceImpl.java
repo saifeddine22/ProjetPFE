@@ -48,6 +48,9 @@ public class PersonneServiceImpl implements PersonneService {
                 if (personne.getCnie() != null) {
                     existingPersonne.setCnie(personne.getCnie());
                 }
+                if (personne.getTypeCompte() != null) {
+                    existingPersonne.setTypeCompte(personne.getTypeCompte());
+                }
 
                 return existingPersonne;
             })

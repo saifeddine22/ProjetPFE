@@ -22,6 +22,7 @@ describe('Personne Service', () => {
     elemDefault = {
       id: 0,
       cnie: 'AAAAAAA',
+      typeCompte: 'AAAAAAA',
     };
   });
 
@@ -58,6 +59,7 @@ describe('Personne Service', () => {
         {
           id: 1,
           cnie: 'BBBBBB',
+          typeCompte: 'BBBBBB',
         },
         elemDefault
       );
@@ -95,6 +97,7 @@ describe('Personne Service', () => {
         {
           id: 1,
           cnie: 'BBBBBB',
+          typeCompte: 'BBBBBB',
         },
         elemDefault
       );
@@ -146,7 +149,7 @@ describe('Personne Service', () => {
       });
 
       it('should add only unique Personne to an array', () => {
-        const personneArray: IPersonne[] = [{ id: 123 }, { id: 456 }, { id: 39308 }];
+        const personneArray: IPersonne[] = [{ id: 123 }, { id: 456 }, { id: 43161 }];
         const personneCollection: IPersonne[] = [{ id: 123 }];
         expectedResult = service.addPersonneToCollectionIfMissing(personneCollection, ...personneArray);
         expect(expectedResult).toHaveLength(3);
