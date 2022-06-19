@@ -1,0 +1,80 @@
+
+entity Personne {
+cnie String required unique
+}
+
+
+entity Annonce {
+titre String required
+description String required
+adresse String required
+geometry String required
+status Boolean
+}
+
+entity Photo {
+url String
+libelle String
+image ImageBlob
+}
+
+entity Region {
+nom String
+nomAr String
+geometry String
+attachement String
+}
+
+entity Province {
+nom String
+nomAr String
+geometry String
+attachement String
+}
+
+entity Commune {
+nom String
+nomAr String
+geometry String
+attachement String
+}
+
+entity Activite {
+nom String
+nomAr String
+}
+
+entity Categorie {
+nom String
+nomAr String
+}
+
+entity Commentaire {
+details String
+dateCommentaire Instant
+}
+
+entity Note {
+valeur Integer
+}
+
+relationship OneToMany {
+	Region{province(nom)} to Province{region(nom) required}
+    Province{commune(nom)} to Commune{province(nom) required}
+    Commune{annonce(titre)} to Annonce{commune(nom)}
+    Activite{annonce(titre)} to Annonce{activite(nom) required}
+    Categorie{activite(nom)} to Activite{categorie(nom) required}
+    Annonce to Photo{annonce}
+    Annonce{commentaire(details)} to Commentaire{annonce(titre)}
+    Annonce{note(valeur)} to Note{annonce(titre)}
+}
+relationship ManyToOne {
+	 Annonce{user(firstName) required} to User{annonce(titre)} 
+}
+
+relationship OneToOne {
+	 Personne{user(firstName) required} to User{personne(cnie)}
+}
+
+service all with serviceImpl
+paginate * with pagination
