@@ -115,10 +115,9 @@ public class UserService {
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
-        //String authorite = userDTO.getAuthorite();
-        if(authorite == "USER"){
+        if( authorite.equals("USER")){
             authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
-        }else{
+        }else if (authorite.equals("PRESTATAIRE")){
             authorityRepository.findById(AuthoritiesConstants.PRESTATAIRE).ifPresent(authorities::add);
         }
         
