@@ -32,7 +32,7 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <!-- <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th> -->
           <th scope="col" jhiSortBy="titre">
             <span jhiTranslate="bricoviteApp.annonce.titre">Titre</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -42,9 +42,9 @@
           <th scope="col" jhiSortBy="adresse">
             <span jhiTranslate="bricoviteApp.annonce.adresse">Adresse</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="geometry">
+          <!-- <th scope="col" jhiSortBy="geometry">
             <span jhiTranslate="bricoviteApp.annonce.geometry">Geometry</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          </th> -->
           <th scope="col" jhiSortBy="status">
             <span jhiTranslate="bricoviteApp.annonce.status">Status</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -62,13 +62,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let annonce of annonces; trackBy: trackId" data-cy="entityTable">
-          <td>
+          <!-- <td>
             <a [routerLink]="['/annonce', annonce.id, 'view']">{{ annonce.id }}</a>
-          </td>
-          <td>{{ annonce.titre }}</td>
+          </td> -->
+          <td><a [routerLink]="['/annonce', annonce.id, 'view']">{{ annonce.titre }}</a></td>
           <td>{{ annonce.description }}</td>
           <td>{{ annonce.adresse }}</td>
-          <td>{{ annonce.geometry }}</td>
+          <!-- <td>{{ annonce.geometry }}</td> -->
           <td>{{ annonce.status }}</td>
           <!-- <td>
             {{ annonce.user?.firstName }}
@@ -95,7 +95,7 @@
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
-              <button
+              <button *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
                 type="submit"
                 [routerLink]="['/annonce', annonce.id, 'edit']"
                 class="btn btn-primary btn-sm"
@@ -105,7 +105,7 @@
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button type="submit" (click)="delete(annonce)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'" type="submit" (click)="delete(annonce)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
