@@ -34,6 +34,7 @@
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="cnie"><span jhiTranslate="bricoviteApp.personne.cnie">Cnie</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tel"><span jhiTranslate="bricoviteApp.personne.tel">Tel</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="user.firstName">
             <span jhiTranslate="bricoviteApp.personne.user">User</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -46,6 +47,7 @@
             <a [routerLink]="['/personne', personne.id, 'view']">{{ personne.id }}</a>
           </td>
           <td>{{ personne.cnie }}</td>
+          <td>{{ personne.tel }}</td>
           <td>
             {{ personne.user?.login }}
           </td>

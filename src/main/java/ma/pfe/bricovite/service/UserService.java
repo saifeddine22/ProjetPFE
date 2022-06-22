@@ -6,8 +6,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import ma.pfe.bricovite.config.Constants;
 import ma.pfe.bricovite.domain.Authority;
+import ma.pfe.bricovite.domain.Personne;
 import ma.pfe.bricovite.domain.User;
 import ma.pfe.bricovite.repository.AuthorityRepository;
+import ma.pfe.bricovite.repository.PersonneRepository;
 import ma.pfe.bricovite.repository.UserRepository;
 import ma.pfe.bricovite.security.AuthoritiesConstants;
 import ma.pfe.bricovite.security.SecurityUtils;
@@ -34,11 +36,19 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final PersonneRepository personneRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    public UserService(
+        PersonneRepository personneRepository,
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        AuthorityRepository authorityRepository
+    ) {
+        this.personneRepository = personneRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
@@ -81,7 +91,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(AdminUserDTO userDTO, String password,String authorite) {
+    public User registerUser(AdminUserDTO userDTO, String password, String authorite, String cnie, String tel) {
         userRepository
             .findOneByLogin(userDTO.getLogin().toLowerCase())
             .ifPresent(existingUser -> {
@@ -101,6 +111,7 @@ public class UserService {
         User newUser = new User();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
+
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
         newUser.setFirstName(userDTO.getFirstName());
@@ -115,15 +126,23 @@ public class UserService {
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
-        if( authorite.equals("USER")){
+        if (authorite.equals("USER")) {
             authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
-        }else if (authorite.equals("PRESTATAIRE")){
+        } else if (authorite.equals("PRESTATAIRE")) {
             authorityRepository.findById(AuthoritiesConstants.PRESTATAIRE).ifPresent(authorities::add);
         }
-        
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
+
+        // Create and save the Personne entity
+        Personne newpersonne = new Personne();
+        newpersonne.setUser(newUser);
+        newpersonne.setTel(tel);
+        newpersonne.setCnie(cnie);
+        personneRepository.save(newpersonne);
+        log.debug("Created Information for Personne: {}", newpersonne);
+
         return newUser;
     }
 
@@ -165,8 +184,7 @@ public class UserService {
                 .collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
-        userRepository.save(user);
-        log.debug("Created Information for User: {}", user);
+
         return user;
     }
 

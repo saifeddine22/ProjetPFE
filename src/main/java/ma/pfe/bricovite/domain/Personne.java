@@ -23,7 +23,10 @@ public class Personne implements Serializable {
     @Column(name = "cnie", nullable = false, unique = true)
     private String cnie;
 
-    @OneToOne(optional = false)
+    @Column(name = "tel")
+    private String tel;
+
+    @OneToOne(optional = false, cascade = CascadeType.REMOVE)
     @NotNull
     @JoinColumn(unique = true)
     private User user;
@@ -54,6 +57,19 @@ public class Personne implements Serializable {
 
     public void setCnie(String cnie) {
         this.cnie = cnie;
+    }
+
+    public String getTel() {
+        return this.tel;
+    }
+
+    public Personne tel(String tel) {
+        this.setTel(tel);
+        return this;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public User getUser() {
@@ -94,6 +110,7 @@ public class Personne implements Serializable {
         return "Personne{" +
             "id=" + getId() +
             ", cnie='" + getCnie() + "'" +
+            ", tel='" + getTel() + "'" +
             "}";
     }
 }

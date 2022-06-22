@@ -122,7 +122,24 @@
             </small>
           </div>
         </div>
+        <!--                -->
+        <div class="mb-3">
+          <label class="form-label" for="cnie" data-translate="global.form.cnie">CNIE</label>
+          <input name="cnie" class="form-control" id="cnie" placeholder="Votre CNIE" formControlName="cnie" data-cy="cnie" #cnie />
+        </div>
 
+        <div class="mb-3">
+          <label class="form-label" for="tel" data-translate="global.form.tel">Téléphone</label>
+          <input
+            name="tel"
+            class="form-control"
+            id="tel"
+            placeholder="Votre numéro de téléphone"
+            formControlName="tel"
+            data-cy="tel"
+            #tel
+          />
+        </div>
         <div class="mb-3">
           <label class="form-label" for="password" jhiTranslate="global.form.newpassword.label">New password</label>
           <input
@@ -211,13 +228,8 @@
         </div>
         <div class="form-check">
           <label class="form-check-label" for="typeCompte">
-            <input class="form-check-input" 
-            type="checkbox" name="typeCompte" id="typeCompte" 
-            ngModel 
-            formControlName="typeCompte" />
-            <span id="text">Type de Compte 
-              (Cocher pour devenir Prestataire ou bien décocher pour Membre)
-            </span>
+            <input class="form-check-input" type="checkbox" name="typeCompte" id="typeCompte" ngModel formControlName="typeCompte" />
+            <span id="text">Type de Compte (Cocher pour devenir Prestataire ou bien décocher pour Membre) </span>
           </label>
         </div>
 

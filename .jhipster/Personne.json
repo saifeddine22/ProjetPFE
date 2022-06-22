@@ -9,16 +9,20 @@
       "fieldName": "cnie",
       "fieldType": "String",
       "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "tel",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "name": "Personne",
-  "pagination": "pagination",
+  "pagination": "no",
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "firstName",
+      "otherEntityField": "id",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "personne",
       "ownerSide": true,
@@ -27,5 +31,5 @@
       "relationshipValidateRules": "required"
     }
   ],
-  "service": "serviceImpl"
+  "service": "no"
 }
