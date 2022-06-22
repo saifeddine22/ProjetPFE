@@ -1,3 +1,4 @@
+import dayjs from 'dayjs/esm';
 import { IPhoto } from 'app/entities/photo/photo.model';
 import { ICommentaire } from 'app/entities/commentaire/commentaire.model';
 import { INote } from 'app/entities/note/note.model';
@@ -12,6 +13,7 @@ export interface IAnnonce {
   adresse?: string;
   geometry?: string;
   status?: boolean | null;
+  dateAnnonce?: dayjs.Dayjs | null;
   photos?: IPhoto[] | null;
   commentaires?: ICommentaire[] | null;
   notes?: INote[] | null;
@@ -28,6 +30,7 @@ export class Annonce implements IAnnonce {
     public adresse?: string,
     public geometry?: string,
     public status?: boolean | null,
+    public dateAnnonce?: dayjs.Dayjs | null,
     public photos?: IPhoto[] | null,
     public commentaires?: ICommentaire[] | null,
     public notes?: INote[] | null,

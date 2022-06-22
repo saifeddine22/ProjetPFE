@@ -5,6 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
+import dayjs from 'dayjs/esm';
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+
 import { IAnnonce, Annonce } from '../annonce.model';
 import { AnnonceService } from '../service/annonce.service';
 import { IUser } from 'app/entities/user/user.model';
@@ -32,6 +35,7 @@ export class AnnonceUpdateComponent implements OnInit {
     adresse: [null, [Validators.required]],
     geometry: [null, [Validators.required]],
     status: [],
+    dateAnnonce: [],
     user: [null, Validators.required],
     commune: [],
     activite: [null, Validators.required],
@@ -48,6 +52,11 @@ export class AnnonceUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ annonce }) => {
+      if (annonce.id === undefined) {
+        const today = dayjs().startOf('minutes');
+        annonce.dateAnnonce = today;
+      }
+
       this.updateForm(annonce);
 
       this.loadRelationshipsOptions();
@@ -107,6 +116,7 @@ export class AnnonceUpdateComponent implements OnInit {
       adresse: annonce.adresse,
       geometry: annonce.geometry,
       status: annonce.status,
+      dateAnnonce: annonce.dateAnnonce ? annonce.dateAnnonce.format(DATE_TIME_FORMAT) : null,
       user: annonce.user,
       commune: annonce.commune,
       activite: annonce.activite,
@@ -155,6 +165,9 @@ export class AnnonceUpdateComponent implements OnInit {
       adresse: this.editForm.get(['adresse'])!.value,
       geometry: this.editForm.get(['geometry'])!.value,
       status: this.editForm.get(['status'])!.value,
+      dateAnnonce: this.editForm.get(['dateAnnonce'])!.value
+        ? dayjs(this.editForm.get(['dateAnnonce'])!.value, DATE_TIME_FORMAT)
+        : undefined,
       user: this.editForm.get(['user'])!.value,
       commune: this.editForm.get(['commune'])!.value,
       activite: this.editForm.get(['activite'])!.value,

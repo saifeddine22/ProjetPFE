@@ -43,11 +43,14 @@
           <th scope="col" jhiSortBy="adresse">
             <span jhiTranslate="bricoviteApp.annonce.adresse">Adresse</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <!-- <th scope="col" jhiSortBy="geometry">
+          <!--  <th scope="col" jhiSortBy="geometry">
             <span jhiTranslate="bricoviteApp.annonce.geometry">Geometry</span> <fa-icon icon="sort"></fa-icon>
           </th> -->
-          <th scope="col" jhiSortBy="status">
+          <!--  <th scope="col" jhiSortBy="status">
             <span jhiTranslate="bricoviteApp.annonce.status">Status</span> <fa-icon icon="sort"></fa-icon>
+          </th> -->
+          <th scope="col" jhiSortBy="dateAnnonce">
+            <span jhiTranslate="bricoviteApp.annonce.dateAnnonce">Date Annonce</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="user.firstName">
             <span jhiTranslate="bricoviteApp.annonce.user">User</span> <fa-icon icon="sort"></fa-icon>
@@ -66,15 +69,18 @@
           <!-- <td>
             <a [routerLink]="['/annonce', annonce.id, 'view']">{{ annonce.id }}</a>
           </td> -->
-          <td><a [routerLink]="['/annonce', annonce.id, 'view']">{{ annonce.titre }}</a></td>
+          <td>{{ annonce.titre }}</td>
           <td>{{ annonce.description }}</td>
           <td>{{ annonce.adresse }}</td>
-          <!-- <td>{{ annonce.geometry }}</td> -->
-          <td>{{ annonce.status }}</td>
+          <!-- <td>{{ annonce.geometry }}</td>
+          <td>{{ annonce.status }}</td> -->
+          <td>{{ annonce.dateAnnonce | formatMediumDatetime }}</td>
           <td>
-            <!-- {{ annonce.user?.firstName }} -->
+            {{ annonce.user?.login }}
           </td>
-          <td>
+          <td>{{ annonce.commune?.nomFr }}</td>
+          <td>{{ annonce.activite?.nomFr }}</td>
+          <!--  <td>
             <div *ngIf="annonce.commune">
               <a [routerLink]="['/commune', annonce.commune?.id, 'view']">{{ annonce.commune?.nomFr }}</a>
             </div>
@@ -83,7 +89,7 @@
             <div *ngIf="annonce.activite">
               <a [routerLink]="['/activite', annonce.activite?.id, 'view']">{{ annonce.activite?.nomFr }}</a>
             </div>
-          </td>
+          </td> -->
           <td class="text-end">
             <div class="btn-group">
               <button
@@ -96,7 +102,8 @@
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
-              <button *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+              <button
+                *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
                 type="submit"
                 [routerLink]="['/annonce', annonce.id, 'edit']"
                 class="btn btn-primary btn-sm"
@@ -106,7 +113,13 @@
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'" type="submit" (click)="delete(annonce)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button
+                *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+                type="submit"
+                (click)="delete(annonce)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton"
+              >
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>

@@ -60,6 +60,9 @@ public class AnnonceServiceImpl implements AnnonceService {
                 if (annonce.getStatus() != null) {
                     existingAnnonce.setStatus(annonce.getStatus());
                 }
+                if (annonce.getDateAnnonce() != null) {
+                    existingAnnonce.setDateAnnonce(annonce.getDateAnnonce());
+                }
 
                 return existingAnnonce;
             })

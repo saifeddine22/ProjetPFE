@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
@@ -17,24 +19,37 @@ export class AnnonceService {
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(annonce: IAnnonce): Observable<EntityResponseType> {
-    return this.http.post<IAnnonce>(this.resourceUrl, annonce, { observe: 'response' });
+    const copy = this.convertDateFromClient(annonce);
+    return this.http
+      .post<IAnnonce>(this.resourceUrl, copy, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   update(annonce: IAnnonce): Observable<EntityResponseType> {
-    return this.http.put<IAnnonce>(`${this.resourceUrl}/${getAnnonceIdentifier(annonce) as number}`, annonce, { observe: 'response' });
+    const copy = this.convertDateFromClient(annonce);
+    return this.http
+      .put<IAnnonce>(`${this.resourceUrl}/${getAnnonceIdentifier(annonce) as number}`, copy, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   partialUpdate(annonce: IAnnonce): Observable<EntityResponseType> {
-    return this.http.patch<IAnnonce>(`${this.resourceUrl}/${getAnnonceIdentifier(annonce) as number}`, annonce, { observe: 'response' });
+    const copy = this.convertDateFromClient(annonce);
+    return this.http
+      .patch<IAnnonce>(`${this.resourceUrl}/${getAnnonceIdentifier(annonce) as number}`, copy, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IAnnonce>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    return this.http
+      .get<IAnnonce>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IAnnonce[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http
+      .get<IAnnonce[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -56,5 +71,27 @@ export class AnnonceService {
       return [...annoncesToAdd, ...annonceCollection];
     }
     return annonceCollection;
+  }
+
+  protected convertDateFromClient(annonce: IAnnonce): IAnnonce {
+    return Object.assign({}, annonce, {
+      dateAnnonce: annonce.dateAnnonce?.isValid() ? annonce.dateAnnonce.toJSON() : undefined,
+    });
+  }
+
+  protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+    if (res.body) {
+      res.body.dateAnnonce = res.body.dateAnnonce ? dayjs(res.body.dateAnnonce) : undefined;
+    }
+    return res;
+  }
+
+  protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+    if (res.body) {
+      res.body.forEach((annonce: IAnnonce) => {
+        annonce.dateAnnonce = annonce.dateAnnonce ? dayjs(annonce.dateAnnonce) : undefined;
+      });
+    }
+    return res;
   }
 }
