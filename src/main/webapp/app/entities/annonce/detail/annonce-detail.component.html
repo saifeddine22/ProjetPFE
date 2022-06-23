@@ -10,10 +10,10 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <!-- <dt><span jhiTranslate="global.field.id">ID</span></dt>
         <dd>
           <span>{{ annonce.id }}</span>
-        </dd>
+        </dd> -->
         <dt><span jhiTranslate="bricoviteApp.annonce.titre">Titre</span></dt>
         <dd>
           <span>{{ annonce.titre }}</span>
@@ -36,7 +36,7 @@
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.user">User</span></dt>
         <dd>
-          <!-- <span>{{ annonce.user?.firstName }}</span> -->
+          <span>{{ annonce.user?.login }}</span>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.commune">Commune</span></dt>
         <dd>
@@ -56,7 +56,9 @@
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
-      <button type="button" [routerLink]="['/annonce', annonce.id, 'edit']" class="btn btn-primary">
+      <button type="button" 
+        [hidden]="annonce.user?.id != userConnect " 
+        [routerLink]="['/annonce', annonce.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>

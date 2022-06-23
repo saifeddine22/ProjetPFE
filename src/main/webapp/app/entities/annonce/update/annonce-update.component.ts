@@ -14,6 +14,7 @@ import { CommuneService } from 'app/entities/commune/service/commune.service';
 import { IActivite } from 'app/entities/activite/activite.model';
 import { ActiviteService } from 'app/entities/activite/service/activite.service';
 
+
 @Component({
   selector: 'jhi-annonce-update',
   templateUrl: './annonce-update.component.html',
@@ -32,7 +33,7 @@ export class AnnonceUpdateComponent implements OnInit {
     adresse: [null, [Validators.required]],
     geometry: [null, [Validators.required]],
     status: [],
-    user: [null, Validators.required],
+    user: [],
     commune: [],
     activite: [null, Validators.required],
   });
@@ -155,7 +156,7 @@ export class AnnonceUpdateComponent implements OnInit {
       adresse: this.editForm.get(['adresse'])!.value,
       geometry: this.editForm.get(['geometry'])!.value,
       status: this.editForm.get(['status'])!.value,
-      user: this.editForm.get(['user'])!.value,
+      user: { id: Number(sessionStorage.getItem("userConnectedId"))},
       commune: this.editForm.get(['commune'])!.value,
       activite: this.editForm.get(['activite'])!.value,
     };

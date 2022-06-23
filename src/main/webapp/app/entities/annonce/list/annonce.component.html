@@ -72,7 +72,7 @@
           <!-- <td>{{ annonce.geometry }}</td> -->
           <td>{{ annonce.status }}</td>
           <td>
-            <!-- {{ annonce.user?.firstName }} -->
+            {{ annonce.user?.login }}
           </td>
           <td>
             <div *ngIf="annonce.commune">
@@ -99,6 +99,7 @@
               <button *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
                 type="submit"
                 [routerLink]="['/annonce', annonce.id, 'edit']"
+                [hidden]="annonce.user?.id != userConnect "
                 class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
               >
@@ -106,7 +107,7 @@
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'" type="submit" (click)="delete(annonce)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'" [hidden]="annonce.user?.id != userConnect " type="submit" (click)="delete(annonce)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>

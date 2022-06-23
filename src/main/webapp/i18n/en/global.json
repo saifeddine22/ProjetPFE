@@ -103,11 +103,11 @@
       "addimage": "Add image",
       "back": "Back",
       "cancel": "Cancel",
-      "delete": "Delete",
-      "edit": "Edit",
+      "delete": "",
+      "edit": "",
       "open": "Open",
       "save": "Save",
-      "view": "View"
+      "view": ""
     },
     "detail": {
       "field": "Field",

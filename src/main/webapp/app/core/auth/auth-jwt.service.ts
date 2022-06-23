@@ -33,6 +33,7 @@ export class AuthServerProvider {
   }
 
   logout(): Observable<void> {
+    sessionStorage.removeItem("userConnectedId");
     return new Observable(observer => {
       this.localStorageService.clear('authenticationToken');
       this.sessionStorageService.clear('authenticationToken');
