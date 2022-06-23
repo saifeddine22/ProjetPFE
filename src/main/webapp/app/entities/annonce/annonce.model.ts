@@ -5,6 +5,7 @@ import { INote } from 'app/entities/note/note.model';
 import { IUser } from 'app/entities/user/user.model';
 import { ICommune } from 'app/entities/commune/commune.model';
 import { IActivite } from 'app/entities/activite/activite.model';
+import { ICategorie } from '../categorie/categorie.model';
 
 export interface IAnnonce {
   id?: number;
@@ -18,6 +19,7 @@ export interface IAnnonce {
   commentaires?: ICommentaire[] | null;
   notes?: INote[] | null;
   user?: IUser;
+  categorie?: ICategorie | null;
   commune?: ICommune | null;
   activite?: IActivite;
 }
@@ -35,6 +37,7 @@ export class Annonce implements IAnnonce {
     public commentaires?: ICommentaire[] | null,
     public notes?: INote[] | null,
     public user?: IUser,
+    public categorie?: ICategorie | null,
     public commune?: ICommune | null,
     public activite?: IActivite
   ) {

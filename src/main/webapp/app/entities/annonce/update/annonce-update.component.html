@@ -95,7 +95,7 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="bricoviteApp.annonce.user" for="field_user">User</label>
-          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" hidden="true">
             <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
             <option
               [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
@@ -120,6 +120,19 @@
               *ngFor="let communeOption of communesSharedCollection; trackBy: trackCommuneById"
             >
               {{ communeOption.nomFr }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.categorie" for="field_categorie">Categorie</label>
+          <select class="form-control" id="field_categorie" data-cy="categorie" name="categorie" formControlName="categorie">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="categorieOption.id === editForm.get('categorie')!.value?.id ? editForm.get('categorie')!.value : categorieOption"
+              *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById"
+            >
+              {{ categorieOption.nomFr }}
             </option>
           </select>
         </div>
