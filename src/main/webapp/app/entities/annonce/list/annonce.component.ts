@@ -23,6 +23,7 @@ export class AnnonceComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  userConnect = Number(sessionStorage.getItem("userConnectedId"));
 
   constructor(
     protected annonceService: AnnonceService,

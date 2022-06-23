@@ -8,10 +8,11 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <!--  <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+
+        <div class="row mb-3" [hidden]="true">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div> -->
+        </div>
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="bricoviteApp.annonce.titre" for="field_titre">Titre</label>
@@ -93,7 +94,8 @@
           </div>
         </div>
 
-        <div class="row mb-3">
+       
+        <!-- <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
           <label class="form-label" jhiTranslate="bricoviteApp.annonce.user" for="field_user">User</label>
           <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" hidden="true">
             <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
@@ -101,7 +103,7 @@
               [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
               *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
             >
-              {{ userOption.login }}
+               {{ userOption.login }}
             </option>
           </select>
         </div>
@@ -109,7 +111,7 @@
           <small class="form-text text-danger" *ngIf="editForm.get(['user'])?.errors?.required" jhiTranslate="entity.validation.required">
             This field is required.
           </small>
-        </div>
+        </div> -->
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="bricoviteApp.annonce.commune" for="field_commune">Commune</label>

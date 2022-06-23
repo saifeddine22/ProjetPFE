@@ -103,11 +103,11 @@
       "addimage": "Ajouter image",
       "back": "Retour",
       "cancel": "Annuler",
-      "edit": "Editer",
-      "delete": "Supprimer",
+      "edit": "",
+      "delete": "",
       "open": "Ouvrir",
       "save": "Sauvegarder",
-      "view": "Voir"
+      "view": ""
     },
     "detail": {
       "field": "Champs",

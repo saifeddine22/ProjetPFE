@@ -68,12 +68,11 @@
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
-      <button
+      <button type="button" 
         *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-        type="button"
+        [hidden]="annonce.user?.id != userConnect " 
         [routerLink]="['/annonce', annonce.id, 'edit']"
-        class="btn btn-primary"
-      >
+        class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>
