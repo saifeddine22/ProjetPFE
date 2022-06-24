@@ -128,10 +128,15 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="bricoviteApp.annonce.categorie" for="field_categorie">Categorie</label>
-          <select class="form-control" id="field_categorie" data-cy="categorie" name="categorie" formControlName="categorie">
+          <select class="form-control" 
+                  id="field_categorie" 
+                  data-cy="categorie" 
+                  name="categorie" 
+                  formControlName="categorie"
+                  (change)="onChekCategorie()">
             <option [ngValue]="null"></option>
             <option
-              [ngValue]="categorieOption.id === editForm.get('categorie')!.value?.id ? editForm.get('categorie')!.value : categorieOption"
+              [ngValue]="categorieOption.id === editForm.get('categorie')!.value?.id ? editForm.get('categorie')!.value : categorieOption.id"
               *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById"
             >
               {{ categorieOption.nomFr }}
@@ -146,6 +151,7 @@
             <option
               [ngValue]="activiteOption.id === editForm.get('activite')!.value?.id ? editForm.get('activite')!.value : activiteOption"
               *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
+              [hidden]="activiteOption.categorie?.id!=onChekCategorie()"
             >
               {{ activiteOption.nomFr }}
             </option>

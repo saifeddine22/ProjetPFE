@@ -57,6 +57,17 @@ export class AnnonceUpdateComponent implements OnInit {
     protected fb: FormBuilder
   ) {}
 
+  
+  onChekCategorie(): number{
+    const catId = this.editForm.get(['categorie'])!.value;
+    return Number(catId);
+  }
+  onChekActivite(): number{
+    const actId = this.editForm.get(['activite'])!.value;
+    alert(actId);
+    return Number(actId);
+  }
+
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ annonce }) => {
       if (annonce.id === undefined) {
@@ -135,7 +146,7 @@ export class AnnonceUpdateComponent implements OnInit {
     });
 
     this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, annonce.user);
-    this.communesSharedCollection = this.categorieService.addCategorieToCollectionIfMissing(
+    this.categoriesSharedCollection = this.categorieService.addCategorieToCollectionIfMissing(
       this.categoriesSharedCollection,
       annonce.categorie
     );
@@ -154,7 +165,7 @@ export class AnnonceUpdateComponent implements OnInit {
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
 
     this.categorieService
-      .query()
+      .query({size:25})
       .pipe(map((res: HttpResponse<ICategorie[]>) => res.body ?? []))
       .pipe(
         map((categories: ICategorie[]) =>
@@ -172,7 +183,7 @@ export class AnnonceUpdateComponent implements OnInit {
       .subscribe((communes: ICommune[]) => (this.communesSharedCollection = communes));
 
     this.activiteService
-      .query()
+      .query({size:200})
       .pipe(map((res: HttpResponse<IActivite[]>) => res.body ?? []))
       .pipe(
         map((activites: IActivite[]) =>
