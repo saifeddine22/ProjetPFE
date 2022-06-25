@@ -6,6 +6,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -55,6 +57,9 @@ class AnnonceResourceIT {
     private static final Boolean DEFAULT_STATUS = false;
     private static final Boolean UPDATED_STATUS = true;
 
+    private static final Instant DEFAULT_DATE_ANNONCE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATE_ANNONCE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
     private static final String ENTITY_API_URL = "/api/annonces";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -90,7 +95,8 @@ class AnnonceResourceIT {
             .description(DEFAULT_DESCRIPTION)
             .adresse(DEFAULT_ADRESSE)
             .geometry(DEFAULT_GEOMETRY)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .dateAnnonce(DEFAULT_DATE_ANNONCE);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -121,7 +127,8 @@ class AnnonceResourceIT {
             .description(UPDATED_DESCRIPTION)
             .adresse(UPDATED_ADRESSE)
             .geometry(UPDATED_GEOMETRY)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .dateAnnonce(UPDATED_DATE_ANNONCE);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -163,6 +170,7 @@ class AnnonceResourceIT {
         assertThat(testAnnonce.getAdresse()).isEqualTo(DEFAULT_ADRESSE);
         assertThat(testAnnonce.getGeometry()).isEqualTo(DEFAULT_GEOMETRY);
         assertThat(testAnnonce.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testAnnonce.getDateAnnonce()).isEqualTo(DEFAULT_DATE_ANNONCE);
     }
 
     @Test
@@ -267,7 +275,8 @@ class AnnonceResourceIT {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE)))
             .andExpect(jsonPath("$.[*].geometry").value(hasItem(DEFAULT_GEOMETRY)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.booleanValue())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.booleanValue())))
+            .andExpect(jsonPath("$.[*].dateAnnonce").value(hasItem(DEFAULT_DATE_ANNONCE.toString())));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -304,7 +313,8 @@ class AnnonceResourceIT {
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.adresse").value(DEFAULT_ADRESSE))
             .andExpect(jsonPath("$.geometry").value(DEFAULT_GEOMETRY))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.booleanValue()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.booleanValue()))
+            .andExpect(jsonPath("$.dateAnnonce").value(DEFAULT_DATE_ANNONCE.toString()));
     }
 
     @Test
@@ -331,7 +341,8 @@ class AnnonceResourceIT {
             .description(UPDATED_DESCRIPTION)
             .adresse(UPDATED_ADRESSE)
             .geometry(UPDATED_GEOMETRY)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .dateAnnonce(UPDATED_DATE_ANNONCE);
 
         restAnnonceMockMvc
             .perform(
@@ -350,6 +361,7 @@ class AnnonceResourceIT {
         assertThat(testAnnonce.getAdresse()).isEqualTo(UPDATED_ADRESSE);
         assertThat(testAnnonce.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
         assertThat(testAnnonce.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAnnonce.getDateAnnonce()).isEqualTo(UPDATED_DATE_ANNONCE);
     }
 
     @Test
@@ -420,7 +432,7 @@ class AnnonceResourceIT {
         Annonce partialUpdatedAnnonce = new Annonce();
         partialUpdatedAnnonce.setId(annonce.getId());
 
-        partialUpdatedAnnonce.titre(UPDATED_TITRE).adresse(UPDATED_ADRESSE).status(UPDATED_STATUS);
+        partialUpdatedAnnonce.titre(UPDATED_TITRE).adresse(UPDATED_ADRESSE).status(UPDATED_STATUS).dateAnnonce(UPDATED_DATE_ANNONCE);
 
         restAnnonceMockMvc
             .perform(
@@ -439,6 +451,7 @@ class AnnonceResourceIT {
         assertThat(testAnnonce.getAdresse()).isEqualTo(UPDATED_ADRESSE);
         assertThat(testAnnonce.getGeometry()).isEqualTo(DEFAULT_GEOMETRY);
         assertThat(testAnnonce.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAnnonce.getDateAnnonce()).isEqualTo(UPDATED_DATE_ANNONCE);
     }
 
     @Test
@@ -458,7 +471,8 @@ class AnnonceResourceIT {
             .description(UPDATED_DESCRIPTION)
             .adresse(UPDATED_ADRESSE)
             .geometry(UPDATED_GEOMETRY)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .dateAnnonce(UPDATED_DATE_ANNONCE);
 
         restAnnonceMockMvc
             .perform(
@@ -477,6 +491,7 @@ class AnnonceResourceIT {
         assertThat(testAnnonce.getAdresse()).isEqualTo(UPDATED_ADRESSE);
         assertThat(testAnnonce.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
         assertThat(testAnnonce.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAnnonce.getDateAnnonce()).isEqualTo(UPDATED_DATE_ANNONCE);
     }
 
     @Test

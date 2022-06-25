@@ -42,8 +42,8 @@ class PersonneResourceIT {
     private static final String DEFAULT_CNIE = "AAAAAAAAAA";
     private static final String UPDATED_CNIE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_TYPE_COMPTE = "AAAAAAAAAA";
-    private static final String UPDATED_TYPE_COMPTE = "BBBBBBBBBB";
+    private static final String DEFAULT_TEL = "AAAAAAAAAA";
+    private static final String UPDATED_TEL = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/personnes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -75,7 +75,7 @@ class PersonneResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Personne createEntity(EntityManager em) {
-        Personne personne = new Personne().cnie(DEFAULT_CNIE).typeCompte(DEFAULT_TYPE_COMPTE);
+        Personne personne = new Personne().cnie(DEFAULT_CNIE).tel(DEFAULT_TEL);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -91,7 +91,7 @@ class PersonneResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Personne createUpdatedEntity(EntityManager em) {
-        Personne personne = new Personne().cnie(UPDATED_CNIE).typeCompte(UPDATED_TYPE_COMPTE);
+        Personne personne = new Personne().cnie(UPDATED_CNIE).tel(UPDATED_TEL);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -119,7 +119,7 @@ class PersonneResourceIT {
         assertThat(personneList).hasSize(databaseSizeBeforeCreate + 1);
         Personne testPersonne = personneList.get(personneList.size() - 1);
         assertThat(testPersonne.getCnie()).isEqualTo(DEFAULT_CNIE);
-        assertThat(testPersonne.getTypeCompte()).isEqualTo(DEFAULT_TYPE_COMPTE);
+        assertThat(testPersonne.getTel()).isEqualTo(DEFAULT_TEL);
     }
 
     @Test
@@ -187,7 +187,7 @@ class PersonneResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(personne.getId().intValue())))
             .andExpect(jsonPath("$.[*].cnie").value(hasItem(DEFAULT_CNIE)))
-            .andExpect(jsonPath("$.[*].typeCompte").value(hasItem(DEFAULT_TYPE_COMPTE)));
+            .andExpect(jsonPath("$.[*].tel").value(hasItem(DEFAULT_TEL)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -221,7 +221,7 @@ class PersonneResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(personne.getId().intValue()))
             .andExpect(jsonPath("$.cnie").value(DEFAULT_CNIE))
-            .andExpect(jsonPath("$.typeCompte").value(DEFAULT_TYPE_COMPTE));
+            .andExpect(jsonPath("$.tel").value(DEFAULT_TEL));
     }
 
     @Test
@@ -243,7 +243,7 @@ class PersonneResourceIT {
         Personne updatedPersonne = personneRepository.findById(personne.getId()).get();
         // Disconnect from session so that the updates on updatedPersonne are not directly saved in db
         em.detach(updatedPersonne);
-        updatedPersonne.cnie(UPDATED_CNIE).typeCompte(UPDATED_TYPE_COMPTE);
+        updatedPersonne.cnie(UPDATED_CNIE).tel(UPDATED_TEL);
 
         restPersonneMockMvc
             .perform(
@@ -258,7 +258,7 @@ class PersonneResourceIT {
         assertThat(personneList).hasSize(databaseSizeBeforeUpdate);
         Personne testPersonne = personneList.get(personneList.size() - 1);
         assertThat(testPersonne.getCnie()).isEqualTo(UPDATED_CNIE);
-        assertThat(testPersonne.getTypeCompte()).isEqualTo(UPDATED_TYPE_COMPTE);
+        assertThat(testPersonne.getTel()).isEqualTo(UPDATED_TEL);
     }
 
     @Test
@@ -344,7 +344,7 @@ class PersonneResourceIT {
         assertThat(personneList).hasSize(databaseSizeBeforeUpdate);
         Personne testPersonne = personneList.get(personneList.size() - 1);
         assertThat(testPersonne.getCnie()).isEqualTo(UPDATED_CNIE);
-        assertThat(testPersonne.getTypeCompte()).isEqualTo(DEFAULT_TYPE_COMPTE);
+        assertThat(testPersonne.getTel()).isEqualTo(DEFAULT_TEL);
     }
 
     @Test
@@ -359,7 +359,7 @@ class PersonneResourceIT {
         Personne partialUpdatedPersonne = new Personne();
         partialUpdatedPersonne.setId(personne.getId());
 
-        partialUpdatedPersonne.cnie(UPDATED_CNIE).typeCompte(UPDATED_TYPE_COMPTE);
+        partialUpdatedPersonne.cnie(UPDATED_CNIE).tel(UPDATED_TEL);
 
         restPersonneMockMvc
             .perform(
@@ -374,7 +374,7 @@ class PersonneResourceIT {
         assertThat(personneList).hasSize(databaseSizeBeforeUpdate);
         Personne testPersonne = personneList.get(personneList.size() - 1);
         assertThat(testPersonne.getCnie()).isEqualTo(UPDATED_CNIE);
-        assertThat(testPersonne.getTypeCompte()).isEqualTo(UPDATED_TYPE_COMPTE);
+        assertThat(testPersonne.getTel()).isEqualTo(UPDATED_TEL);
     }
 
     @Test

@@ -22,7 +22,7 @@ describe('Personne Service', () => {
     elemDefault = {
       id: 0,
       cnie: 'AAAAAAA',
-      typeCompte: 'AAAAAAA',
+      tel: 'AAAAAAA',
     };
   });
 
@@ -59,7 +59,7 @@ describe('Personne Service', () => {
         {
           id: 1,
           cnie: 'BBBBBB',
-          typeCompte: 'BBBBBB',
+          tel: 'BBBBBB',
         },
         elemDefault
       );
@@ -97,7 +97,7 @@ describe('Personne Service', () => {
         {
           id: 1,
           cnie: 'BBBBBB',
-          typeCompte: 'BBBBBB',
+          tel: 'BBBBBB',
         },
         elemDefault
       );

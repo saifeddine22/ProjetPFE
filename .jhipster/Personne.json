@@ -11,9 +11,8 @@
       "fieldValidateRules": ["required", "unique"]
     },
     {
-      "fieldName": "typeCompte",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldName": "tel",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

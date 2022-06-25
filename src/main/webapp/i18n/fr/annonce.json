@@ -23,6 +23,7 @@
       "adresse": "Adresse",
       "geometry": "Geometry",
       "status": "Status",
+      "dateAnnonce": "Date Annonce",
       "photo": "Photo",
       "commentaire": "Commentaire",
       "note": "Note",

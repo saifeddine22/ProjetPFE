@@ -8,7 +8,8 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+
+        <div class="row mb-3" [hidden]="true">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
@@ -77,15 +78,32 @@
           <input type="checkbox" class="form-check" name="status" id="field_status" data-cy="status" formControlName="status" />
         </div>
 
-        <!--  <div class="row mb-3">
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.dateAnnonce" for="field_dateAnnonce">Date Annonce</label>
+          <div class="d-flex">
+            <input
+              [readonly]="true"
+              id="field_dateAnnonce"
+              data-cy="dateAnnonce"
+              type="datetime-local"
+              class="form-control"
+              name="dateAnnonce"
+              formControlName="dateAnnonce"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+       
+        <!-- <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
           <label class="form-label" jhiTranslate="bricoviteApp.annonce.user" for="field_user">User</label>
-          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" hidden="true">
             <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
             <option
               [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
               *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
             >
-              {{ userOption.firstName }}
+               {{ userOption.login }}
             </option>
           </select>
         </div> -->
@@ -93,7 +111,7 @@
           <small class="form-text text-danger" *ngIf="editForm.get(['user'])?.errors?.required" jhiTranslate="entity.validation.required">
             This field is required.
           </small>
-        </div>
+        </div> -->
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="bricoviteApp.annonce.commune" for="field_commune">Commune</label>
@@ -109,14 +127,48 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.categorie" for="field_categorie">Categorie</label>
+          <select class="form-control" 
+                  id="field_categorie" 
+                  data-cy="categorie" 
+                  name="categorie" 
+                  formControlName="categorie"
+                  (change)="onChekCategorie()"
+                  [hidden]="editForm.get('id')!.value != null">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="categorieOption.id === editForm.get('categorie')!.value?.id ? editForm.get('categorie')!.value : categorieOption.id"
+              *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById"
+            >
+              {{ categorieOption.nomFr }}
+            </option>
+          </select>
+          <select class="form-control" 
+                  id="field_activite" 
+                  data-cy="activite" 
+                  name="categorie" 
+                  formControlName="activite"
+                  [hidden]="editForm.get('id')!.value == null" >
+            <option *ngIf="!editForm.get('activite')!.value" [ngValue]="null" selected disabled></option>
+            <option disabled
+              [ngValue]="activiteOption.id === editForm.get('activite')!.value?.id ? editForm.get('activite')!.value : activiteOption"
+              *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
+            >
+              {{ activiteOption.categorieFr }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" jhiTranslate="bricoviteApp.annonce.activite" for="field_activite">Activite</label>
           <select class="form-control" id="field_activite" data-cy="activite" name="activite" formControlName="activite">
             <option *ngIf="!editForm.get('activite')!.value" [ngValue]="null" selected></option>
             <option
               [ngValue]="activiteOption.id === editForm.get('activite')!.value?.id ? editForm.get('activite')!.value : activiteOption"
               *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
+              [hidden]="activiteOption.categorie?.id!=onChekCategorie()"
             >
-              {{ activiteOption.nomFr }}
+                {{ activiteOption.nomFr }}
             </option>
           </select>
         </div>

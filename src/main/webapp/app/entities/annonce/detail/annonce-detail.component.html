@@ -10,10 +10,10 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <!-- <dt><span jhiTranslate="global.field.id">ID</span></dt>
         <dd>
           <span>{{ annonce.id }}</span>
-        </dd>
+        </dd> -->
         <dt><span jhiTranslate="bricoviteApp.annonce.titre">Titre</span></dt>
         <dd>
           <span>{{ annonce.titre }}</span>
@@ -26,19 +26,35 @@
         <dd>
           <span>{{ annonce.adresse }}</span>
         </dd>
-        <dt><span jhiTranslate="bricoviteApp.annonce.geometry">Geometry</span></dt>
+        <!-- <dt><span jhiTranslate="bricoviteApp.annonce.geometry">Geometry</span></dt>
         <dd>
           <span>{{ annonce.geometry }}</span>
-        </dd>
-        <dt><span jhiTranslate="bricoviteApp.annonce.status">Status</span></dt>
+        </dd> -->
+        <!--  <dt><span jhiTranslate="bricoviteApp.annonce.status">Status</span></dt>
         <dd>
           <span>{{ annonce.status }}</span>
+        </dd> -->
+        <dt><span jhiTranslate="bricoviteApp.annonce.dateAnnonce">Date Annonce</span></dt>
+        <dd>
+          <span>{{ annonce.dateAnnonce | formatMediumDatetime }}</span>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.user">User</span></dt>
         <dd>
-          <!--   <span>{{ annonce.user?.firstName }}</span> -->
+          <span>{{ annonce.user?.login }}</span>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.commune">Commune</span></dt>
+        <dd>
+          <span>{{ annonce.commune?.nomFr }}</span>
+        </dd>
+        <dt><span jhiTranslate="">Catégorie</span></dt>
+        <dd>
+          <span>{{ annonce.activite?.categorieFr }}</span>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.annonce.activite">Activite</span></dt>
+        <dd>
+          <span>{{ annonce.activite?.nomFr }}</span>
+        </dd>
+        <!-- <dt><span jhiTranslate="bricoviteApp.annonce.commune">Commune</span></dt>
         <dd>
           <div *ngIf="annonce.commune">
             <a [routerLink]="['/commune', annonce.commune?.id, 'view']">{{ annonce.commune?.nomFr }}</a>
@@ -49,14 +65,18 @@
           <div *ngIf="annonce.activite">
             <a [routerLink]="['/activite', annonce.activite?.id, 'view']">{{ annonce.activite?.nomFr }}</a>
           </div>
-        </dd>
+        </dd> -->
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
-      <button type="button" [routerLink]="['/annonce', annonce.id, 'edit']" class="btn btn-primary">
+      <button type="button" 
+        *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+        [hidden]="annonce.user?.id != userConnect " 
+        [routerLink]="['/annonce', annonce.id, 'edit']"
+        class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>

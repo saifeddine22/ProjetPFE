@@ -28,6 +28,10 @@
     {
       "fieldName": "status",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "dateAnnonce",
+      "fieldType": "Instant"
     }
   ],
   "fluentMethods": true,

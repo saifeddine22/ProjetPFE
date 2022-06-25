@@ -45,6 +45,12 @@ class ActiviteResourceIT {
     private static final String DEFAULT_NOM_AR = "AAAAAAAAAA";
     private static final String UPDATED_NOM_AR = "BBBBBBBBBB";
 
+    private static final String DEFAULT_CATEGORIE_FR = "AAAAAAAAAA";
+    private static final String UPDATED_CATEGORIE_FR = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CATEGORIE_AR = "AAAAAAAAAA";
+    private static final String UPDATED_CATEGORIE_AR = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/activites";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -75,7 +81,11 @@ class ActiviteResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Activite createEntity(EntityManager em) {
-        Activite activite = new Activite().nomFr(DEFAULT_NOM_FR).nomAr(DEFAULT_NOM_AR);
+        Activite activite = new Activite()
+            .nomFr(DEFAULT_NOM_FR)
+            .nomAr(DEFAULT_NOM_AR)
+            .categorieFr(DEFAULT_CATEGORIE_FR)
+            .categorieAr(DEFAULT_CATEGORIE_AR);
         // Add required entity
         Categorie categorie;
         if (TestUtil.findAll(em, Categorie.class).isEmpty()) {
@@ -96,7 +106,11 @@ class ActiviteResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Activite createUpdatedEntity(EntityManager em) {
-        Activite activite = new Activite().nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
+        Activite activite = new Activite()
+            .nomFr(UPDATED_NOM_FR)
+            .nomAr(UPDATED_NOM_AR)
+            .categorieFr(UPDATED_CATEGORIE_FR)
+            .categorieAr(UPDATED_CATEGORIE_AR);
         // Add required entity
         Categorie categorie;
         if (TestUtil.findAll(em, Categorie.class).isEmpty()) {
@@ -130,6 +144,8 @@ class ActiviteResourceIT {
         Activite testActivite = activiteList.get(activiteList.size() - 1);
         assertThat(testActivite.getNomFr()).isEqualTo(DEFAULT_NOM_FR);
         assertThat(testActivite.getNomAr()).isEqualTo(DEFAULT_NOM_AR);
+        assertThat(testActivite.getCategorieFr()).isEqualTo(DEFAULT_CATEGORIE_FR);
+        assertThat(testActivite.getCategorieAr()).isEqualTo(DEFAULT_CATEGORIE_AR);
     }
 
     @Test
@@ -163,7 +179,9 @@ class ActiviteResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(activite.getId().intValue())))
             .andExpect(jsonPath("$.[*].nomFr").value(hasItem(DEFAULT_NOM_FR)))
-            .andExpect(jsonPath("$.[*].nomAr").value(hasItem(DEFAULT_NOM_AR)));
+            .andExpect(jsonPath("$.[*].nomAr").value(hasItem(DEFAULT_NOM_AR)))
+            .andExpect(jsonPath("$.[*].categorieFr").value(hasItem(DEFAULT_CATEGORIE_FR)))
+            .andExpect(jsonPath("$.[*].categorieAr").value(hasItem(DEFAULT_CATEGORIE_AR)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -197,7 +215,9 @@ class ActiviteResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(activite.getId().intValue()))
             .andExpect(jsonPath("$.nomFr").value(DEFAULT_NOM_FR))
-            .andExpect(jsonPath("$.nomAr").value(DEFAULT_NOM_AR));
+            .andExpect(jsonPath("$.nomAr").value(DEFAULT_NOM_AR))
+            .andExpect(jsonPath("$.categorieFr").value(DEFAULT_CATEGORIE_FR))
+            .andExpect(jsonPath("$.categorieAr").value(DEFAULT_CATEGORIE_AR));
     }
 
     @Test
@@ -219,7 +239,7 @@ class ActiviteResourceIT {
         Activite updatedActivite = activiteRepository.findById(activite.getId()).get();
         // Disconnect from session so that the updates on updatedActivite are not directly saved in db
         em.detach(updatedActivite);
-        updatedActivite.nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
+        updatedActivite.nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR).categorieFr(UPDATED_CATEGORIE_FR).categorieAr(UPDATED_CATEGORIE_AR);
 
         restActiviteMockMvc
             .perform(
@@ -235,6 +255,8 @@ class ActiviteResourceIT {
         Activite testActivite = activiteList.get(activiteList.size() - 1);
         assertThat(testActivite.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testActivite.getNomAr()).isEqualTo(UPDATED_NOM_AR);
+        assertThat(testActivite.getCategorieFr()).isEqualTo(UPDATED_CATEGORIE_FR);
+        assertThat(testActivite.getCategorieAr()).isEqualTo(UPDATED_CATEGORIE_AR);
     }
 
     @Test
@@ -305,7 +327,11 @@ class ActiviteResourceIT {
         Activite partialUpdatedActivite = new Activite();
         partialUpdatedActivite.setId(activite.getId());
 
-        partialUpdatedActivite.nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
+        partialUpdatedActivite
+            .nomFr(UPDATED_NOM_FR)
+            .nomAr(UPDATED_NOM_AR)
+            .categorieFr(UPDATED_CATEGORIE_FR)
+            .categorieAr(UPDATED_CATEGORIE_AR);
 
         restActiviteMockMvc
             .perform(
@@ -321,6 +347,8 @@ class ActiviteResourceIT {
         Activite testActivite = activiteList.get(activiteList.size() - 1);
         assertThat(testActivite.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testActivite.getNomAr()).isEqualTo(UPDATED_NOM_AR);
+        assertThat(testActivite.getCategorieFr()).isEqualTo(UPDATED_CATEGORIE_FR);
+        assertThat(testActivite.getCategorieAr()).isEqualTo(UPDATED_CATEGORIE_AR);
     }
 
     @Test
@@ -335,7 +363,11 @@ class ActiviteResourceIT {
         Activite partialUpdatedActivite = new Activite();
         partialUpdatedActivite.setId(activite.getId());
 
-        partialUpdatedActivite.nomFr(UPDATED_NOM_FR).nomAr(UPDATED_NOM_AR);
+        partialUpdatedActivite
+            .nomFr(UPDATED_NOM_FR)
+            .nomAr(UPDATED_NOM_AR)
+            .categorieFr(UPDATED_CATEGORIE_FR)
+            .categorieAr(UPDATED_CATEGORIE_AR);
 
         restActiviteMockMvc
             .perform(
@@ -351,6 +383,8 @@ class ActiviteResourceIT {
         Activite testActivite = activiteList.get(activiteList.size() - 1);
         assertThat(testActivite.getNomFr()).isEqualTo(UPDATED_NOM_FR);
         assertThat(testActivite.getNomAr()).isEqualTo(UPDATED_NOM_AR);
+        assertThat(testActivite.getCategorieFr()).isEqualTo(UPDATED_CATEGORIE_FR);
+        assertThat(testActivite.getCategorieAr()).isEqualTo(UPDATED_CATEGORIE_AR);
     }
 
     @Test

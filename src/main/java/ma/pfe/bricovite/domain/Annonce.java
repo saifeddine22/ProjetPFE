@@ -2,6 +2,7 @@ package ma.pfe.bricovite.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -40,6 +41,9 @@ public class Annonce implements Serializable {
 
     @Column(name = "status")
     private Boolean status;
+
+    @Column(name = "date_annonce")
+    private Instant dateAnnonce;
 
     @OneToMany(mappedBy = "annonce")
     @JsonIgnoreProperties(value = { "annonce" }, allowSetters = true)
@@ -144,6 +148,19 @@ public class Annonce implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Instant getDateAnnonce() {
+        return this.dateAnnonce;
+    }
+
+    public Annonce dateAnnonce(Instant dateAnnonce) {
+        this.setDateAnnonce(dateAnnonce);
+        return this;
+    }
+
+    public void setDateAnnonce(Instant dateAnnonce) {
+        this.dateAnnonce = dateAnnonce;
     }
 
     public Set<Photo> getPhotos() {
@@ -307,6 +324,7 @@ public class Annonce implements Serializable {
             ", adresse='" + getAdresse() + "'" +
             ", geometry='" + getGeometry() + "'" +
             ", status='" + getStatus() + "'" +
+            ", dateAnnonce='" + getDateAnnonce() + "'" +
             "}";
     }
 }

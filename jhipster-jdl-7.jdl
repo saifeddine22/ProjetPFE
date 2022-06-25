@@ -61,6 +61,8 @@ geometry String
 entity Activite {
 nomFr String
 nomAr String
+categorieFr String
+categorieAr String
 }
 
 entity Categorie {

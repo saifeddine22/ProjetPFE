@@ -24,27 +24,11 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="bricoviteApp.personne.typeCompte" for="field_typeCompte">Type Compte</label>
-          <input
-            type="text"
-            class="form-control"
-            name="typeCompte"
-            id="field_typeCompte"
-            data-cy="typeCompte"
-            formControlName="typeCompte"
-          />
-          <div *ngIf="editForm.get('typeCompte')!.invalid && (editForm.get('typeCompte')!.dirty || editForm.get('typeCompte')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('typeCompte')?.errors?.required"
-              jhiTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-          </div>
+          <label class="form-label" jhiTranslate="bricoviteApp.personne.tel" for="field_tel">Tel</label>
+          <input type="text" class="form-control" name="tel" id="field_tel" data-cy="tel" formControlName="tel" />
         </div>
 
-        <!-- <div class="row mb-3">
+        <div class="row mb-3">
           <label class="form-label" jhiTranslate="bricoviteApp.personne.user" for="field_user">User</label>
           <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
             <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
@@ -52,7 +36,8 @@
               [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
               *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
             >
-              {{ userOption.firstName }}
+
+              {{ userOption.login }}
             </option>
           </select>
         </div> -->

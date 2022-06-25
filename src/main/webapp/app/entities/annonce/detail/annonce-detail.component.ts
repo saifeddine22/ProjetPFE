@@ -9,6 +9,7 @@ import { IAnnonce } from '../annonce.model';
 })
 export class AnnonceDetailComponent implements OnInit {
   annonce: IAnnonce | null = null;
+  userConnect = Number(sessionStorage.getItem("userConnectedId"));
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 

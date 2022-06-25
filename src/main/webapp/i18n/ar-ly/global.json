@@ -103,11 +103,11 @@
       "addimage": "اضف صورة",
       "back": "رجوع",
       "cancel": "الغاء",
-      "delete": "حذف",
-      "edit": "تعديل",
+      "delete": "",
+      "edit": "",
       "open": "فتح",
       "save": "حفظ",
-      "view": "عرض"
+      "view": ""
     },
     "detail": {
       "field": "حقل",

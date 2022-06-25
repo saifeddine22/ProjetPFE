@@ -1,6 +1,7 @@
 package ma.pfe.bricovite.web.rest.vm;
 
 import javax.validation.constraints.Size;
+import ma.pfe.bricovite.domain.User;
 import ma.pfe.bricovite.service.dto.AdminUserDTO;
 
 /**
@@ -17,12 +18,32 @@ public class ManagedUserVM extends AdminUserDTO {
 
     private String authorite;
 
+    private String tel;
+
+    private String cnie;
+
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
     }
-    
+
     public ManagedUserVM(String authorite) {
-        this.authorite=authorite;
+        this.authorite = authorite;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getCnie() {
+        return cnie;
+    }
+
+    public void setCnie(String cnie) {
+        this.cnie = cnie;
     }
 
     public String getPassword() {
@@ -40,6 +61,7 @@ public class ManagedUserVM extends AdminUserDTO {
     public void setAuthorite(String authorite) {
         this.authorite = authorite;
     }
+
     // prettier-ignore
     @Override
     public String toString() {
