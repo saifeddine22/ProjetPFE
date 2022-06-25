@@ -12,6 +12,14 @@
     {
       "fieldName": "nomAr",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "categorieFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "categorieAr",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

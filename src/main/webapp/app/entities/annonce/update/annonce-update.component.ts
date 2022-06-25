@@ -62,11 +62,6 @@ export class AnnonceUpdateComponent implements OnInit {
     const catId = this.editForm.get(['categorie'])!.value;
     return Number(catId);
   }
-  onChekActivite(): number{
-    const actId = this.editForm.get(['activite'])!.value;
-    alert(actId);
-    return Number(actId);
-  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ annonce }) => {

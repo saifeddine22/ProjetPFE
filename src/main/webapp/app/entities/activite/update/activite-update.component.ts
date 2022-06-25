@@ -23,6 +23,8 @@ export class ActiviteUpdateComponent implements OnInit {
     id: [],
     nomFr: [],
     nomAr: [],
+    categorieFr: [],
+    categorieAr: [],
     categorie: [null, Validators.required],
   });
 
@@ -83,6 +85,8 @@ export class ActiviteUpdateComponent implements OnInit {
       id: activite.id,
       nomFr: activite.nomFr,
       nomAr: activite.nomAr,
+      categorieFr: activite.categorieFr,
+      categorieAr: activite.categorieAr,
       categorie: activite.categorie,
     });
 
@@ -110,6 +114,8 @@ export class ActiviteUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       nomFr: this.editForm.get(['nomFr'])!.value,
       nomAr: this.editForm.get(['nomAr'])!.value,
+      categorieFr: this.editForm.get(['categorieFr'])!.value,
+      categorieAr: this.editForm.get(['categorieAr'])!.value,
       categorie: this.editForm.get(['categorie'])!.value,
     };
   }

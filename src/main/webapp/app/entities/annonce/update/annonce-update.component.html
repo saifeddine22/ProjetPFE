@@ -133,13 +133,28 @@
                   data-cy="categorie" 
                   name="categorie" 
                   formControlName="categorie"
-                  (change)="onChekCategorie()">
+                  (change)="onChekCategorie()"
+                  [hidden]="editForm.get('id')!.value != null">
             <option [ngValue]="null"></option>
             <option
               [ngValue]="categorieOption.id === editForm.get('categorie')!.value?.id ? editForm.get('categorie')!.value : categorieOption.id"
               *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById"
             >
               {{ categorieOption.nomFr }}
+            </option>
+          </select>
+          <select class="form-control" 
+                  id="field_activite" 
+                  data-cy="activite" 
+                  name="categorie" 
+                  formControlName="activite"
+                  [hidden]="editForm.get('id')!.value == null" >
+            <option *ngIf="!editForm.get('activite')!.value" [ngValue]="null" selected disabled></option>
+            <option disabled
+              [ngValue]="activiteOption.id === editForm.get('activite')!.value?.id ? editForm.get('activite')!.value : activiteOption"
+              *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
+            >
+              {{ activiteOption.categorieFr }}
             </option>
           </select>
         </div>
@@ -153,7 +168,7 @@
               *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
               [hidden]="activiteOption.categorie?.id!=onChekCategorie()"
             >
-              {{ activiteOption.nomFr }}
+                {{ activiteOption.nomFr }}
             </option>
           </select>
         </div>
