@@ -9,7 +9,6 @@
       </button>
 
       <button
-        *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-annonce"
@@ -79,8 +78,8 @@
             {{ annonce.user?.login }}
           </td>
           <td>{{ annonce.commune?.nomFr }}</td>
-          <td>{{ annonce.activite?.nomFr }}</td>
-          <!--  <td>
+          <td>{{ annonce.activite?.nomFr }}</td>     
+          <td>
             <div *ngIf="annonce.commune">
               <a [routerLink]="['/commune', annonce.commune?.id, 'view']">{{ annonce.commune?.nomFr }}</a>
             </div>
