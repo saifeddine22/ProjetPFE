@@ -5,6 +5,8 @@ export interface IActivite {
   id?: number;
   nomFr?: string | null;
   nomAr?: string | null;
+  categorieFr?: string | null;
+  categorieAr?: string | null;
   annonces?: IAnnonce[] | null;
   categorie?: ICategorie;
 }
@@ -14,6 +16,8 @@ export class Activite implements IActivite {
     public id?: number,
     public nomFr?: string | null,
     public nomAr?: string | null,
+    public categorieFr?: string | null,
+    public categorieAr?: string | null,
     public annonces?: IAnnonce[] | null,
     public categorie?: ICategorie
   ) {}

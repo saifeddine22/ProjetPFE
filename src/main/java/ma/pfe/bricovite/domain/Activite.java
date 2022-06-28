@@ -28,6 +28,12 @@ public class Activite implements Serializable {
     @Column(name = "nom_ar")
     private String nomAr;
 
+    @Column(name = "categorie_fr")
+    private String categorieFr;
+
+    @Column(name = "categorie_ar")
+    private String categorieAr;
+
     @OneToMany(mappedBy = "activite")
     @JsonIgnoreProperties(value = { "photos", "commentaires", "notes", "user", "commune", "activite" }, allowSetters = true)
     private Set<Annonce> annonces = new HashSet<>();
@@ -76,6 +82,32 @@ public class Activite implements Serializable {
 
     public void setNomAr(String nomAr) {
         this.nomAr = nomAr;
+    }
+
+    public String getCategorieFr() {
+        return this.categorieFr;
+    }
+
+    public Activite categorieFr(String categorieFr) {
+        this.setCategorieFr(categorieFr);
+        return this;
+    }
+
+    public void setCategorieFr(String categorieFr) {
+        this.categorieFr = categorieFr;
+    }
+
+    public String getCategorieAr() {
+        return this.categorieAr;
+    }
+
+    public Activite categorieAr(String categorieAr) {
+        this.setCategorieAr(categorieAr);
+        return this;
+    }
+
+    public void setCategorieAr(String categorieAr) {
+        this.categorieAr = categorieAr;
     }
 
     public Set<Annonce> getAnnonces() {
@@ -148,6 +180,8 @@ public class Activite implements Serializable {
             "id=" + getId() +
             ", nomFr='" + getNomFr() + "'" +
             ", nomAr='" + getNomAr() + "'" +
+            ", categorieFr='" + getCategorieFr() + "'" +
+            ", categorieAr='" + getCategorieAr() + "'" +
             "}";
     }
 }
