@@ -104,7 +104,7 @@
                {{ userOption.login }}
             </option>
           </select>
-        </div> -->
+        </div> 
         <div *ngIf="editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)">
           <small class="form-text text-danger" *ngIf="editForm.get(['user'])?.errors?.required" jhiTranslate="entity.validation.required">
             This field is required.
@@ -126,29 +126,36 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="bricoviteApp.annonce.categorie" for="field_categorie">Categorie</label>
-          <select class="form-control" 
-                  id="field_categorie" 
-                  data-cy="categorie" 
-                  name="categorie" 
-                  formControlName="categorie"
-                  (change)="onChekCategorie()"
-                  [hidden]="editForm.get('id')!.value != null">
+          <select
+            class="form-control"
+            id="field_categorie"
+            data-cy="categorie"
+            name="categorie"
+            formControlName="categorie"
+            (change)="onChekCategorie()"
+            [hidden]="editForm.get('id')!.value != null"
+          >
             <option [ngValue]="null"></option>
             <option
-              [ngValue]="categorieOption.id === editForm.get('categorie')!.value?.id ? editForm.get('categorie')!.value : categorieOption.id"
+              [ngValue]="
+                categorieOption.id === editForm.get('categorie')!.value?.id ? editForm.get('categorie')!.value : categorieOption.id
+              "
               *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById"
             >
               {{ categorieOption.nomFr }}
             </option>
           </select>
-          <select class="form-control" 
-                  id="field_activite" 
-                  data-cy="activite" 
-                  name="categorie" 
-                  formControlName="activite"
-                  [hidden]="editForm.get('id')!.value == null" >
+          <select
+            class="form-control disabledSelect"
+            id="field_activite"
+            data-cy="activite"
+            name="categorie"
+            formControlName="activite"
+            [hidden]="editForm.get('id')!.value == null"
+          >
             <option *ngIf="!editForm.get('activite')!.value" [ngValue]="null" selected disabled></option>
-            <option disabled
+            <option
+              disabled
               [ngValue]="activiteOption.id === editForm.get('activite')!.value?.id ? editForm.get('activite')!.value : activiteOption"
               *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
             >
@@ -164,9 +171,9 @@
             <option
               [ngValue]="activiteOption.id === editForm.get('activite')!.value?.id ? editForm.get('activite')!.value : activiteOption"
               *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
-              [hidden]="activiteOption.categorie?.id!=onChekCategorie()"
+              [hidden]="activiteOption.categorie?.id != onChekCategorie()"
             >
-                {{ activiteOption.nomFr }}
+              {{ activiteOption.nomFr }}
             </option>
           </select>
         </div>

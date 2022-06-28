@@ -162,7 +162,7 @@ class PersonneResourceIT {
     void checkTypeCompteIsRequired() throws Exception {
         int databaseSizeBeforeTest = personneRepository.findAll().size();
         // set the field null
-        personne.setTypeCompte(null);
+        //        personne.setTypeCompte(null);
 
         // Create the Personne, which fails.
 
