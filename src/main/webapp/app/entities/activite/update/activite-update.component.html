@@ -24,6 +24,30 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.activite.categorieFr" for="field_categorieFr">Categorie Fr</label>
+          <input
+            type="text"
+            class="form-control"
+            name="categorieFr"
+            id="field_categorieFr"
+            data-cy="categorieFr"
+            formControlName="categorieFr"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.activite.categorieAr" for="field_categorieAr">Categorie Ar</label>
+          <input
+            type="text"
+            class="form-control"
+            name="categorieAr"
+            id="field_categorieAr"
+            data-cy="categorieAr"
+            formControlName="categorieAr"
+          />
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" jhiTranslate="bricoviteApp.activite.categorie" for="field_categorie">Categorie</label>
           <select class="form-control" id="field_categorie" data-cy="categorie" name="categorie" formControlName="categorie">
             <option *ngIf="!editForm.get('categorie')!.value" [ngValue]="null" selected></option>

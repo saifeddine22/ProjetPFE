@@ -11,7 +11,7 @@
     -->
     <changeSet id="20220610103419-1" author="jhipster">
         <createTable tableName="personne">
-            <column name="user_id" type="bigint">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="cnie" type="varchar(255)">
@@ -20,7 +20,9 @@
             <column name="tel" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_personne__user_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

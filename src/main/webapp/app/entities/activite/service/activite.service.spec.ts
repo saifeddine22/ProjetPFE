@@ -23,6 +23,8 @@ describe('Activite Service', () => {
       id: 0,
       nomFr: 'AAAAAAA',
       nomAr: 'AAAAAAA',
+      categorieFr: 'AAAAAAA',
+      categorieAr: 'AAAAAAA',
     };
   });
 
@@ -60,6 +62,8 @@ describe('Activite Service', () => {
           id: 1,
           nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
+          categorieFr: 'BBBBBB',
+          categorieAr: 'BBBBBB',
         },
         elemDefault
       );
@@ -78,6 +82,7 @@ describe('Activite Service', () => {
         {
           nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
+          categorieFr: 'BBBBBB',
         },
         new Activite()
       );
@@ -99,6 +104,8 @@ describe('Activite Service', () => {
           id: 1,
           nomFr: 'BBBBBB',
           nomAr: 'BBBBBB',
+          categorieFr: 'BBBBBB',
+          categorieAr: 'BBBBBB',
         },
         elemDefault
       );
@@ -150,7 +157,7 @@ describe('Activite Service', () => {
       });
 
       it('should add only unique Activite to an array', () => {
-        const activiteArray: IActivite[] = [{ id: 123 }, { id: 456 }, { id: 95087 }];
+        const activiteArray: IActivite[] = [{ id: 123 }, { id: 456 }, { id: 25072 }];
         const activiteCollection: IActivite[] = [{ id: 123 }];
         expectedResult = service.addActiviteToCollectionIfMissing(activiteCollection, ...activiteArray);
         expect(expectedResult).toHaveLength(3);

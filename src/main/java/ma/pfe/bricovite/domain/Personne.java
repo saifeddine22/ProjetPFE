@@ -23,6 +23,7 @@ public class Personne implements Serializable {
     @Column(name = "cnie", nullable = false, unique = true)
     private String cnie;
 
+
     @Column(name = "tel")
     private String tel;
 

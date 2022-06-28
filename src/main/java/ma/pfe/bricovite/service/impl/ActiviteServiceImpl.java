@@ -51,6 +51,12 @@ public class ActiviteServiceImpl implements ActiviteService {
                 if (activite.getNomAr() != null) {
                     existingActivite.setNomAr(activite.getNomAr());
                 }
+                if (activite.getCategorieFr() != null) {
+                    existingActivite.setCategorieFr(activite.getCategorieFr());
+                }
+                if (activite.getCategorieAr() != null) {
+                    existingActivite.setCategorieAr(activite.getCategorieAr());
+                }
 
                 return existingActivite;
             })

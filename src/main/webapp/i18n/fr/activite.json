@@ -20,6 +20,8 @@
       "id": "ID",
       "nomFr": "Nom Fr",
       "nomAr": "Nom Ar",
+      "categorieFr": "Categorie Fr",
+      "categorieAr": "Categorie Ar",
       "annonce": "Annonce",
       "categorie": "Categorie"
     }

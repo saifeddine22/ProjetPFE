@@ -18,11 +18,11 @@
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "name": "Personne",
-  "pagination": "no",
+  "pagination": "pagination",
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "id",
+      "otherEntityField": "firstName",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "personne",
       "ownerSide": true,
@@ -31,5 +31,5 @@
       "relationshipValidateRules": "required"
     }
   ],
-  "service": "no"
+  "service": "serviceImpl"
 }

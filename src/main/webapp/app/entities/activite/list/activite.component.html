@@ -39,6 +39,12 @@
           <th scope="col" jhiSortBy="nomAr">
             <span jhiTranslate="bricoviteApp.activite.nomAr">Nom Ar</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="categorieFr">
+            <span jhiTranslate="bricoviteApp.activite.categorieFr">Categorie Fr</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="categorieAr">
+            <span jhiTranslate="bricoviteApp.activite.categorieAr">Categorie Ar</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="categorie.nomFr">
             <span jhiTranslate="bricoviteApp.activite.categorie">Categorie</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -52,6 +58,8 @@
           </td>
           <td>{{ activite.nomFr }}</td>
           <td>{{ activite.nomAr }}</td>
+          <td>{{ activite.categorieFr }}</td>
+          <td>{{ activite.categorieAr }}</td>
           <td>
             <div *ngIf="activite.categorie">
               <a [routerLink]="['/categorie', activite.categorie?.id, 'view']">{{ activite.categorie?.nomFr }}</a>
