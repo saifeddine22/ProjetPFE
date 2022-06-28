@@ -23,11 +23,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
-      //sessionStorage.setItem("userConnectedLogin", this.account!.login);
-      //sessionStorage.setItem("userConnected",  JSON.stringify(this.account));
-      sessionStorage.setItem("userConnectedId",this.account!.id.toString())
+    /*  sessionStorage.setItem("userConnectedLogin", this.account!.login);
+      sessionStorage.setItem("userConnected",  JSON.stringify(this.account)); */
+    sessionStorage.setItem('userConnectedId', this.account!.id.toString());
   }
-  
+
   login(): void {
     this.router.navigate(['/login']);
   }

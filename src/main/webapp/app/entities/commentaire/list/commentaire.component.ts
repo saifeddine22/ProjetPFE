@@ -9,6 +9,7 @@ import { ICommentaire } from '../commentaire.model';
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { CommentaireService } from '../service/commentaire.service';
 import { CommentaireDeleteDialogComponent } from '../delete/commentaire-delete-dialog.component';
+import { IAnnonce } from 'app/entities/annonce/annonce.model';
 
 @Component({
   selector: 'jhi-commentaire',
@@ -23,6 +24,7 @@ export class CommentaireComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  annonce: IAnnonce | undefined;
 
   constructor(
     protected commentaireService: CommentaireService,
@@ -31,30 +33,37 @@ export class CommentaireComponent implements OnInit {
     protected modalService: NgbModal
   ) {}
 
+  ngOnInit(): void {
+    this.activatedRoute.data.subscribe(({ annonce }) => {
+      this.annonce = annonce;
+      console.log(annonce);
+      this.handleNavigation();
+    });
+  }
+
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
+    const pageable = {
+      page: pageToLoad - 1,
+      size: this.itemsPerPage,
+      sort: this.sort(),
+    };
 
-    this.commentaireService
-      .query({
-        page: pageToLoad - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
-      .subscribe({
-        next: (res: HttpResponse<ICommentaire[]>) => {
-          this.isLoading = false;
-          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
-        },
-        error: () => {
-          this.isLoading = false;
-          this.onError();
-        },
-      });
-  }
+    const query = this.annonce?.id
+      ? this.commentaireService.findByAnnonceId(this.annonce.id, pageable)
+      : this.commentaireService.query(pageable);
 
-  ngOnInit(): void {
-    this.handleNavigation();
+    query.subscribe({
+      next: (res: HttpResponse<ICommentaire[]>) => {
+        this.isLoading = false;
+        this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
+      },
+      error: () => {
+        this.isLoading = false;
+        this.onError();
+      },
+    });
   }
 
   trackId(_index: number, item: ICommentaire): number {
@@ -98,8 +107,9 @@ export class CommentaireComponent implements OnInit {
   protected onSuccess(data: ICommentaire[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
+    const route = this.annonce?.id ? ['/annonce', this.annonce.id, 'commentaires'] : ['/commentaire'];
     if (navigate) {
-      this.router.navigate(['/commentaire'], {
+      this.router.navigate(route, {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,

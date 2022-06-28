@@ -2,7 +2,6 @@
   <div class="col-8">
     <div *ngIf="annonce">
       <h2 data-cy="annonceDetailsHeading"><span jhiTranslate="bricoviteApp.annonce.detail.title">Annonce</span></h2>
-
       <hr />
 
       <jhi-alert-error></jhi-alert-error>
@@ -40,7 +39,9 @@
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.user">User</span></dt>
         <dd>
-          <span>{{ annonce.user?.login }}</span>
+          <div *ngIf="annonce.user">
+            <a>{{ annonce.user?.login }}</a>
+          </div>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.commune">Commune</span></dt>
         <dd>
@@ -68,13 +69,17 @@
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
-      <button type="button" 
+      <button class="btn btn-info" (click)="goToPersonneDetails(annonce.user?.id)">Contacter</button>
+
+      <!-- <button type="button" 
         *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
         [hidden]="annonce.user?.id != userConnect " 
         [routerLink]="['/annonce', annonce.id, 'edit']"
         class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
-      </button>
+      </button> -->
+
+      <button class="btn btn-info" [routerLink]="['/annonce', annonce.id, 'commentaires']">commentaires</button>
     </div>
   </div>
 </div>

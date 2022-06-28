@@ -10,8 +10,8 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="global.field.id">ID</span></dt>
-        <dd>
+        <dt *jhiHasAnyAuthority="'ROLE_ADMIN'"><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd *jhiHasAnyAuthority="'ROLE_ADMIN'">
           <span>{{ personne.id }}</span>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.personne.cnie">Cnie</span></dt>
@@ -21,6 +21,10 @@
         <dt><span jhiTranslate="bricoviteApp.personne.tel">Tel</span></dt>
         <dd>
           <span>{{ personne.tel }}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+          <span>{{ personne.user?.email }}</span>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.personne.user">User</span></dt>
         <dd>
@@ -32,7 +36,7 @@
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
-      <button type="button" [routerLink]="['/personne', personne.id, 'edit']" class="btn btn-primary">
+      <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button" [routerLink]="['/personne', personne.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>

@@ -1,6 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="CommentaireHeading">
-    <span jhiTranslate="bricoviteApp.commentaire.home.title">Commentaires</span>
+    <span jhiTranslate="bricoviteApp.commentaire.home.title">Commentaires</span>{{ annonce?.id ? ' de cette annonce' : '' }}
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
@@ -9,6 +9,7 @@
       </button>
 
       <button
+        *jhiHasAnyAuthority="'ROLE_ADMIN'"
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-commentaire"
@@ -32,14 +33,16 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th *jhiHasAnyAuthority="'ROLE_ADMIN'" scope="col" jhiSortBy="id">
+            <span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="details">
             <span jhiTranslate="bricoviteApp.commentaire.details">Details</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="dateCommentaire">
             <span jhiTranslate="bricoviteApp.commentaire.dateCommentaire">Date Commentaire</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="annonce.titre">
+          <th *jhiHasAnyAuthority="'ROLE_ADMIN'" scope="col" jhiSortBy="annonce.titre">
             <span jhiTranslate="bricoviteApp.commentaire.annonce">Annonce</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
@@ -47,12 +50,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let commentaire of commentaires; trackBy: trackId" data-cy="entityTable">
-          <td>
+          <td *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a [routerLink]="['/commentaire', commentaire.id, 'view']">{{ commentaire.id }}</a>
           </td>
           <td>{{ commentaire.details }}</td>
           <td>{{ commentaire.dateCommentaire | formatMediumDatetime }}</td>
-          <td>
+          <td *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <div *ngIf="commentaire.annonce">
               <a [routerLink]="['/annonce', commentaire.annonce?.id, 'view']">{{ commentaire.annonce?.titre }}</a>
             </div>
@@ -60,6 +63,7 @@
           <td class="text-end">
             <div class="btn-group">
               <button
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
                 type="submit"
                 [routerLink]="['/commentaire', commentaire.id, 'view']"
                 class="btn btn-info btn-sm"
@@ -70,6 +74,7 @@
               </button>
 
               <button
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
                 type="submit"
                 [routerLink]="['/commentaire', commentaire.id, 'edit']"
                 class="btn btn-primary btn-sm"
@@ -79,7 +84,13 @@
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button type="submit" (click)="delete(commentaire)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                type="submit"
+                (click)="delete(commentaire)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton"
+              >
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>

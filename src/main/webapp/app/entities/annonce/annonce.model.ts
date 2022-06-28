@@ -6,6 +6,7 @@ import { IUser } from 'app/entities/user/user.model';
 import { ICommune } from 'app/entities/commune/commune.model';
 import { IActivite } from 'app/entities/activite/activite.model';
 import { ICategorie } from '../categorie/categorie.model';
+import { IPersonne } from '../personne/personne.model';
 
 export interface IAnnonce {
   id?: number;
@@ -22,6 +23,7 @@ export interface IAnnonce {
   categorie?: ICategorie | null;
   commune?: ICommune | null;
   activite?: IActivite;
+  personne?: IPersonne | null;
 }
 
 export class Annonce implements IAnnonce {
@@ -39,7 +41,8 @@ export class Annonce implements IAnnonce {
     public user?: IUser,
     public categorie?: ICategorie | null,
     public commune?: ICommune | null,
-    public activite?: IActivite
+    public activite?: IActivite,
+    public personne?: IPersonne | null
   ) {
     this.status = this.status ?? false;
   }

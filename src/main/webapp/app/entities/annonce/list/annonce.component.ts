@@ -23,7 +23,7 @@ export class AnnonceComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
-  userConnect = Number(sessionStorage.getItem("userConnectedId"));
+  userConnect = Number(sessionStorage.getItem('userConnectedId'));
 
   constructor(
     protected annonceService: AnnonceService,
@@ -42,6 +42,7 @@ export class AnnonceComponent implements OnInit {
         size: this.itemsPerPage,
         sort: this.sort(),
       })
+
       .subscribe({
         next: (res: HttpResponse<IAnnonce[]>) => {
           this.isLoading = false;

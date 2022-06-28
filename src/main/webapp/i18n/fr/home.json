@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "Besoin d'un service ou d'un coup de main",
-    "subtitle": "Trouver le prestataire qu'il vous faut en quelques clics :",
+    "title": "Besoin d'un service ou d'un coup de main?",
+    "subtitle": "Trouver le prestataire qu'il vous faut en quelques clics !",
     "logged": {
       "message": "Vous êtes connecté en tant que \"{{username}}\"."
     },

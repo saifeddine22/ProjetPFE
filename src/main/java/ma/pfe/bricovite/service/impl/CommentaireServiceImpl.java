@@ -80,4 +80,10 @@ public class CommentaireServiceImpl implements CommentaireService {
         log.debug("Request to delete Commentaire : {}", id);
         commentaireRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Commentaire> findByAnnonceId(Pageable pageable, Long annonceId) {
+        // TODO Auto-generated method stub
+        return commentaireRepository.findByAnnonceId(pageable, annonceId);
+    }
 }

@@ -34,6 +34,9 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <!-- <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+
+          <th scope="col" jhiSortBy="image"><span jhiTranslate="bricoviteApp.photo.image">Image</span> <fa-icon icon="sort"></fa-icon></th>
+
           <th scope="col" jhiSortBy="titre">
             <span jhiTranslate="bricoviteApp.annonce.titre">Titre</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -55,9 +58,9 @@
           <th scope="col" jhiSortBy="user.firstName">
             <span jhiTranslate="bricoviteApp.annonce.user">User</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="commune.nomFr">
+          <!--  <th scope="col" jhiSortBy="commune.nomFr">
             <span jhiTranslate="bricoviteApp.annonce.commune">Commune</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          </th> -->
           <th scope="col" jhiSortBy="activite.nomFr">
             <span jhiTranslate="bricoviteApp.annonce.activite">Activite</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -69,6 +72,16 @@
           <!-- <td>
             <a [routerLink]="['/annonce', annonce.id, 'view']">{{ annonce.id }}</a>
           </td> -->
+
+          <td>{{ annonce.photos }}</td>
+
+          <!--   <td>
+            <a *ngIf="photo.image" (click)="openFile(photo.image, photo.imageContentType)">
+              <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="max-height: 30px" alt="photo image" />
+            </a>
+            <span *ngIf="photo.image">{{ photo.imageContentType }}, {{ byteSize(photo.image) }}</span>
+          </td> -->
+
           <td>{{ annonce.titre }}</td>
           <td>{{ annonce.description }}</td>
           <td>{{ annonce.adresse }}</td>
@@ -78,7 +91,7 @@
           <td>
             {{ annonce.user?.login }}
           </td>
-          <td>{{ annonce.commune?.nomFr }}</td>
+          <!-- <td>{{ annonce.commune?.nomFr }}</td> -->
           <td>{{ annonce.activite?.nomFr }}</td>
           <!--  <td>
             <div *ngIf="annonce.commune">
@@ -106,7 +119,7 @@
                 *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
                 type="submit"
                 [routerLink]="['/annonce', annonce.id, 'edit']"
-                [hidden]="annonce.user?.id != userConnect "
+                [hidden]="annonce.user?.id != userConnect"
                 class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
               >
@@ -114,15 +127,39 @@
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-                      [hidden]="annonce.user?.id != userConnect "
-                      type="submit" 
-                      (click)="delete(annonce)"
-                      class="btn btn-danger btn-sm"
-                      data-cy="entityDeleteButton">
-
+              <button
+                *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+                [hidden]="annonce.user?.id != userConnect"
+                type="submit"
+                (click)="delete(annonce)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton"
+              >
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+
+              <button
+                *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+                id="jh-create-entity"
+                [hidden]="annonce.user?.id != userConnect"
+                data-cy="entityCreateButton"
+                class="btn btn-primary jh-create-entity create-photo"
+                [routerLink]="['/photo/new']"
+              >
+                <fa-icon icon="plus"></fa-icon>
+                <span jhiTranslate="bricoviteApp.photo.home.createLabel"> Create a new Photo </span>
+              </button>
+
+              <button
+                *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
+                id="jh-create-entity"
+                data-cy="entityCreateButton"
+                class="btn btn-primary jh-create-entity create-commentaire"
+                [routerLink]="['/commentaire/new']"
+              >
+                <fa-icon icon="plus"></fa-icon>
+                <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
               </button>
             </div>
           </td>

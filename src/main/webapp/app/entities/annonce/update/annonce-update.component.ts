@@ -19,7 +19,6 @@ import { ActiviteService } from 'app/entities/activite/service/activite.service'
 import { ICategorie } from 'app/entities/categorie/categorie.model';
 import { CategorieService } from 'app/entities/categorie/service/categorie.service';
 
-
 @Component({
   selector: 'jhi-annonce-update',
   templateUrl: './annonce-update.component.html',
@@ -194,7 +193,7 @@ export class AnnonceUpdateComponent implements OnInit {
       dateAnnonce: this.editForm.get(['dateAnnonce'])!.value
         ? dayjs(this.editForm.get(['dateAnnonce'])!.value, DATE_TIME_FORMAT)
         : undefined,
-      user: { id: Number(sessionStorage.getItem("userConnectedId"))},
+      user: { id: Number(sessionStorage.getItem('userConnectedId')) },
       categorie: this.editForm.get(['categorie'])!.value,
       commune: this.editForm.get(['commune'])!.value,
       activite: this.editForm.get(['activite'])!.value,

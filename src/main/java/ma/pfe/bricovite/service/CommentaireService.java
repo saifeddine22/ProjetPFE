@@ -63,4 +63,6 @@ public interface CommentaireService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Page<Commentaire> findByAnnonceId(Pageable pageable, Long annonceId);
 }

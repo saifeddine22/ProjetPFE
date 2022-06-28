@@ -187,4 +187,16 @@ public class CommentaireResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/commentaires/annonce/{id}")
+    public ResponseEntity<List<Commentaire>> findByAnnonceId(
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
+        @PathVariable Long id
+    ) {
+        log.debug("REST request to get a page of Commentaires");
+        Page<Commentaire> page = commentaireService.findByAnnonceId(pageable, id);
+
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }

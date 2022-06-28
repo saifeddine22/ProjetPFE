@@ -37,4 +37,6 @@ public interface CommentaireRepository extends JpaRepository<Commentaire, Long> 
 
     @Query("select commentaire from Commentaire commentaire left join fetch commentaire.annonce where commentaire.id =:id")
     Optional<Commentaire> findOneWithToOneRelationships(@Param("id") Long id);
+
+    Page<Commentaire> findByAnnonceId(Pageable pageable, Long annonceId);
 }

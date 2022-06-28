@@ -189,4 +189,11 @@ public class PersonneResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/personnes/user/{id}")
+    public ResponseEntity<Personne> getPersonneByUserId(@PathVariable Long id) {
+        log.debug("REST request to get Personne : {}", id);
+        Optional<Personne> personne = personneService.findByUserId(id);
+        return ResponseUtil.wrapOrNotFound(personne);
+    }
 }

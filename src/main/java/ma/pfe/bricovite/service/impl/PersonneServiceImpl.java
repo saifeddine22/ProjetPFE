@@ -80,4 +80,10 @@ public class PersonneServiceImpl implements PersonneService {
         log.debug("Request to delete Personne : {}", id);
         personneRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<Personne> findByUserId(Long id) {
+        // TODO Auto-generated method stub
+        return personneRepository.findByUserId(id);
+    }
 }

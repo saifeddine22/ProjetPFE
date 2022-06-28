@@ -6,6 +6,7 @@ import { AnnonceComponent } from '../list/annonce.component';
 import { AnnonceDetailComponent } from '../detail/annonce-detail.component';
 import { AnnonceUpdateComponent } from '../update/annonce-update.component';
 import { AnnonceRoutingResolveService } from './annonce-routing-resolve.service';
+import { CommentaireComponent } from 'app/entities/commentaire/list/commentaire.component';
 
 const annonceRoute: Routes = [
   {
@@ -37,6 +38,18 @@ const annonceRoute: Routes = [
     component: AnnonceUpdateComponent,
     resolve: {
       annonce: AnnonceRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/commentaires',
+    component: CommentaireComponent,
+
+    resolve: {
+      annonce: AnnonceRoutingResolveService,
+    },
+    data: {
+      defaultSort: 'id,asc',
     },
     canActivate: [UserRouteAccessService],
   },

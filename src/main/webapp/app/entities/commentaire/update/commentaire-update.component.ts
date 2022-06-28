@@ -39,7 +39,7 @@ export class CommentaireUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ commentaire }) => {
       if (commentaire.id === undefined) {
-        const today = dayjs().startOf('day');
+        const today = dayjs().startOf('minutes');
         commentaire.dateCommentaire = today;
       }
 

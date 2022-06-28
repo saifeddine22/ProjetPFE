@@ -63,4 +63,6 @@ public interface PersonneService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Optional<Personne> findByUserId(Long id);
 }
