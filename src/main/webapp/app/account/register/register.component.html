@@ -124,17 +124,25 @@
         </div>
         <!--                -->
         <div class="mb-3">
-          <label class="form-label" for="cnie" data-translate="global.form.cnie">CNIE</label>
-          <input name="cnie" class="form-control" id="cnie" placeholder="Votre CNIE" formControlName="cnie" data-cy="cnie" #cnie />
+          <label class="form-label" for="cnie" jhiTranslate="global.form.cnie.label">CNIE</label>
+          <input
+            name="cnie"
+            class="form-control"
+            id="cnie"
+            placeholder="{{ 'global.form.cnie.placeholder' | translate }}"
+            formControlName="cnie"
+            data-cy="cnie"
+            #cnie
+          />
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="tel" data-translate="global.form.tel">Téléphone</label>
+          <label class="form-label" for="tel" jhiTranslate="global.form.tel.label">Téléphone</label>
           <input
             name="tel"
             class="form-control"
             id="tel"
-            placeholder="Votre numéro de téléphone"
+            placeholder="{{ 'global.form.tel.placeholder' | translate }}"
             formControlName="tel"
             data-cy="tel"
             #tel

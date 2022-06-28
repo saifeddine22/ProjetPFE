@@ -52,7 +52,11 @@
       "confirmpassword.label": "New password confirmation",
       "confirmpassword.placeholder": "Confirm the new password",
       "email.label": "Email",
-      "email.placeholder": "Your email"
+      "email.placeholder": "Your email",
+      "cnie.label": "CNIE",
+      "cnie.placeholder": "Your National Electronic Identity Card",
+      "tel.label": "Phone",
+      "tel.placeholder": "Your phone number"
     },
     "messages": {
       "info": {

@@ -52,7 +52,11 @@
       "confirmpassword.label": "Confirmation du nouveau mot de passe",
       "confirmpassword.placeholder": "Confirmation du nouveau mot de passe",
       "email.label": "Email",
-      "email.placeholder": "Votre email"
+      "email.placeholder": "Votre email",
+      "cnie.label": "CNIE",
+      "cnie.placeholder": "Votre Carte nationalle d'identité éléctronique",
+      "tel.label": "Téléphone",
+      "tel.placeholder": "Votre téléphone"
     },
     "messages": {
       "info": {

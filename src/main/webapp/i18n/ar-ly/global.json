@@ -52,7 +52,11 @@
       "confirmpassword.label": "تأكيد كلمة السر الجديدة",
       "confirmpassword.placeholder": "تأكيد كلمة السر الجديدة",
       "email.label": "البريد الإلكتروني",
-      "email.placeholder": "بريدك الالكتروني"
+      "email.placeholder": "بريدك الالكتروني",
+      "cnie.label": "ب.ت.و.إ",
+      "cnie.placeholder": "رقم بطاقة التعريف الوطنية الإلكترونية",
+      "tel.label": "الهاتف",
+      "tel.placeholder": "رقم الهاتف"
     },
     "messages": {
       "info": {
