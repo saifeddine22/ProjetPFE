@@ -2,28 +2,28 @@
   "bricoviteApp": {
     "activite": {
       "home": {
-        "title": "Activites",
+        "title": "Activités",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Activite",
-        "createOrEditLabel": "Créer ou éditer un Activite",
-        "notFound": "Aucun Activite trouvé"
+        "createLabel": "Créer une nouvelle Activité",
+        "createOrEditLabel": "Créer ou éditer une Activité",
+        "notFound": "Aucune Activité trouvée"
       },
-      "created": "Un nouveau Activite a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Activite avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Activite avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelL'Activité a été créé",
+      "updated": "L'Activité a été mise à jour",
+      "deleted": "L'Activité a été supprimée",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le Activite {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer cette Activité ?"
       },
       "detail": {
-        "title": "Activite"
+        "title": "Activité"
       },
       "id": "ID",
       "nomFr": "Nom Fr",
       "nomAr": "Nom Ar",
-      "categorieFr": "Categorie Fr",
-      "categorieAr": "Categorie Ar",
+      "categorieFr": "Catégorie Fr",
+      "categorieAr": "Catégorie Ar",
       "annonce": "Annonce",
-      "categorie": "Categorie"
+      "categorie": "Catégorie"
     }
   }
 }

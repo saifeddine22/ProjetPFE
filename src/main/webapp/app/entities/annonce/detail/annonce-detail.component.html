@@ -85,6 +85,29 @@
       </button> -->
 
       <button class="btn btn-info" [routerLink]="['/annonce', annonce.id, 'commentaires']">commentaires</button>
+
+      <button
+        *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-commentaire"
+        [routerLink]="['/commentaire/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
+      </button>
+
+      <button
+        *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+        id="jh-create-entity"
+        [hidden]="annonce.user?.id != userConnect"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-photo"
+        [routerLink]="['/photo/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="bricoviteApp.photo.home.createLabel"> Create a new Photo </span>
+      </button>
     </div>
   </div>
 </div>

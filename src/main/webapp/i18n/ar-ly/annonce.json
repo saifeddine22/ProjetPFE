@@ -27,9 +27,10 @@
       "photo": "Photo",
       "commentaire": "Commentaire",
       "note": "Note",
-      "user": "User",
+      "user": "Prestataire",
       "commune": "Commune",
-      "activite": "Activite"
+      "activite": "Activité",
+      "categorie": "Catégorie"
     }
   }
 }

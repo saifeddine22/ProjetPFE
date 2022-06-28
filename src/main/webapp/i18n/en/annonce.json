@@ -18,18 +18,19 @@
         "title": "Annonce"
       },
       "id": "ID",
-      "titre": "Titre",
+      "titre": "Title",
       "description": "Description",
-      "adresse": "Adresse",
+      "adresse": "Adress",
       "geometry": "Geometry",
       "status": "Status",
-      "dateAnnonce": "Date Annonce",
+      "dateAnnonce": "Announcement Date",
       "photo": "Photo",
-      "commentaire": "Commentaire",
+      "commentaire": "Comment",
       "note": "Note",
-      "user": "User",
+      "user": "Service provider",
       "commune": "Commune",
-      "activite": "Activite"
+      "activite": "Activity",
+      "categorie": "Category"
     }
   }
 }

@@ -4,15 +4,15 @@
       "home": {
         "title": "Annonces",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Annonce",
-        "createOrEditLabel": "Créer ou éditer un Annonce",
-        "notFound": "Aucun Annonce trouvé"
+        "createLabel": "Créer une nouvelle Annonce",
+        "createOrEditLabel": "Créer ou éditer une Annonce",
+        "notFound": "Aucune Annonce trouvée"
       },
-      "created": "Un nouveau Annonce a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Annonce avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Annonce avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Annonce a été créée",
+      "updated": "L'Annonce a été mise à jour",
+      "deleted": "L'Annonce a été supprimée",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le Annonce {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer cette Annonce?"
       },
       "detail": {
         "title": "Annonce"
@@ -27,9 +27,10 @@
       "photo": "Photo",
       "commentaire": "Commentaire",
       "note": "Note",
-      "user": "User",
+      "user": "Prestataire",
       "commune": "Commune",
-      "activite": "Activite"
+      "activite": "Activité",
+      "categorie": "Catégorie"
     }
   }
 }

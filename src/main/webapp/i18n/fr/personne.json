@@ -4,22 +4,22 @@
       "home": {
         "title": "Personnes",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Personne",
-        "createOrEditLabel": "Créer ou éditer un Personne",
-        "notFound": "Aucun Personne trouvé"
+        "createLabel": "Créer une nouvelle Personne",
+        "createOrEditLabel": "Créer ou éditer une Personne",
+        "notFound": "Aucune Personne trouvée"
       },
-      "created": "Un nouveau Personne a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Personne avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Personne avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Personne a été créée ",
+      "updated": "La Personne a été mise à jour",
+      "deleted": "La Personne a été supprimée",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le Personne {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer cette Personne ?"
       },
       "detail": {
         "title": "Personne"
       },
       "id": "ID",
       "cnie": "Cnie",
-      "tel": "Tel",
+      "tel": "Téléphone",
       "user": "User"
     }
   }
