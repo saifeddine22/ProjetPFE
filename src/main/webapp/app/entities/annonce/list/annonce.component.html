@@ -9,6 +9,7 @@
       </button>
 
       <button
+        *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-annonce"
@@ -27,12 +28,67 @@
   <div class="alert alert-warning" id="no-result" *ngIf="annonces?.length === 0">
     <span jhiTranslate="bricoviteApp.annonce.home.notFound">No annonces found</span>
   </div>
+  <div class="row">
+    <div class="col-lg-9" id="entities" *ngIf="annonces && annonces.length > 0">
+      <div class="annonceContent" *ngFor="let annonce of annonces; trackBy: trackId">
+        <a class="row" [routerLink]="['/annonce', annonce.id, 'view']">
+          <div class="col-sm-3">
+            <span *ngFor="let photo of annonce.photos;let isFirst = first;" [hidden]="!isFirst">
+              <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style=" max-height: 150px;width: 200px;"/>
+            </span>
+          </div>
+          <div class="col-sm-7">
+            <p class="h3">{{ annonce.titre }}</p>
+            <p>{{ annonce.activite?.nomFr }}</p>
+            <p>{{ annonce.dateAnnonce | formatMediumDatetime }}</p>
+          </div>
+          <div class="col-sm-2">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/annonce', annonce.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
 
-  <div class="table-responsive" id="entities" *ngIf="annonces && annonces.length > 0">
+              <button
+                *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+                type="submit"
+                [routerLink]="['/annonce', annonce.id, 'edit']"
+                [hidden]="annonce.user?.id != userConnect"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button
+                *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+                [hidden]="annonce.user?.id != userConnect"
+                type="submit"
+                (click)="delete(annonce)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton"
+              >
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-3"></div>
+  </div>
+  <!-- <div class="table-responsive" id="entities" *ngIf="annonces && annonces.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <!-- <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th> 
 
           <th scope="col" jhiSortBy="image"><span jhiTranslate="bricoviteApp.photo.image">Image</span> <fa-icon icon="sort"></fa-icon></th>
 
@@ -45,21 +101,21 @@
           <th scope="col" jhiSortBy="adresse">
             <span jhiTranslate="bricoviteApp.annonce.adresse">Adresse</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <!--  <th scope="col" jhiSortBy="geometry">
+          <th scope="col" jhiSortBy="geometry">
             <span jhiTranslate="bricoviteApp.annonce.geometry">Geometry</span> <fa-icon icon="sort"></fa-icon>
-          </th> -->
-          <!--  <th scope="col" jhiSortBy="status">
+          </th>
+          <th scope="col" jhiSortBy="status">
             <span jhiTranslate="bricoviteApp.annonce.status">Status</span> <fa-icon icon="sort"></fa-icon>
-          </th> -->
+          </th>
           <th scope="col" jhiSortBy="dateAnnonce">
             <span jhiTranslate="bricoviteApp.annonce.dateAnnonce">Date Annonce</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="user.firstName">
             <span jhiTranslate="bricoviteApp.annonce.user">User</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <!--  <th scope="col" jhiSortBy="commune.nomFr">
+          <th scope="col" jhiSortBy="commune.nomFr">
             <span jhiTranslate="bricoviteApp.annonce.commune">Commune</span> <fa-icon icon="sort"></fa-icon>
-          </th> -->
+          </th>
           <th scope="col" jhiSortBy="activite.nomFr">
             <span jhiTranslate="bricoviteApp.annonce.activite">Activite</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -68,31 +124,29 @@
       </thead>
       <tbody>
         <tr *ngFor="let annonce of annonces; trackBy: trackId" data-cy="entityTable">
-          <!-- <td>
+          <td>
             <a [routerLink]="['/annonce', annonce.id, 'view']">{{ annonce.id }}</a>
-          </td> -->
+          </td>
 
           <td>{{ annonce.photos }}</td>
-
-          <!--   <td>
-            <a *ngIf="photo.image" (click)="openFile(photo.image, photo.imageContentType)">
-              <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="max-height: 30px" alt="photo image" />
-            </a>
-            <span *ngIf="photo.image">{{ photo.imageContentType }}, {{ byteSize(photo.image) }}</span>
-          </td> -->
+          <span *ngFor="let photo of annonce.photos;let isFirst = first;">
+            <td *ngIf="isFirst">
+              <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style=" max-height: 150px;width: 200px;" alt="photo image" />
+            </td>
+          </span>
 
           <td>{{ annonce.titre }}</td>
           <td>{{ annonce.description }}</td>
           <td>{{ annonce.adresse }}</td>
-          <!-- <td>{{ annonce.geometry }}</td>
-          <td>{{ annonce.status }}</td> -->
+          <td>{{ annonce.geometry }}</td>
+          <td>{{ annonce.status }}</td>
           <td>{{ annonce.dateAnnonce | formatMediumDatetime }}</td>
           <td>
             {{ annonce.user?.login }}
           </td>
-          <!-- <td>{{ annonce.commune?.nomFr }}</td> -->
+          <td>{{ annonce.commune?.nomFr }}</td>
           <td>{{ annonce.activite?.nomFr }}</td>
-          <!--  <td>
+          <td>
             <div *ngIf="annonce.commune">
               <a [routerLink]="['/commune', annonce.commune?.id, 'view']">{{ annonce.commune?.nomFr }}</a>
             </div>
@@ -101,7 +155,7 @@
             <div *ngIf="annonce.activite">
               <a [routerLink]="['/activite', annonce.activite?.id, 'view']">{{ annonce.activite?.nomFr }}</a>
             </div>
-          </td> -->
+          </td>
           <td class="text-end">
             <div class="btn-group">
               <button
@@ -160,5 +214,5 @@
         (pageChange)="loadPage($event)"
       ></ngb-pagination>
     </div>
-  </div>
+  </div> -->
 </div>

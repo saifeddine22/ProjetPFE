@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentaireService } from 'app/entities/commentaire/service/commentaire.service';
 import { PersonneService } from 'app/entities/personne/service/personne.service';
+import { PhotoService } from 'app/entities/photo/service/photo.service';
 
 import { IAnnonce } from '../annonce.model';
 
@@ -17,6 +18,7 @@ export class AnnonceDetailComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected personneService: PersonneService,
     protected commentaireService: CommentaireService,
+    protected photoService: PhotoService,
     private router: Router
   ) {}
 
@@ -24,6 +26,7 @@ export class AnnonceDetailComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ annonce }) => {
       this.annonce = annonce;
     });
+    sessionStorage.setItem('currentAnnonce',String(this.annonce?.id))
   }
 
   previousState(): void {

@@ -160,6 +160,25 @@ public class PhotoResource {
     }
 
     /**
+     * {@code GET  /photos/:id} : get the "id" photo.
+     *
+     * @param idAnnonce the idAnnonce of the photo to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the photo, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/photos/annonce/{id}")
+    public ResponseEntity<List<Photo>> findByAnnonceId(
+    		@org.springdoc.api.annotations.ParameterObject Pageable pageable,
+    		@PathVariable Long id) {
+        log.debug("REST request to get Photo : {}", id);
+    	
+        Page<Photo> page = photoService.findByAnnonceId(pageable, id);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        //return ResponseUtil.wrapOrNotFound(photo);
+    }
+    
+    
+    /**
      * {@code DELETE  /photos/:id} : delete the "id" photo.
      *
      * @param id the id of the photo to delete.

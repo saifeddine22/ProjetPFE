@@ -78,6 +78,14 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Page<Photo> findByAnnonceId(Pageable pageable, Long annonceId){
+        //log.debug("Request to get Photo : {}", idAnnonce);
+        return photoRepository.findByAnnonceId(pageable,annonceId);
+    }
+    
+
+    @Override
     public void delete(Long id) {
         log.debug("Request to delete Photo : {}", id);
         photoRepository.deleteById(id);

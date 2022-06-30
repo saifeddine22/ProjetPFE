@@ -14,9 +14,9 @@ import { IAnnonce } from 'app/entities/annonce/annonce.model';
 
 @Component({
   selector: 'jhi-photo',
-  templateUrl: './photo.component.html',
+  templateUrl: './photo-modal.component.html',
 })
-export class PhotoComponent implements OnInit {
+export class PhotoModalComponent implements OnInit {
   photos?: IPhoto[];
   isLoading = false;
   totalItems = 0;

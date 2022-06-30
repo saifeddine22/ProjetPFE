@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div *ngIf="annonce">
-      <h2 data-cy="annonceDetailsHeading"><span jhiTranslate="bricoviteApp.annonce.detail.title">Annonce</span></h2>
+      <h2 data-cy="annonceDetailsHeading">{{ annonce.titre }}</h2>
       <hr />
 
       <jhi-alert-error></jhi-alert-error>
@@ -13,9 +13,24 @@
         <dd>
           <span>{{ annonce.id }}</span>
         </dd> -->
-        <dt><span jhiTranslate="bricoviteApp.annonce.titre">Titre</span></dt>
+       <!--  <dt><span jhiTranslate="bricoviteApp.annonce.titre">Titre</span></dt>
         <dd>
           <span>{{ annonce.titre }}</span>
+        </dd> -->
+        
+        <dt>photo</dt>
+        <dd>
+          <ngb-carousel *ngIf="annonce.photos" style="width: 60%; height: 300px;">
+            <ng-template *ngFor="let photo of annonce.photos;" ngbSlide>
+              <div class="picsum-img-wrapper">
+                  <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="width: 100%; height: 300px;" />
+              </div>
+              <div class="carousel-caption">
+                <h3>{{ annonce.titre }}</h3>
+                <p>{{ photo.libelle }}</p>
+              </div>  
+            </ng-template>
+          </ngb-carousel>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.description">Description</span></dt>
         <dd>
@@ -97,6 +112,7 @@
         <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
       </button>
 
+      <button class="btn btn-info" [routerLink]="['/annonce', annonce.id, 'photos']">Photos</button>
       <button
         *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
         id="jh-create-entity"

@@ -57,6 +57,7 @@ export class AnnonceComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
+    sessionStorage.removeItem("currentAnnonce");
   }
 
   trackId(_index: number, item: IAnnonce): number {

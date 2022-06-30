@@ -115,7 +115,7 @@ export class CommentaireUpdateComponent implements OnInit {
       dateCommentaire: this.editForm.get(['dateCommentaire'])!.value
         ? dayjs(this.editForm.get(['dateCommentaire'])!.value, DATE_TIME_FORMAT)
         : undefined,
-      annonce: this.editForm.get(['annonce'])!.value,
+      annonce: { id: Number(sessionStorage.getItem('currentAnnonce')) },
     };
   }
 }
