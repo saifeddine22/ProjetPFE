@@ -22,7 +22,6 @@ const personneRoute: Routes = [
     resolve: {
       personne: PersonneRoutingResolveService,
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: 'new',

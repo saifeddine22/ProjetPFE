@@ -18,6 +18,17 @@
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="bricoviteApp.annonce.home.createLabel"> Create a new Annonce </span>
       </button>
+
+      <div *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'" class="d-flex justify-content-end">
+        <button *ngIf="isMesAnnonces" class="btn btn-info" [routerLink]="['/annonce']">
+          <fa-icon icon="eye"></fa-icon>
+          <span> tous </span>
+        </button>
+        <button *ngIf="!isMesAnnonces" class="btn btn-info" [routerLink]="['/annonce', 'mesAnnonces']">
+          <fa-icon icon="eye"></fa-icon>
+          <span> Mes annonces </span>
+        </button>
+      </div>
     </div>
   </h2>
 
@@ -88,6 +99,7 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+        
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th> 
 
           <th scope="col" jhiSortBy="image"><span jhiTranslate="bricoviteApp.photo.image">Image</span> <fa-icon icon="sort"></fa-icon></th>
@@ -128,13 +140,14 @@
             <a [routerLink]="['/annonce', annonce.id, 'view']">{{ annonce.id }}</a>
           </td>
 
+          <td>{{ annonce.notes }}</td>
           <td>{{ annonce.photos }}</td>
+
           <span *ngFor="let photo of annonce.photos;let isFirst = first;">
             <td *ngIf="isFirst">
               <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style=" max-height: 150px;width: 200px;" alt="photo image" />
             </td>
           </span>
-
           <td>{{ annonce.titre }}</td>
           <td>{{ annonce.description }}</td>
           <td>{{ annonce.adresse }}</td>
@@ -159,6 +172,7 @@
           <td class="text-end">
             <div class="btn-group">
               <button
+                title="Afficher"
                 type="submit"
                 [routerLink]="['/annonce', annonce.id, 'view']"
                 class="btn btn-info btn-sm"
@@ -169,6 +183,7 @@
               </button>
 
               <button
+                title="Modifier"
                 *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
                 type="submit"
                 [routerLink]="['/annonce', annonce.id, 'edit']"
@@ -181,6 +196,7 @@
               </button>
 
               <button
+                title="Supprimer"
                 *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
                 [hidden]="annonce.user?.id != userConnect"
                 type="submit"

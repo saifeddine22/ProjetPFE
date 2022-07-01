@@ -92,4 +92,10 @@ public class AnnonceServiceImpl implements AnnonceService {
         log.debug("Request to delete Annonce : {}", id);
         annonceRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Annonce> findAllByUserId(Pageable pageable, Long id) {
+        // TODO Auto-generated method stub
+        return annonceRepository.findAllByUserId(pageable, id);
+    }
 }

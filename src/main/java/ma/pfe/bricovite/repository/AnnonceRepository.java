@@ -44,4 +44,6 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
         "select annonce from Annonce annonce left join fetch annonce.user left join fetch annonce.commune left join fetch annonce.activite where annonce.id =:id"
     )
     Optional<Annonce> findOneWithToOneRelationships(@Param("id") Long id);
+
+    Page<Annonce> findAllByUserId(Pageable pageable, Long id);
 }

@@ -13,24 +13,24 @@
         <dd>
           <span>{{ annonce.id }}</span>
         </dd> -->
-       <!--  <dt><span jhiTranslate="bricoviteApp.annonce.titre">Titre</span></dt>
+
+        <dt></dt>
         <dd>
-          <span>{{ annonce.titre }}</span>
-        </dd> -->
-        
-        <dt>photo</dt>
-        <dd>
-          <ngb-carousel *ngIf="annonce.photos" style="width: 60%; height: 300px;">
-            <ng-template *ngFor="let photo of annonce.photos;" ngbSlide>
+          <ngb-carousel *ngIf="annonce.photos" style="width: 60%; height: 300px">
+            <ng-template *ngFor="let photo of annonce.photos" ngbSlide>
               <div class="picsum-img-wrapper">
-                  <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="width: 100%; height: 300px;" />
+                <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="width: 100%; height: 300px" />
               </div>
               <div class="carousel-caption">
-                <h3>{{ annonce.titre }}</h3>
-                <p>{{ photo.libelle }}</p>
-              </div>  
+                <h3>Bricovite</h3>
+                <!-- <p>{{ photo.libelle }}</p> -->
+              </div>
             </ng-template>
           </ngb-carousel>
+        </dd>
+        <dt><span jhiTranslate="bricoviteApp.annonce.titre">Titre</span></dt>
+        <dd>
+          <span>{{ annonce.titre }}</span>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.description">Description</span></dt>
         <dd>
@@ -71,6 +71,11 @@
         <dd>
           <span>{{ annonce.activite?.nomFr }}</span>
         </dd>
+        <dt><span jhiTranslate="bricoviteApp.annonce.note">Note</span></dt>
+        <dd *ngFor="let note of annonce.notes">
+          <span>{{ note.valeur }}</span>
+        </dd>
+
         <!-- <dt><span jhiTranslate="bricoviteApp.annonce.commune">Commune</span></dt>
         <dd>
           <div *ngIf="annonce.commune">
@@ -92,12 +97,12 @@
       <button class="btn btn-info" (click)="goToPersonneDetails(annonce.user?.id)">Contacter</button>
 
       <!-- <button type="button" 
-        *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-        [hidden]="annonce.user?.id != userConnect " 
-        [routerLink]="['/annonce', annonce.id, 'edit']"
-        class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
-      </button> -->
+          *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+          [hidden]="annonce.user?.id != userConnect " 
+          [routerLink]="['/annonce', annonce.id, 'edit']"
+          class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button> -->
 
       <button class="btn btn-info" [routerLink]="['/annonce', annonce.id, 'commentaires']">commentaires</button>
 
@@ -113,6 +118,17 @@
       </button>
 
       <button class="btn btn-info" [routerLink]="['/annonce', annonce.id, 'photos']">Photos</button>
+      <button
+        *jhiHasAnyAuthority="'ROLE_USER'"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-note"
+        [routerLink]="['/note/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="bricoviteApp.note.home.createLabel"> Create a new note </span>
+      </button>
+
       <button
         *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
         id="jh-create-entity"

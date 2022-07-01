@@ -24,6 +24,9 @@ export class AnnonceComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
   userConnect = Number(sessionStorage.getItem('userConnectedId'));
+  annonce: IAnnonce | undefined;
+
+  isMesAnnonces = false;
 
   constructor(
     protected annonceService: AnnonceService,
@@ -35,29 +38,40 @@ export class AnnonceComponent implements OnInit {
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
+    const pageable = {
+      page: pageToLoad - 1,
+      size: this.itemsPerPage,
+      sort: this.sort(),
+    };
 
-    this.annonceService
+    const query = this.isMesAnnonces ? this.annonceService.findByConnectedUser(pageable) : this.annonceService.query(pageable);
+
+    /* this.annonceService
       .query({
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
-      })
+      }) */
 
-      .subscribe({
-        next: (res: HttpResponse<IAnnonce[]>) => {
-          this.isLoading = false;
-          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
-        },
-        error: () => {
-          this.isLoading = false;
-          this.onError();
-        },
-      });
+    query.subscribe({
+      next: (res: HttpResponse<IAnnonce[]>) => {
+        this.isLoading = false;
+        this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
+      },
+      error: () => {
+        this.isLoading = false;
+        this.onError();
+      },
+    });
   }
 
   ngOnInit(): void {
-    this.handleNavigation();
+    this.activatedRoute.data.subscribe(data => {
+      this.isMesAnnonces = data.mesAnnonces;
+      this.handleNavigation();
+    });
     sessionStorage.removeItem("currentAnnonce");
+
   }
 
   trackId(_index: number, item: IAnnonce): number {
@@ -101,8 +115,9 @@ export class AnnonceComponent implements OnInit {
   protected onSuccess(data: IAnnonce[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
+    const route = this.isMesAnnonces ? ['/annonce', 'mesAnnonces'] : ['/annonce'];
     if (navigate) {
-      this.router.navigate(['/annonce'], {
+      this.router.navigate(route, {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,

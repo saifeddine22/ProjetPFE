@@ -27,6 +27,19 @@
             </span>
           </a>
         </li>
+
+        <li class="nav-item" [hidden]="userConnectLogin == 'admin'">
+          <a
+            class="nav-link"
+            routerLink="annonce"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="collapseNavbar()"
+          >
+            <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+            <span jhiTranslate="global.menu.entities.annonce">Annonce</span>
+          </a>
+        </li>
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
 
         <li
@@ -37,7 +50,14 @@
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
+          <a
+            *jhiHasAnyAuthority="'ROLE_ADMIN'"
+            class="nav-link dropdown-toggle"
+            ngbDropdownToggle
+            href="javascript:void(0);"
+            id="entity-menu"
+            data-cy="entity"
+          >
             <span>
               <fa-icon icon="th-list"></fa-icon>
               <span jhiTranslate="global.menu.entities.main">Entities</span>
@@ -69,6 +89,20 @@
                 <span jhiTranslate="global.menu.entities.annonce">Annonce</span>
               </a>
             </li>
+
+            <!--            <li>
+              <a
+                class="dropdown-item"
+                routerLink="annonce/user"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.annonce">Mes Annonce</span>
+              </a>
+            </li> -->
+
             <li>
               <a
                 *jhiHasAnyAuthority="'ROLE_ADMIN'"
