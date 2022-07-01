@@ -23,11 +23,10 @@ public class Personne implements Serializable {
     @Column(name = "cnie", nullable = false, unique = true)
     private String cnie;
 
-
     @Column(name = "tel")
     private String tel;
 
-    @OneToOne(optional = false, cascade = CascadeType.REMOVE)
+    @OneToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @NotNull
     @JoinColumn(unique = true)
     private User user;

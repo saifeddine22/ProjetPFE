@@ -45,7 +45,7 @@ public class Annonce implements Serializable {
     @Column(name = "date_annonce")
     private Instant dateAnnonce;
 
-    @OneToMany(mappedBy = "annonce", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "annonce", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties(value = { "annonce" }, allowSetters = true)
     private Set<Photo> photos = new HashSet<>();
 

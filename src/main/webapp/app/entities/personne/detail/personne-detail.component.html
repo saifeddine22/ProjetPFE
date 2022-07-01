@@ -42,3 +42,47 @@
     </div>
   </div>
 </div>
+
+<!-- <form *ngIf="personne" name="personneDetails">
+  <div class="modal-header">
+      <h2 data-cy="personneDetailsHeading"><span jhiTranslate="bricoviteApp.personne.detail.title">Personne</span></h2>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+
+      <dl>
+      <dt *jhiHasAnyAuthority="'ROLE_ADMIN'"><span jhiTranslate="global.field.id">ID</span></dt>
+      <dd *jhiHasAnyAuthority="'ROLE_ADMIN'">
+        <span>{{ personne.id }}</span>
+      </dd>
+      <dt><span jhiTranslate="bricoviteApp.personne.cnie">Cnie</span></dt>
+      <dd>
+        <span>{{ personne.cnie }}</span>
+      </dd>
+      <dt><span jhiTranslate="bricoviteApp.personne.tel">Tel</span></dt>
+      <dd>
+        <span>{{ personne.tel }}</span>
+      </dd>
+      <dt><span>Email</span></dt>
+      <dd>
+        <span>{{ personne.user?.email }}</span>
+      </dd>
+      <dt><span jhiTranslate="bricoviteApp.personne.user">User</span></dt>
+      <dd>
+        <span>{{ personne.user?.login }}</span>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+    </button>
+
+    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button" [routerLink]="['/personne', personne.id, 'edit']" class="btn btn-primary">
+      <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+    </button>
+  </div>
+</form> -->

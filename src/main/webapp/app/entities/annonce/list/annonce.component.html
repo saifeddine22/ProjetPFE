@@ -41,21 +41,24 @@
   </div>
   <div class="row">
     <div class="col-lg-9" id="entities" *ngIf="annonces && annonces.length > 0">
-      <div class="annonceContent" *ngFor="let annonce of annonces; trackBy: trackId">
-        <a class="row" [routerLink]="['/annonce', annonce.id, 'view']">
-          <div class="col-sm-3">
-            <span *ngFor="let photo of annonce.photos;let isFirst = first;" [hidden]="!isFirst">
-              <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style=" max-height: 150px;width: 200px;"/>
-            </span>
-          </div>
-          <div class="col-sm-7">
+      <div class="annonceContent row" *ngFor="let annonce of annonces; trackBy: trackId">
+        <div class="col-sm-3">
+          <span *ngFor="let photo of annonce.photos; let isFirst = first" [hidden]="!isFirst">
+            <a [routerLink]="['/annonce', annonce.id, 'view']">
+              <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="max-height: 150px; width: 200px" />
+            </a>
+          </span>
+        </div>
+        <div class="col-sm-7">
+          <a [routerLink]="['/annonce', annonce.id, 'view']">
             <p class="h3">{{ annonce.titre }}</p>
             <p>{{ annonce.activite?.nomFr }}</p>
             <p>{{ annonce.dateAnnonce | formatMediumDatetime }}</p>
-          </div>
-          <div class="col-sm-2">
-            <div class="btn-group">
-              <button
+          </a>
+        </div>
+        <div class="col-sm-2">
+          <div class="btn-group">
+            <!--  <button
                 type="submit"
                 [routerLink]="['/annonce', annonce.id, 'view']"
                 class="btn btn-info btn-sm"
@@ -63,34 +66,33 @@
               >
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
+              </button> -->
 
-              <button
-                *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-                type="submit"
-                [routerLink]="['/annonce', annonce.id, 'edit']"
-                [hidden]="annonce.user?.id != userConnect"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
+            <button
+              *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+              type="submit"
+              [routerLink]="['/annonce', annonce.id, 'edit']"
+              [hidden]="annonce.user?.id != userConnect"
+              class="btn btn-primary btn-sm"
+              data-cy="entityEditButton"
+            >
+              <fa-icon icon="pencil-alt"></fa-icon>
+              <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+            </button>
 
-              <button
-                *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-                [hidden]="annonce.user?.id != userConnect"
-                type="submit"
-                (click)="delete(annonce)"
-                class="btn btn-danger btn-sm"
-                data-cy="entityDeleteButton"
-              >
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
+            <button
+              *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+              [hidden]="annonce.user?.id != userConnect"
+              type="submit"
+              (click)="delete(annonce)"
+              class="btn btn-danger btn-sm"
+              data-cy="entityDeleteButton"
+            >
+              <fa-icon icon="times"></fa-icon>
+              <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </button>
           </div>
-        </a>
+        </div>
       </div>
     </div>
     <div class="col-lg-3"></div>
