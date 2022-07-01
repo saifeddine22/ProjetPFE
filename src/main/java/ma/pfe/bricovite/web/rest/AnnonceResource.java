@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import ma.pfe.bricovite.domain.Annonce;
 import ma.pfe.bricovite.repository.AnnonceRepository;
 import ma.pfe.bricovite.service.AnnonceService;
+import ma.pfe.bricovite.service.UserService;
 import ma.pfe.bricovite.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,9 +44,12 @@ public class AnnonceResource {
 
     private final AnnonceRepository annonceRepository;
 
-    public AnnonceResource(AnnonceService annonceService, AnnonceRepository annonceRepository) {
+    private final UserService userService;
+
+    public AnnonceResource(AnnonceService annonceService, AnnonceRepository annonceRepository, UserService userService) {
         this.annonceService = annonceService;
         this.annonceRepository = annonceRepository;
+        this.userService = userService;
     }
 
     /**
@@ -188,5 +192,17 @@ public class AnnonceResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("annonces/connectedUser")
+    public ResponseEntity<List<Annonce>> findByUserId(
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
+        @RequestParam(required = false, defaultValue = "true") boolean eagerload
+    ) {
+        log.debug("REST request to get a page of Annonces");
+        Page<Annonce> page = annonceService.findAllByUserId(pageable, userService.getConnectedUser().getId());
+
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

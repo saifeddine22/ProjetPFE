@@ -317,4 +317,13 @@ public class UserService {
     public List<String> getAuthorities() {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
+
+    public User getConnectedUser() {
+        final Optional<User> isUser = getUserWithAuthorities();
+        if (!isUser.isPresent()) {
+            log.error("User is not logged in");
+            return null;
+        }
+        return isUser.get();
+    }
 }

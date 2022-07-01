@@ -24,6 +24,7 @@ export class NavbarComponent implements OnInit {
   version = '';
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
+  userConnectLogin = '';
 
   constructor(
     private loginService: LoginService,
@@ -43,6 +44,7 @@ export class NavbarComponent implements OnInit {
     this.profileService.getProfileInfo().subscribe(profileInfo => {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
+      this.userConnectLogin = String(sessionStorage.getItem('userConnectedLogin'));
     });
 
     this.accountService.getAuthenticationState().subscribe(account => {

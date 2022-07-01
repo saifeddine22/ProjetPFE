@@ -15,7 +15,6 @@ const annonceRoute: Routes = [
     data: {
       defaultSort: 'id,asc',
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
@@ -23,7 +22,6 @@ const annonceRoute: Routes = [
     resolve: {
       annonce: AnnonceRoutingResolveService,
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: 'new',
@@ -51,7 +49,15 @@ const annonceRoute: Routes = [
     data: {
       defaultSort: 'id,asc',
     },
-    canActivate: [UserRouteAccessService],
+  },
+
+  {
+    path: ':mesAnnonces',
+    component: AnnonceComponent,
+    data: {
+      defaultSort: 'id,asc',
+      mesAnnonces: true,
+    },
   },
 ];
 

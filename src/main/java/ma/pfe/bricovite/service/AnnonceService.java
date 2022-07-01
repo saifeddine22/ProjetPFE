@@ -63,4 +63,6 @@ public interface AnnonceService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Page<Annonce> findAllByUserId(Pageable pageable, Long id);
 }
