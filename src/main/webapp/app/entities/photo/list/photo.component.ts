@@ -10,6 +10,7 @@ import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants
 import { PhotoService } from '../service/photo.service';
 import { PhotoDeleteDialogComponent } from '../delete/photo-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
+import { IAnnonce } from 'app/entities/annonce/annonce.model';
 
 @Component({
   selector: 'jhi-photo',
@@ -24,6 +25,7 @@ export class PhotoComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  annonce: IAnnonce | undefined;
 
   constructor(
     protected photoService: PhotoService,
@@ -37,13 +39,17 @@ export class PhotoComponent implements OnInit {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
 
-    this.photoService
-      .query({
+      const pageable = {
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
-      })
-      .subscribe({
+      };
+  
+      const query = this.annonce?.id
+        ? this.photoService.findByAnnonceId(this.annonce.id, pageable)
+        : this.photoService.query(pageable);
+  
+      query.subscribe({
         next: (res: HttpResponse<IPhoto[]>) => {
           this.isLoading = false;
           this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
@@ -56,7 +62,11 @@ export class PhotoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.handleNavigation();
+    this.activatedRoute.data.subscribe(({ annonce }) => {
+      this.annonce = annonce;
+      console.log(annonce);
+      this.handleNavigation(); 
+    });
   }
 
   trackId(_index: number, item: IPhoto): number {
@@ -108,8 +118,9 @@ export class PhotoComponent implements OnInit {
   protected onSuccess(data: IPhoto[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
+    const route = this.annonce?.id ? ['/annonce', this.annonce.id, 'photos'] : ['/photo'];
     if (navigate) {
-      this.router.navigate(['/photo'], {
+      this.router.navigate(route, {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,

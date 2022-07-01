@@ -4,18 +4,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IAnnonce } from '../annonce.model';
+import { IPhoto } from '../photo.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
-import { AnnonceService } from '../service/annonce.service';
-import { AnnonceDeleteDialogComponent } from '../delete/annonce-delete-dialog.component';
+import { PhotoService } from '../service/photo.service';
+import { PhotoDeleteDialogComponent } from '../delete/photo-delete-dialog.component';
+import { DataUtils } from 'app/core/util/data-util.service';
+import { IAnnonce } from 'app/entities/annonce/annonce.model';
 
 @Component({
-  selector: 'jhi-annonce',
-  templateUrl: './annonce.component.html',
+  selector: 'jhi-photo',
+  templateUrl: './photo-modal.component.html',
 })
-export class AnnonceComponent implements OnInit {
-  annonces?: IAnnonce[];
+export class PhotoModalComponent implements OnInit {
+  photos?: IPhoto[];
   isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -23,14 +25,12 @@ export class AnnonceComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
-  userConnect = Number(sessionStorage.getItem('userConnectedId'));
   annonce: IAnnonce | undefined;
 
-  isMesAnnonces = false;
-
   constructor(
-    protected annonceService: AnnonceService,
+    protected photoService: PhotoService,
     protected activatedRoute: ActivatedRoute,
+    protected dataUtils: DataUtils,
     protected router: Router,
     protected modalService: NgbModal
   ) {}
@@ -38,49 +38,52 @@ export class AnnonceComponent implements OnInit {
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
-    const pageable = {
-      page: pageToLoad - 1,
-      size: this.itemsPerPage,
-      sort: this.sort(),
-    };
 
-    const query = this.isMesAnnonces ? this.annonceService.findByConnectedUser(pageable) : this.annonceService.query(pageable);
-
-    /* this.annonceService
-      .query({
+      const pageable = {
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
-      }) */
-
-    query.subscribe({
-      next: (res: HttpResponse<IAnnonce[]>) => {
-        this.isLoading = false;
-        this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
-      },
-      error: () => {
-        this.isLoading = false;
-        this.onError();
-      },
-    });
+      };
+  
+      const query = this.annonce?.id
+        ? this.photoService.findByAnnonceId(this.annonce.id, pageable)
+        : this.photoService.query(pageable);
+  
+      query.subscribe({
+        next: (res: HttpResponse<IPhoto[]>) => {
+          this.isLoading = false;
+          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
+        },
+        error: () => {
+          this.isLoading = false;
+          this.onError();
+        },
+      });
   }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(data => {
-      this.isMesAnnonces = data.mesAnnonces;
-      this.handleNavigation();
+    this.activatedRoute.data.subscribe(({ annonce }) => {
+      this.annonce = annonce;
+      console.log(annonce);
+      this.handleNavigation(); 
     });
-    sessionStorage.removeItem("currentAnnonce");
-
   }
 
-  trackId(_index: number, item: IAnnonce): number {
+  trackId(_index: number, item: IPhoto): number {
     return item.id!;
   }
 
-  delete(annonce: IAnnonce): void {
-    const modalRef = this.modalService.open(AnnonceDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.annonce = annonce;
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    return this.dataUtils.openFile(base64String, contentType);
+  }
+
+  delete(photo: IPhoto): void {
+    const modalRef = this.modalService.open(PhotoDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.photo = photo;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
@@ -112,10 +115,10 @@ export class AnnonceComponent implements OnInit {
     });
   }
 
-  protected onSuccess(data: IAnnonce[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
+  protected onSuccess(data: IPhoto[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
-    const route = this.isMesAnnonces ? ['/annonce', 'mesAnnonces'] : ['/annonce'];
+    const route = this.annonce?.id ? ['/annonce', this.annonce.id, 'photos'] : ['/photo'];
     if (navigate) {
       this.router.navigate(route, {
         queryParams: {
@@ -125,7 +128,7 @@ export class AnnonceComponent implements OnInit {
         },
       });
     }
-    this.annonces = data ?? [];
+    this.photos = data ?? [];
     this.ngbPaginationPage = this.page;
   }
 

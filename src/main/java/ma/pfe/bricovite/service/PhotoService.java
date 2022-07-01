@@ -48,6 +48,12 @@ public interface PhotoService {
      * @return the entity.
      */
     Optional<Photo> findOne(Long id);
+    
+    /**
+     * @param idAnnonce
+     * @return the entity
+     */
+    Page<Photo> findByAnnonceId(Pageable pageable, Long annonceId);
 
     /**
      * Delete the "id" photo.

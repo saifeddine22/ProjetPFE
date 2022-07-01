@@ -142,7 +142,7 @@ export class PhotoUpdateComponent implements OnInit {
       libelle: this.editForm.get(['libelle'])!.value,
       imageContentType: this.editForm.get(['imageContentType'])!.value,
       image: this.editForm.get(['image'])!.value,
-      annonce: this.editForm.get(['annonce'])!.value,
+      annonce: { id: Number(sessionStorage.getItem('currentAnnonce')) },
     };
   }
 }

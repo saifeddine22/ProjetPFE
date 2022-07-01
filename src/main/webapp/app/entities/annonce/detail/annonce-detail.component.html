@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div *ngIf="annonce">
-      <h2 data-cy="annonceDetailsHeading"><span jhiTranslate="bricoviteApp.annonce.detail.title">Annonce</span></h2>
+      <h2 data-cy="annonceDetailsHeading">{{ annonce.titre }}</h2>
       <hr />
 
       <jhi-alert-error></jhi-alert-error>
@@ -13,6 +13,7 @@
         <dd>
           <span>{{ annonce.id }}</span>
         </dd> -->
+
         <dt></dt>
         <dd>
           <ngb-carousel *ngIf="annonce.photos" style="width: 60%; height: 300px">
@@ -27,7 +28,6 @@
             </ng-template>
           </ngb-carousel>
         </dd>
-
         <dt><span jhiTranslate="bricoviteApp.annonce.titre">Titre</span></dt>
         <dd>
           <span>{{ annonce.titre }}</span>
@@ -117,6 +117,7 @@
         <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
       </button>
 
+      <button class="btn btn-info" [routerLink]="['/annonce', annonce.id, 'photos']">Photos</button>
       <button
         *jhiHasAnyAuthority="'ROLE_USER'"
         id="jh-create-entity"
