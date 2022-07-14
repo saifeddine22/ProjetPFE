@@ -102,7 +102,7 @@ export class NoteUpdateComponent implements OnInit {
       ...new Note(),
       id: this.editForm.get(['id'])!.value,
       valeur: this.editForm.get(['valeur'])!.value,
-      annonce: this.editForm.get(['annonce'])!.value,
+      annonce: { id: Number(sessionStorage.getItem('currentAnnonce')) },
     };
   }
 }

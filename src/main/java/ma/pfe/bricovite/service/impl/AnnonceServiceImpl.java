@@ -100,4 +100,10 @@ public class AnnonceServiceImpl implements AnnonceService {
         // TODO Auto-generated method stub
         return annonceRepository.findAllByUserId(pageable, id);
     }
+
+    @Override
+    public Page<Annonce> findByActiviteId(Pageable pageable, Long id) {
+        // TODO Auto-generated method stub
+        return annonceRepository.findByActiviteId(pageable, id);
+    }
 }

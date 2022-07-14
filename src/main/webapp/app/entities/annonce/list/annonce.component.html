@@ -1,35 +1,96 @@
 <div>
   <h2 id="page-heading" data-cy="AnnonceHeading">
     <span jhiTranslate="bricoviteApp.annonce.home.title">Annonces</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="bricoviteApp.annonce.home.refreshListLabel">Refresh List</span>
-      </button>
-
-      <button
-        *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-annonce"
-        [routerLink]="['/annonce/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="bricoviteApp.annonce.home.createLabel"> Create a new Annonce </span>
-      </button>
-
-      <div *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'" class="d-flex justify-content-end">
-        <button *ngIf="isMesAnnonces" class="btn btn-info" [routerLink]="['/annonce']">
-          <fa-icon icon="eye"></fa-icon>
-          <span> tous </span>
+    <form [formGroup]="editForm">
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="bricoviteApp.annonce.home.refreshListLabel">Refresh List</span>
         </button>
-        <button *ngIf="!isMesAnnonces" class="btn btn-info" [routerLink]="['/annonce', 'mesAnnonces']">
+
+        <button
+          *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-annonce"
+          [routerLink]="['/annonce/new']"
+        >
+          <fa-icon icon="plus"></fa-icon>
+          <span jhiTranslate="bricoviteApp.annonce.home.createLabel"> Create a new Annonce </span>
+        </button>
+
+        <div *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'" class="d-flex justify-content-end">
+          <button *ngIf="isMesAnnonces" class="btn btn-info" [routerLink]="['/annonce']">
+            <fa-icon icon="eye"></fa-icon>
+            <span> Tous </span>
+          </button>
+          <button *ngIf="!isMesAnnonces" class="btn btn-info" [routerLink]="['/annonce', 'mesAnnonces']">
+            <fa-icon icon="eye"></fa-icon>
+            <span> Mes annonces </span>
+          </button>
+        </div>
+
+        <!--  <div class="d-flex justify-content-end">
+        <label class="form-label" for="field_region">Région</label>
+        <select
+          class="form-control"
+          id="field_region"
+          data-cy="region"
+          name="region"
+          formControlName="region"
+        >
+          <option [ngValue]="null">Tous</option>
+          <option
+            [ngValue]=" regionOption.id"
+            *ngFor="let regionOption of regionsSharedCollection; trackBy: trackRegionById"
+          >
+            {{ regionOption.nomFr }}
+          </option>
+        </select>
+      </div> -->
+
+        <div class="d-flex justify-content-end">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.categorie" for="field_categorie">Categorie</label>
+          <select
+            class="form-control"
+            id="field_categorie"
+            data-cy="categorie"
+            name="categorie"
+            formControlName="categorie"
+            (change)="onChekCategorie()"
+          >
+            <option [ngValue]="null">Tous</option>
+            <option [ngValue]="categorieOption.id" *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById">
+              {{ categorieOption.nomFr }}
+            </option>
+          </select>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.activite" for="field_activite">Activite</label>
+          <select class="form-control" id="field_activite" data-cy="activite" name="activite" formControlName="activite">
+            <option *ngIf="!editForm.get('activite')!.value" [ngValue]="null" selected>Tous</option>
+            <option
+              [ngValue]="activiteOption.id"
+              *ngFor="let activiteOption of filterActivites(); trackBy: trackActiviteById"
+              [hidden]="activiteOption.categorie?.id != onChekCategorie()"
+            >
+              {{ activiteOption.nomFr }}
+            </option>
+          </select>
+        </div>
+
+        <button
+          id="jh-search-entity"
+          data-cy="entitySearchButton"
+          class="btn btn-primary jh-search-entity search-annonce"
+          (click)="search()"
+        >
           <fa-icon icon="eye"></fa-icon>
-          <span> Mes annonces </span>
+          <span> Chercher </span>
         </button>
       </div>
-    </div>
+    </form>
   </h2>
 
   <jhi-alert-error></jhi-alert-error>
@@ -54,6 +115,7 @@
             <p class="h3">{{ annonce.titre }}</p>
             <p>{{ annonce.activite?.nomFr }}</p>
             <p>{{ annonce.dateAnnonce | formatMediumDatetime }}</p>
+            <p>{{ annonce.commune?.provinceFr }}</p>
           </a>
         </div>
         <div class="col-sm-2">

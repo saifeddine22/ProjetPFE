@@ -52,7 +52,7 @@ public class Annonce implements Serializable {
     private Set<Photo> photos = new HashSet<>();
 
     @OneToMany(mappedBy = "annonce", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties(value = { "user", "annonce" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "annonce" }, allowSetters = true)
     private Set<Commentaire> commentaires = new HashSet<>();
 
     @OneToMany(mappedBy = "annonce", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
