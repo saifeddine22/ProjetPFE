@@ -49,11 +49,11 @@ public class Annonce implements Serializable {
     @JsonIgnoreProperties(value = { "annonce" }, allowSetters = true)
     private Set<Photo> photos = new HashSet<>();
 
-    @OneToMany(mappedBy = "annonce")
+    @OneToMany(mappedBy = "annonce", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties(value = { "annonce" }, allowSetters = true)
     private Set<Commentaire> commentaires = new HashSet<>();
 
-    @OneToMany(mappedBy = "annonce")
+    @OneToMany(mappedBy = "annonce", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties(value = { "annonce" }, allowSetters = true)
     private Set<Note> notes = new HashSet<>();
 

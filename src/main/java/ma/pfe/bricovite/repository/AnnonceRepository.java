@@ -46,4 +46,6 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
     Optional<Annonce> findOneWithToOneRelationships(@Param("id") Long id);
 
     Page<Annonce> findAllByUserId(Pageable pageable, Long id);
+
+    Page<Annonce> findByActiviteId(Pageable pageable, Long id);
 }

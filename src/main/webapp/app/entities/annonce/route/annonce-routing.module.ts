@@ -7,7 +7,7 @@ import { AnnonceDetailComponent } from '../detail/annonce-detail.component';
 import { AnnonceUpdateComponent } from '../update/annonce-update.component';
 import { AnnonceRoutingResolveService } from './annonce-routing-resolve.service';
 import { CommentaireComponent } from 'app/entities/commentaire/list/commentaire.component';
-import { PhotoModalComponent } from 'app/entities/photo/listModal/photo-modal.component';
+import { PhotoComponent } from 'app/entities/photo/list/photo.component';
 
 const annonceRoute: Routes = [
   {
@@ -62,7 +62,7 @@ const annonceRoute: Routes = [
   },
   {
     path: ':id/photos',
-    component: PhotoModalComponent,
+    component: PhotoComponent,
 
     resolve: {
       annonce: AnnonceRoutingResolveService,

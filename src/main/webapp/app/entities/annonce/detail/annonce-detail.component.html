@@ -72,8 +72,8 @@
           <span>{{ annonce.activite?.nomFr }}</span>
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.note">Note</span></dt>
-        <dd *ngFor="let note of annonce.notes">
-          <span>{{ note.valeur }}</span>
+        <dd *ngIf="annonce.notes">
+          <span *ngFor="let note of annonce.notes">{{ note.valeur }}</span>
         </dd>
 
         <!-- <dt><span jhiTranslate="bricoviteApp.annonce.commune">Commune</span></dt>
@@ -129,7 +129,7 @@
         <span jhiTranslate="bricoviteApp.note.home.createLabel"> Create a new note </span>
       </button>
 
-      <button
+      <!--  <button
         *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
         id="jh-create-entity"
         [hidden]="annonce.user?.id != userConnect"
@@ -139,6 +139,15 @@
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="bricoviteApp.photo.home.createLabel"> Create a new Photo </span>
+      </button> -->
+
+      <button
+        *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+        class="btn btn-info"
+        [hidden]="annonce.user?.id != userConnect"
+        [routerLink]="['/annonce', annonce.id, 'photos']"
+      >
+        Edit photos
       </button>
     </div>
   </div>

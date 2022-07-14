@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IAnnonce } from '../annonce.model';
@@ -9,6 +9,13 @@ import { IAnnonce } from '../annonce.model';
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { AnnonceService } from '../service/annonce.service';
 import { AnnonceDeleteDialogComponent } from '../delete/annonce-delete-dialog.component';
+import { FormBuilder } from '@angular/forms';
+import { ICategorie } from 'app/entities/categorie/categorie.model';
+import { IActivite } from 'app/entities/activite/activite.model';
+import { CategorieService } from 'app/entities/categorie/service/categorie.service';
+import { ActiviteService } from 'app/entities/activite/service/activite.service';
+/* import { RegionService } from 'app/entities/region/service/region.service';
+import { IRegion } from 'app/entities/region/region.model'; */
 
 @Component({
   selector: 'jhi-annonce',
@@ -25,15 +32,66 @@ export class AnnonceComponent implements OnInit {
   ngbPaginationPage = 1;
   userConnect = Number(sessionStorage.getItem('userConnectedId'));
   annonce: IAnnonce | undefined;
+  categoriesSharedCollection: ICategorie[] = [];
+  activitesSharedCollection: IActivite[] = [];
+  /* regionsSharedCollection: IRegion[] = []; */
 
   isMesAnnonces = false;
+
+  editForm = this.fb.group({
+    id: [],
+    categorie: [],
+    activite: [],
+    /*  region: [], */
+  });
 
   constructor(
     protected annonceService: AnnonceService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    protected categorieService: CategorieService,
+    protected activiteService: ActiviteService,
+    /*  protected regionService: RegionService, */
+    protected fb: FormBuilder
   ) {}
+
+  onChekCategorie(): number {
+    const catId = this.editForm.get(['categorie'])!.value;
+    return Number(catId);
+  }
+
+  filterActivites(): IActivite[] {
+    const catId = this.editForm.get('categorie')?.value;
+    if (catId) {
+      return this.activitesSharedCollection.filter(a => a.categorie?.id === catId);
+    } else {
+      return this.activitesSharedCollection;
+    }
+  }
+
+  search(page?: number, dontNavigate?: boolean): void {
+    this.isLoading = true;
+    const pageToLoad: number = page ?? this.page ?? 1;
+    const activiteId = this.editForm.get('activite')?.value;
+
+    this.annonceService
+      .findByActiviteId(activiteId, {
+        page: pageToLoad - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      })
+      .subscribe({
+        next: (res: HttpResponse<IAnnonce[]>) => {
+          this.isLoading = false;
+          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
+        },
+        error: () => {
+          this.isLoading = false;
+          this.onError();
+        },
+      });
+  }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
@@ -69,14 +127,24 @@ export class AnnonceComponent implements OnInit {
     this.activatedRoute.data.subscribe(data => {
       this.isMesAnnonces = data.mesAnnonces;
       this.handleNavigation();
+      this.updateForm(data);
+      this.loadRelationshipsOptions();
     });
-    sessionStorage.removeItem("currentAnnonce");
-
+    sessionStorage.removeItem('currentAnnonce');
   }
 
   trackId(_index: number, item: IAnnonce): number {
     return item.id!;
   }
+  trackCategorieById(_index: number, item: ICategorie): number {
+    return item.id!;
+  }
+  trackActiviteById(_index: number, item: IActivite): number {
+    return item.id!;
+  }
+  /*   trackRegionById(_index: number, item: IRegion): number {
+    return item.id!;
+  } */
 
   delete(annonce: IAnnonce): void {
     const modalRef = this.modalService.open(AnnonceDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
@@ -131,5 +199,59 @@ export class AnnonceComponent implements OnInit {
 
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
+  }
+
+  protected updateForm(annonce: IAnnonce): void {
+    this.editForm.patchValue({
+      id: annonce.id,
+      categorie: annonce.categorie,
+      activite: annonce.activite,
+      /*  region: annonce.region, */
+    });
+
+    this.categoriesSharedCollection = this.categorieService.addCategorieToCollectionIfMissing(
+      this.categoriesSharedCollection,
+      annonce.categorie
+    );
+    this.activitesSharedCollection = this.activiteService.addActiviteToCollectionIfMissing(
+      this.activitesSharedCollection,
+      annonce.activite
+    );
+    /*     this.regionsSharedCollection = this.regionService.addRegionToCollectionIfMissing(
+      this.regionsSharedCollection,
+      annonce.region
+    ); */
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.categorieService
+      .query({ size: 25 })
+      .pipe(map((res: HttpResponse<ICategorie[]>) => res.body ?? []))
+      .pipe(
+        map((categories: ICategorie[]) =>
+          this.categorieService.addCategorieToCollectionIfMissing(categories, this.editForm.get('categorie')!.value)
+        )
+      )
+      .subscribe((categories: ICategorie[]) => (this.categoriesSharedCollection = categories));
+
+    this.activiteService
+      .query({ size: 200 })
+      .pipe(map((res: HttpResponse<IActivite[]>) => res.body ?? []))
+      .pipe(
+        map((activites: IActivite[]) =>
+          this.activiteService.addActiviteToCollectionIfMissing(activites, this.editForm.get('activite')!.value)
+        )
+      )
+      .subscribe((activites: IActivite[]) => (this.activitesSharedCollection = activites));
+
+    /*  this.regionService
+      .query({size:200})
+      .pipe(map((res: HttpResponse<IRegion[]>) => res.body ?? []))
+      .pipe(
+        map((regions: IRegion[]) =>
+          this.regionService.addRegionToCollectionIfMissing(regions, this.editForm.get('region')!.value)
+        )
+      )
+      .subscribe((regions: IRegion[]) => (this.regionsSharedCollection = regions)); */
   }
 }

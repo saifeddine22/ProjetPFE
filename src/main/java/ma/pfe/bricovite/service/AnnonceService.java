@@ -65,4 +65,6 @@ public interface AnnonceService {
     void delete(Long id);
 
     Page<Annonce> findAllByUserId(Pageable pageable, Long id);
+
+    Page<Annonce> findByActiviteId(Pageable pageable, Long id);
 }

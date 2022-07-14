@@ -34,7 +34,7 @@ public class Activite implements Serializable {
     @Column(name = "categorie_ar")
     private String categorieAr;
 
-    @OneToMany(mappedBy = "activite")
+    @OneToMany(mappedBy = "activite", fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "photos", "commentaires", "notes", "user", "commune", "activite" }, allowSetters = true)
     private Set<Annonce> annonces = new HashSet<>();
 
