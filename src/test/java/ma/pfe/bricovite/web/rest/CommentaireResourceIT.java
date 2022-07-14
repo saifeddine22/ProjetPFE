@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import ma.pfe.bricovite.IntegrationTest;
 import ma.pfe.bricovite.domain.Commentaire;
+import ma.pfe.bricovite.domain.User;
 import ma.pfe.bricovite.repository.CommentaireRepository;
 import ma.pfe.bricovite.service.CommentaireService;
 import org.junit.jupiter.api.BeforeEach;
@@ -77,6 +78,11 @@ class CommentaireResourceIT {
      */
     public static Commentaire createEntity(EntityManager em) {
         Commentaire commentaire = new Commentaire().details(DEFAULT_DETAILS).dateCommentaire(DEFAULT_DATE_COMMENTAIRE);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        commentaire.setUser(user);
         return commentaire;
     }
 
@@ -88,6 +94,11 @@ class CommentaireResourceIT {
      */
     public static Commentaire createUpdatedEntity(EntityManager em) {
         Commentaire commentaire = new Commentaire().details(UPDATED_DETAILS).dateCommentaire(UPDATED_DATE_COMMENTAIRE);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        commentaire.setUser(user);
         return commentaire;
     }
 

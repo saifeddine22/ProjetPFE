@@ -21,17 +21,20 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "geometry",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "status",
       "fieldType": "Boolean"
     },
     {
       "fieldName": "dateAnnonce",
       "fieldType": "Instant"
+    },
+    {
+      "fieldName": "latitude",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "longitude",
+      "fieldType": "Double"
     }
   ],
   "fluentMethods": true,

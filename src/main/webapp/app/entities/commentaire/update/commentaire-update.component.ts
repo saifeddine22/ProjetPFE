@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -10,6 +10,8 @@ import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 import { ICommentaire, Commentaire } from '../commentaire.model';
 import { CommentaireService } from '../service/commentaire.service';
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
 import { IAnnonce } from 'app/entities/annonce/annonce.model';
 import { AnnonceService } from 'app/entities/annonce/service/annonce.service';
 
@@ -20,17 +22,20 @@ import { AnnonceService } from 'app/entities/annonce/service/annonce.service';
 export class CommentaireUpdateComponent implements OnInit {
   isSaving = false;
 
+  usersSharedCollection: IUser[] = [];
   annoncesSharedCollection: IAnnonce[] = [];
 
   editForm = this.fb.group({
     id: [],
     details: [],
     dateCommentaire: [],
+    user: [null, Validators.required],
     annonce: [],
   });
 
   constructor(
     protected commentaireService: CommentaireService,
+    protected userService: UserService,
     protected annonceService: AnnonceService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
@@ -63,6 +68,10 @@ export class CommentaireUpdateComponent implements OnInit {
     }
   }
 
+  trackUserById(_index: number, item: IUser): number {
+    return item.id!;
+  }
+
   trackAnnonceById(_index: number, item: IAnnonce): number {
     return item.id!;
   }
@@ -91,13 +100,21 @@ export class CommentaireUpdateComponent implements OnInit {
       id: commentaire.id,
       details: commentaire.details,
       dateCommentaire: commentaire.dateCommentaire ? commentaire.dateCommentaire.format(DATE_TIME_FORMAT) : null,
+      user: commentaire.user,
       annonce: commentaire.annonce,
     });
 
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, commentaire.user);
     this.annoncesSharedCollection = this.annonceService.addAnnonceToCollectionIfMissing(this.annoncesSharedCollection, commentaire.annonce);
   }
 
   protected loadRelationshipsOptions(): void {
+    this.userService
+      .query()
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
+      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
+
     this.annonceService
       .query()
       .pipe(map((res: HttpResponse<IAnnonce[]>) => res.body ?? []))
@@ -115,6 +132,7 @@ export class CommentaireUpdateComponent implements OnInit {
       dateCommentaire: this.editForm.get(['dateCommentaire'])!.value
         ? dayjs(this.editForm.get(['dateCommentaire'])!.value, DATE_TIME_FORMAT)
         : undefined,
+      user: this.editForm.get(['user'])!.value,
       annonce: { id: Number(sessionStorage.getItem('currentAnnonce')) },
     };
   }

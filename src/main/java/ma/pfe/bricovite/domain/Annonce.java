@@ -35,15 +35,17 @@ public class Annonce implements Serializable {
     @Column(name = "adresse", nullable = false)
     private String adresse;
 
-    @NotNull
-    @Column(name = "geometry", nullable = false)
-    private String geometry;
-
     @Column(name = "status")
     private Boolean status;
 
     @Column(name = "date_annonce")
     private Instant dateAnnonce;
+
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
 
     @OneToMany(mappedBy = "annonce", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties(value = { "annonce" }, allowSetters = true)
@@ -124,19 +126,6 @@ public class Annonce implements Serializable {
         this.adresse = adresse;
     }
 
-    public String getGeometry() {
-        return this.geometry;
-    }
-
-    public Annonce geometry(String geometry) {
-        this.setGeometry(geometry);
-        return this;
-    }
-
-    public void setGeometry(String geometry) {
-        this.geometry = geometry;
-    }
-
     public Boolean getStatus() {
         return this.status;
     }
@@ -161,6 +150,32 @@ public class Annonce implements Serializable {
 
     public void setDateAnnonce(Instant dateAnnonce) {
         this.dateAnnonce = dateAnnonce;
+    }
+
+    public Double getLatitude() {
+        return this.latitude;
+    }
+
+    public Annonce latitude(Double latitude) {
+        this.setLatitude(latitude);
+        return this;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return this.longitude;
+    }
+
+    public Annonce longitude(Double longitude) {
+        this.setLongitude(longitude);
+        return this;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public Set<Photo> getPhotos() {
@@ -322,9 +337,10 @@ public class Annonce implements Serializable {
             ", titre='" + getTitre() + "'" +
             ", description='" + getDescription() + "'" +
             ", adresse='" + getAdresse() + "'" +
-            ", geometry='" + getGeometry() + "'" +
             ", status='" + getStatus() + "'" +
             ", dateAnnonce='" + getDateAnnonce() + "'" +
+            ", latitude=" + getLatitude() +
+            ", longitude=" + getLongitude() +
             "}";
     }
 }

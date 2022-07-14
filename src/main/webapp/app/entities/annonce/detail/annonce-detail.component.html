@@ -149,6 +149,17 @@
       >
         Edit photos
       </button>
+      <dl>
+        <dt>Commantaires</dt>
+        <p *ngFor="let commentaire of annonce.commentaires">
+          <dd>
+            {{ commentaire.user?.login }} 
+            {{ commentaire.details }}
+            <br>
+            {{ commentaire.dateCommentaire}}
+          </dd>
+        </p>
+      </dl>
     </div>
   </div>
 </div>

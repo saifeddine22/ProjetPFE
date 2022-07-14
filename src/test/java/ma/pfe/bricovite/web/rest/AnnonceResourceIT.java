@@ -51,14 +51,17 @@ class AnnonceResourceIT {
     private static final String DEFAULT_ADRESSE = "AAAAAAAAAA";
     private static final String UPDATED_ADRESSE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_GEOMETRY = "AAAAAAAAAA";
-    private static final String UPDATED_GEOMETRY = "BBBBBBBBBB";
-
     private static final Boolean DEFAULT_STATUS = false;
     private static final Boolean UPDATED_STATUS = true;
 
     private static final Instant DEFAULT_DATE_ANNONCE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_DATE_ANNONCE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Double DEFAULT_LATITUDE = 1D;
+    private static final Double UPDATED_LATITUDE = 2D;
+
+    private static final Double DEFAULT_LONGITUDE = 1D;
+    private static final Double UPDATED_LONGITUDE = 2D;
 
     private static final String ENTITY_API_URL = "/api/annonces";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -94,9 +97,10 @@ class AnnonceResourceIT {
             .titre(DEFAULT_TITRE)
             .description(DEFAULT_DESCRIPTION)
             .adresse(DEFAULT_ADRESSE)
-            .geometry(DEFAULT_GEOMETRY)
             .status(DEFAULT_STATUS)
-            .dateAnnonce(DEFAULT_DATE_ANNONCE);
+            .dateAnnonce(DEFAULT_DATE_ANNONCE)
+            .latitude(DEFAULT_LATITUDE)
+            .longitude(DEFAULT_LONGITUDE);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -126,9 +130,10 @@ class AnnonceResourceIT {
             .titre(UPDATED_TITRE)
             .description(UPDATED_DESCRIPTION)
             .adresse(UPDATED_ADRESSE)
-            .geometry(UPDATED_GEOMETRY)
             .status(UPDATED_STATUS)
-            .dateAnnonce(UPDATED_DATE_ANNONCE);
+            .dateAnnonce(UPDATED_DATE_ANNONCE)
+            .latitude(UPDATED_LATITUDE)
+            .longitude(UPDATED_LONGITUDE);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -168,9 +173,10 @@ class AnnonceResourceIT {
         assertThat(testAnnonce.getTitre()).isEqualTo(DEFAULT_TITRE);
         assertThat(testAnnonce.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testAnnonce.getAdresse()).isEqualTo(DEFAULT_ADRESSE);
-        assertThat(testAnnonce.getGeometry()).isEqualTo(DEFAULT_GEOMETRY);
         assertThat(testAnnonce.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testAnnonce.getDateAnnonce()).isEqualTo(DEFAULT_DATE_ANNONCE);
+        assertThat(testAnnonce.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
+        assertThat(testAnnonce.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
     }
 
     @Test
@@ -244,23 +250,6 @@ class AnnonceResourceIT {
 
     @Test
     @Transactional
-    void checkGeometryIsRequired() throws Exception {
-        int databaseSizeBeforeTest = annonceRepository.findAll().size();
-        // set the field null
-        annonce.setGeometry(null);
-
-        // Create the Annonce, which fails.
-
-        restAnnonceMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(annonce)))
-            .andExpect(status().isBadRequest());
-
-        List<Annonce> annonceList = annonceRepository.findAll();
-        assertThat(annonceList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllAnnonces() throws Exception {
         // Initialize the database
         annonceRepository.saveAndFlush(annonce);
@@ -274,9 +263,10 @@ class AnnonceResourceIT {
             .andExpect(jsonPath("$.[*].titre").value(hasItem(DEFAULT_TITRE)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE)))
-            .andExpect(jsonPath("$.[*].geometry").value(hasItem(DEFAULT_GEOMETRY)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.booleanValue())))
-            .andExpect(jsonPath("$.[*].dateAnnonce").value(hasItem(DEFAULT_DATE_ANNONCE.toString())));
+            .andExpect(jsonPath("$.[*].dateAnnonce").value(hasItem(DEFAULT_DATE_ANNONCE.toString())))
+            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
+            .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -312,9 +302,10 @@ class AnnonceResourceIT {
             .andExpect(jsonPath("$.titre").value(DEFAULT_TITRE))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.adresse").value(DEFAULT_ADRESSE))
-            .andExpect(jsonPath("$.geometry").value(DEFAULT_GEOMETRY))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.booleanValue()))
-            .andExpect(jsonPath("$.dateAnnonce").value(DEFAULT_DATE_ANNONCE.toString()));
+            .andExpect(jsonPath("$.dateAnnonce").value(DEFAULT_DATE_ANNONCE.toString()))
+            .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.doubleValue()))
+            .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.doubleValue()));
     }
 
     @Test
@@ -340,9 +331,10 @@ class AnnonceResourceIT {
             .titre(UPDATED_TITRE)
             .description(UPDATED_DESCRIPTION)
             .adresse(UPDATED_ADRESSE)
-            .geometry(UPDATED_GEOMETRY)
             .status(UPDATED_STATUS)
-            .dateAnnonce(UPDATED_DATE_ANNONCE);
+            .dateAnnonce(UPDATED_DATE_ANNONCE)
+            .latitude(UPDATED_LATITUDE)
+            .longitude(UPDATED_LONGITUDE);
 
         restAnnonceMockMvc
             .perform(
@@ -359,9 +351,10 @@ class AnnonceResourceIT {
         assertThat(testAnnonce.getTitre()).isEqualTo(UPDATED_TITRE);
         assertThat(testAnnonce.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testAnnonce.getAdresse()).isEqualTo(UPDATED_ADRESSE);
-        assertThat(testAnnonce.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
         assertThat(testAnnonce.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testAnnonce.getDateAnnonce()).isEqualTo(UPDATED_DATE_ANNONCE);
+        assertThat(testAnnonce.getLatitude()).isEqualTo(UPDATED_LATITUDE);
+        assertThat(testAnnonce.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
     }
 
     @Test
@@ -432,7 +425,13 @@ class AnnonceResourceIT {
         Annonce partialUpdatedAnnonce = new Annonce();
         partialUpdatedAnnonce.setId(annonce.getId());
 
-        partialUpdatedAnnonce.titre(UPDATED_TITRE).adresse(UPDATED_ADRESSE).status(UPDATED_STATUS).dateAnnonce(UPDATED_DATE_ANNONCE);
+        partialUpdatedAnnonce
+            .titre(UPDATED_TITRE)
+            .adresse(UPDATED_ADRESSE)
+            .status(UPDATED_STATUS)
+            .dateAnnonce(UPDATED_DATE_ANNONCE)
+            .latitude(UPDATED_LATITUDE)
+            .longitude(UPDATED_LONGITUDE);
 
         restAnnonceMockMvc
             .perform(
@@ -449,9 +448,10 @@ class AnnonceResourceIT {
         assertThat(testAnnonce.getTitre()).isEqualTo(UPDATED_TITRE);
         assertThat(testAnnonce.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testAnnonce.getAdresse()).isEqualTo(UPDATED_ADRESSE);
-        assertThat(testAnnonce.getGeometry()).isEqualTo(DEFAULT_GEOMETRY);
-        assertThat(testAnnonce.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAnnonce.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testAnnonce.getDateAnnonce()).isEqualTo(UPDATED_DATE_ANNONCE);
+        assertThat(testAnnonce.getLatitude()).isEqualTo(UPDATED_LATITUDE);
+        assertThat(testAnnonce.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
     }
 
     @Test
@@ -470,9 +470,10 @@ class AnnonceResourceIT {
             .titre(UPDATED_TITRE)
             .description(UPDATED_DESCRIPTION)
             .adresse(UPDATED_ADRESSE)
-            .geometry(UPDATED_GEOMETRY)
             .status(UPDATED_STATUS)
-            .dateAnnonce(UPDATED_DATE_ANNONCE);
+            .dateAnnonce(UPDATED_DATE_ANNONCE)
+            .latitude(UPDATED_LATITUDE)
+            .longitude(UPDATED_LONGITUDE);
 
         restAnnonceMockMvc
             .perform(
@@ -489,9 +490,10 @@ class AnnonceResourceIT {
         assertThat(testAnnonce.getTitre()).isEqualTo(UPDATED_TITRE);
         assertThat(testAnnonce.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testAnnonce.getAdresse()).isEqualTo(UPDATED_ADRESSE);
-        assertThat(testAnnonce.getGeometry()).isEqualTo(UPDATED_GEOMETRY);
         assertThat(testAnnonce.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testAnnonce.getDateAnnonce()).isEqualTo(UPDATED_DATE_ANNONCE);
+        assertThat(testAnnonce.getLatitude()).isEqualTo(UPDATED_LATITUDE);
+        assertThat(testAnnonce.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
     }
 
     @Test

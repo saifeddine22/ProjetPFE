@@ -96,7 +96,7 @@
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
-
+  <div id="map" class="map" (click)="this.annonceService.getCoord($event)"></div>
   <div class="alert alert-warning" id="no-result" *ngIf="annonces?.length === 0">
     <span jhiTranslate="bricoviteApp.annonce.home.notFound">No annonces found</span>
   </div>
