@@ -54,14 +54,17 @@ public class AnnonceServiceImpl implements AnnonceService {
                 if (annonce.getAdresse() != null) {
                     existingAnnonce.setAdresse(annonce.getAdresse());
                 }
-                if (annonce.getGeometry() != null) {
-                    existingAnnonce.setGeometry(annonce.getGeometry());
-                }
                 if (annonce.getStatus() != null) {
                     existingAnnonce.setStatus(annonce.getStatus());
                 }
                 if (annonce.getDateAnnonce() != null) {
                     existingAnnonce.setDateAnnonce(annonce.getDateAnnonce());
+                }
+                if (annonce.getLatitude() != null) {
+                    existingAnnonce.setLatitude(annonce.getLatitude());
+                }
+                if (annonce.getLongitude() != null) {
+                    existingAnnonce.setLongitude(annonce.getLongitude());
                 }
 
                 return existingAnnonce;
@@ -92,8 +95,7 @@ public class AnnonceServiceImpl implements AnnonceService {
         log.debug("Request to delete Annonce : {}", id);
         annonceRepository.deleteById(id);
     }
-
-    @Override
+     @Override
     public Page<Annonce> findAllByUserId(Pageable pageable, Long id) {
         // TODO Auto-generated method stub
         return annonceRepository.findAllByUserId(pageable, id);

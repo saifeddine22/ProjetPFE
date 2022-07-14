@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import ma.pfe.bricovite.domain.Commentaire;
 import ma.pfe.bricovite.repository.CommentaireRepository;
 import ma.pfe.bricovite.service.CommentaireService;
@@ -54,7 +56,7 @@ public class CommentaireResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/commentaires")
-    public ResponseEntity<Commentaire> createCommentaire(@RequestBody Commentaire commentaire) throws URISyntaxException {
+    public ResponseEntity<Commentaire> createCommentaire(@Valid @RequestBody Commentaire commentaire) throws URISyntaxException {
         log.debug("REST request to save Commentaire : {}", commentaire);
         if (commentaire.getId() != null) {
             throw new BadRequestAlertException("A new commentaire cannot already have an ID", ENTITY_NAME, "idexists");
@@ -79,7 +81,7 @@ public class CommentaireResource {
     @PutMapping("/commentaires/{id}")
     public ResponseEntity<Commentaire> updateCommentaire(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Commentaire commentaire
+        @Valid @RequestBody Commentaire commentaire
     ) throws URISyntaxException {
         log.debug("REST request to update Commentaire : {}, {}", id, commentaire);
         if (commentaire.getId() == null) {
@@ -114,7 +116,7 @@ public class CommentaireResource {
     @PatchMapping(value = "/commentaires/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Commentaire> partialUpdateCommentaire(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Commentaire commentaire
+        @NotNull @RequestBody Commentaire commentaire
     ) throws URISyntaxException {
         log.debug("REST request to partial update Commentaire partially : {}, {}", id, commentaire);
         if (commentaire.getId() == null) {
@@ -187,7 +189,7 @@ public class CommentaireResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
-
+    
     @GetMapping("/commentaires/annonce/{id}")
     public ResponseEntity<List<Commentaire>> findByAnnonceId(
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * A Commentaire.
@@ -25,6 +26,10 @@ public class Commentaire implements Serializable {
 
     @Column(name = "date_commentaire")
     private Instant dateCommentaire;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private User user;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "photos", "commentaires", "notes", "user", "commune", "activite" }, allowSetters = true)
@@ -69,6 +74,19 @@ public class Commentaire implements Serializable {
 
     public void setDateCommentaire(Instant dateCommentaire) {
         this.dateCommentaire = dateCommentaire;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Commentaire user(User user) {
+        this.setUser(user);
+        return this;
     }
 
     public Annonce getAnnonce() {

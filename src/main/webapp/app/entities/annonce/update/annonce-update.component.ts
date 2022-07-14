@@ -36,10 +36,11 @@ export class AnnonceUpdateComponent implements OnInit {
     titre: [null, [Validators.required]],
     description: [null, [Validators.required]],
     adresse: [null, [Validators.required]],
-    geometry: [null, [Validators.required]],
     status: [],
 
     dateAnnonce: [],
+    latitude: [],
+    longitude: [],
     user: [],
     categorie: [],
     commune: [],
@@ -47,7 +48,7 @@ export class AnnonceUpdateComponent implements OnInit {
   });
 
   constructor(
-    protected annonceService: AnnonceService,
+    public annonceService: AnnonceService,
     protected userService: UserService,
     protected categorieService: CategorieService,
     protected communeService: CommuneService,
@@ -56,7 +57,7 @@ export class AnnonceUpdateComponent implements OnInit {
     protected fb: FormBuilder
   ) {}
 
-  
+
   onChekCategorie(): number{
     const catId = this.editForm.get(['categorie'])!.value;
     return Number(catId);
@@ -68,7 +69,7 @@ export class AnnonceUpdateComponent implements OnInit {
         const today = dayjs().startOf('minutes');
         annonce.dateAnnonce = today;
       }
-
+      this.annonceService.initilizeMap();
       this.updateForm(annonce);
 
       this.loadRelationshipsOptions();
@@ -130,9 +131,10 @@ export class AnnonceUpdateComponent implements OnInit {
       titre: annonce.titre,
       description: annonce.description,
       adresse: annonce.adresse,
-      geometry: annonce.geometry,
       status: annonce.status,
       dateAnnonce: annonce.dateAnnonce ? annonce.dateAnnonce.format(DATE_TIME_FORMAT) : null,
+      latitude: annonce.latitude,
+      longitude: annonce.longitude,
       user: annonce.user,
       categorie: annonce.categorie,
       commune: annonce.commune,
@@ -158,7 +160,7 @@ export class AnnonceUpdateComponent implements OnInit {
       .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
 
-    this.categorieService
+      this.categorieService
       .query({size:25})
       .pipe(map((res: HttpResponse<ICategorie[]>) => res.body ?? []))
       .pipe(
@@ -194,11 +196,12 @@ export class AnnonceUpdateComponent implements OnInit {
       titre: this.editForm.get(['titre'])!.value,
       description: this.editForm.get(['description'])!.value,
       adresse: this.editForm.get(['adresse'])!.value,
-      geometry: this.editForm.get(['geometry'])!.value,
       status: this.editForm.get(['status'])!.value,
       dateAnnonce: this.editForm.get(['dateAnnonce'])!.value
         ? dayjs(this.editForm.get(['dateAnnonce'])!.value, DATE_TIME_FORMAT)
         : undefined,
+      latitude: this.annonceService.latitude,
+      longitude: this.annonceService.longitude,
       user: { id: Number(sessionStorage.getItem('userConnectedId')) },
       categorie: this.editForm.get(['categorie'])!.value,
       commune: this.editForm.get(['commune'])!.value,

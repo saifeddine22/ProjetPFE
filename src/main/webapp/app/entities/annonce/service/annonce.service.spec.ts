@@ -28,9 +28,10 @@ describe('Annonce Service', () => {
       titre: 'AAAAAAA',
       description: 'AAAAAAA',
       adresse: 'AAAAAAA',
-      geometry: 'AAAAAAA',
       status: false,
       dateAnnonce: currentDate,
+      latitude: 0,
+      longitude: 0,
     };
   });
 
@@ -80,9 +81,10 @@ describe('Annonce Service', () => {
           titre: 'BBBBBB',
           description: 'BBBBBB',
           adresse: 'BBBBBB',
-          geometry: 'BBBBBB',
           status: true,
           dateAnnonce: currentDate.format(DATE_TIME_FORMAT),
+          latitude: 1,
+          longitude: 1,
         },
         elemDefault
       );
@@ -105,8 +107,8 @@ describe('Annonce Service', () => {
       const patchObject = Object.assign(
         {
           description: 'BBBBBB',
-          geometry: 'BBBBBB',
           status: true,
+          dateAnnonce: currentDate.format(DATE_TIME_FORMAT),
         },
         new Annonce()
       );
@@ -134,9 +136,10 @@ describe('Annonce Service', () => {
           titre: 'BBBBBB',
           description: 'BBBBBB',
           adresse: 'BBBBBB',
-          geometry: 'BBBBBB',
           status: true,
           dateAnnonce: currentDate.format(DATE_TIME_FORMAT),
+          latitude: 1,
+          longitude: 1,
         },
         elemDefault
       );
@@ -193,7 +196,7 @@ describe('Annonce Service', () => {
       });
 
       it('should add only unique Annonce to an array', () => {
-        const annonceArray: IAnnonce[] = [{ id: 123 }, { id: 456 }, { id: 7462 }];
+        const annonceArray: IAnnonce[] = [{ id: 123 }, { id: 456 }, { id: 69740 }];
         const annonceCollection: IAnnonce[] = [{ id: 123 }];
         expectedResult = service.addAnnonceToCollectionIfMissing(annonceCollection, ...annonceArray);
         expect(expectedResult).toHaveLength(3);

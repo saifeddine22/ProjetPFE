@@ -7,7 +7,7 @@
 
       <div>
         <jhi-alert-error></jhi-alert-error>
-
+        <div id="map" class="map" (click)="this.annonceService.getCoord($event)"></div>
         <div class="row mb-3" [hidden]="true">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
@@ -70,17 +70,13 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="bricoviteApp.annonce.geometry" for="field_geometry">Geometry</label>
-          <input type="text" class="form-control" name="geometry" id="field_geometry" data-cy="geometry" formControlName="geometry" />
-          <div *ngIf="editForm.get('geometry')!.invalid && (editForm.get('geometry')!.dirty || editForm.get('geometry')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('geometry')?.errors?.required"
-              jhiTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-          </div>
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.latitude" for="field_latitude">Latitude</label>
+          <input type="number" class="form-control" name="latitude" id="field_latitude" data-cy="latitude" formControlName="latitude" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.annonce.longitude" for="field_longitude">Longitude</label>
+          <input type="number" class="form-control" name="longitude" id="field_longitude" data-cy="longitude" formControlName="longitude" />
         </div>
 
         <!-- <div class="row mb-3">

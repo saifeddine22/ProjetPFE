@@ -9,15 +9,128 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { IAnnonce, getAnnonceIdentifier } from '../annonce.model';
 
+import 'ol/ol.css';
+import {Fill, Stroke, Style, Circle as CircleStyle, Icon,} from 'ol/style';
+import GeoJSON from 'ol/format/GeoJSON';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import TileLayer from 'ol/layer/Tile';
+import XYZ from 'ol/source/XYZ';
+import { Coordinate } from 'ol/coordinate';
+import VectorSource from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
+
 export type EntityResponseType = HttpResponse<IAnnonce>;
 export type EntityArrayResponseType = HttpResponse<IAnnonce[]>;
 
 @Injectable({ providedIn: 'root' })
 export class AnnonceService {
+
+  map!: Map;
+  latitude=0;
+  longitude=0;
+  
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/annonces');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  initilizeMap(): void {
 
+    this.map = new Map({
+      target: 'map',
+      layers: [
+      ],
+      view: new View({
+        center: [-6.531926743408018,33.6278503045078],
+        zoom: 8,
+        projection: 'EPSG:4326'
+      })
+    });/* center: [-10.25838565457947,28.438727490809264], zoom: 5.22*/
+    const layer = new TileLayer({
+      visible: true,
+      preload: Infinity,
+      source: new XYZ({
+        url: "http://{1-4}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?app_id=xWVIueSv6JL0aJ5xqTxb&app_code=djPZyynKsbTjIUDOBcHZ2g",
+        crossOrigin: 'anonymous'
+      })
+    });
+    this.map.addLayer(layer);
+    /* const ajustementDrawPolygonStyle = new Style({
+      fill: new Fill({color: 'rgba(255, 255, 255, 0.2)'}),
+      stroke: new Stroke({color: '#ffcc33',width: 2}),
+      image: new CircleStyle({radius: 5,fill: new Fill({color: '#ffcc33'})})
+    }); */
+    function ajustementDrawPolygonStyle (feature: { get: (arg0: string) => string; }, resolution: any): Style
+        {
+            if(feature.get('Catégorie')==='Bricolage-Travaux'){
+              return new Style({
+                fill: new Fill({color: 'rgba(255, 255, 255, 0.2)'}),
+                stroke: new Stroke({color: '#ffcc33',width: 2}),
+                image: new Icon({anchor: [0.5, 46],
+                  anchorXUnits: 'fraction',
+                  anchorYUnits: 'pixels',
+                  src: 'content/images/mapIcons/canvas.png'
+                  })
+              });
+            }else{
+              return new Style({
+                fill: new Fill({color: 'rgba(255, 255, 255, 0.2)'}),
+                stroke: new Stroke({color: '#ffcc33',width: 2}),
+                image: new CircleStyle({radius: 5,fill: new Fill({color: '#000'})})
+              });
+            }
+        }
+    const ajustementGPSPointsVector =  new VectorSource();
+
+    const ajustementDrawPolygonVector = new VectorLayer({
+      visible: true,
+      source: ajustementGPSPointsVector,
+      style:ajustementDrawPolygonStyle
+    });
+    this.map.addLayer(ajustementDrawPolygonVector);
+    let arr=[];
+    arr= JSON.parse(String(sessionStorage.getItem("dataAnnonce")));
+    console.log(arr);
+    sessionStorage.removeItem("dataAnnonce");
+    const format = new GeoJSON({});
+    let dldlGeojson = '{"type": "FeatureCollection","features": [';
+    let testGeojson = '';
+    for (let index = 0; index < arr.length; index++) {
+      const element = arr[index];
+      const id = String(element.id);
+      const description = String(element.description);
+      const lat = String(element.latitude);
+      const lon = String(element.longitude);
+      const activ = String(element.activite.nomFr);
+      const categ = String(element.activite.categorieFr);
+      /*alert('{"id" : "'+id+'","type": "Feature","geometry":{"type":"Point", "coordinates":['+lat+','+lon+']},"properties": {"id": "'+id+'","description": "'+description+'"}}');*/
+      
+      testGeojson = '{"id" : "'+id+'","type": "Feature","geometry":{"type":"Point", "coordinates":['+lat+','+lon+']},"properties": {"id": "'+id+'","nom": "'+description+'","Activité": "'+activ+'","Catégorie": "'+categ+'"}}';
+      testGeojson = testGeojson.replace(/(\r\n|\n|\r)/gm, "");
+      dldlGeojson +=testGeojson+','; 
+
+    }
+    dldlGeojson +=']}';
+    dldlGeojson = dldlGeojson.replace(",]}", "]}");
+
+    const ft = format.readFeatures(dldlGeojson, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:4326'});
+    ajustementGPSPointsVector.clear();
+    ajustementGPSPointsVector.addFeatures(ft);
+    /* const vectorSource = new VectorSource({
+      features: new GeoJSON().readFeatures(dldlGeojson, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:4326'}),
+    }); */
+ 
+
+    
+  }
+  getCoord(event: any):Coordinate{
+    /* const coordinate = transform(this.map.getEventCoordinate(event),'EPSG:3857','EPSG:4326'); */
+    const coordinate = this.map.getEventCoordinate(event);
+    this.latitude=coordinate[0];
+    this.longitude=coordinate[1];
+    /* alert(`latitude :  ${this.latitude} , longitude :  ${this.longitude}`); */
+    return coordinate;
+  }
+  
   create(annonce: IAnnonce): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(annonce);
     return this.http

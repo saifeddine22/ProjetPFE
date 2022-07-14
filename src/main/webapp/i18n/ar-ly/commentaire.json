@@ -20,6 +20,7 @@
       "id": "ID",
       "details": "Details",
       "dateCommentaire": "Date Commentaire",
+      "user": "User",
       "annonce": "Annonce"
     }
   }

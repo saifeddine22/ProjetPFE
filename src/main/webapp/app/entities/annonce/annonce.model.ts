@@ -13,9 +13,10 @@ export interface IAnnonce {
   titre?: string;
   description?: string;
   adresse?: string;
-  geometry?: string;
   status?: boolean | null;
   dateAnnonce?: dayjs.Dayjs | null;
+  latitude?: number | null;
+  longitude?: number | null;
   photos?: IPhoto[] | null;
   commentaires?: ICommentaire[] | null;
   notes?: INote[] | null;
@@ -32,9 +33,10 @@ export class Annonce implements IAnnonce {
     public titre?: string,
     public description?: string,
     public adresse?: string,
-    public geometry?: string,
     public status?: boolean | null,
     public dateAnnonce?: dayjs.Dayjs | null,
+    public latitude?: number | null,
+    public longitude?: number | null,
     public photos?: IPhoto[] | null,
     public commentaires?: ICommentaire[] | null,
     public notes?: INote[] | null,

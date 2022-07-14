@@ -159,23 +159,6 @@ class PersonneResourceIT {
 
     @Test
     @Transactional
-    void checkTypeCompteIsRequired() throws Exception {
-        int databaseSizeBeforeTest = personneRepository.findAll().size();
-        // set the field null
-        //        personne.setTypeCompte(null);
-
-        // Create the Personne, which fails.
-
-        restPersonneMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(personne)))
-            .andExpect(status().isBadRequest());
-
-        List<Personne> personneList = personneRepository.findAll();
-        assertThat(personneList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllPersonnes() throws Exception {
         // Initialize the database
         personneRepository.saveAndFlush(personne);

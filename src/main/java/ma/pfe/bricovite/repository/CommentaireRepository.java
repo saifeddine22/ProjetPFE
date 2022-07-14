@@ -14,6 +14,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CommentaireRepository extends JpaRepository<Commentaire, Long> {
+    @Query("select commentaire from Commentaire commentaire where commentaire.user.login = ?#{principal.username}")
+    List<Commentaire> findByUserIsCurrentUser();
+
     default Optional<Commentaire> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);
     }
@@ -27,16 +30,17 @@ public interface CommentaireRepository extends JpaRepository<Commentaire, Long> 
     }
 
     @Query(
-        value = "select distinct commentaire from Commentaire commentaire left join fetch commentaire.annonce",
+        value = "select distinct commentaire from Commentaire commentaire left join fetch commentaire.user left join fetch commentaire.annonce",
         countQuery = "select count(distinct commentaire) from Commentaire commentaire"
     )
     Page<Commentaire> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct commentaire from Commentaire commentaire left join fetch commentaire.annonce")
+    @Query("select distinct commentaire from Commentaire commentaire left join fetch commentaire.user left join fetch commentaire.annonce")
     List<Commentaire> findAllWithToOneRelationships();
 
-    @Query("select commentaire from Commentaire commentaire left join fetch commentaire.annonce where commentaire.id =:id")
+    @Query(
+        "select commentaire from Commentaire commentaire left join fetch commentaire.user left join fetch commentaire.annonce where commentaire.id =:id"
+    )
     Optional<Commentaire> findOneWithToOneRelationships(@Param("id") Long id);
-
     Page<Commentaire> findByAnnonceId(Pageable pageable, Long annonceId);
 }

@@ -28,7 +28,7 @@
           >
           <div class="d-flex">
             <input
-              [readonly]="true"
+            [readonly]="true"
               id="field_dateCommentaire"
               data-cy="dateCommentaire"
               type="datetime-local"
@@ -38,6 +38,24 @@
               placeholder="YYYY-MM-DD HH:mm"
             />
           </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="bricoviteApp.commentaire.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.login }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['user'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
         </div>
 
         <!-- <div class="row mb-3">

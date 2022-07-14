@@ -29,7 +29,7 @@ export class AnnonceComponent implements OnInit {
   isMesAnnonces = false;
 
   constructor(
-    protected annonceService: AnnonceService,
+    public annonceService: AnnonceService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected modalService: NgbModal
@@ -127,6 +127,8 @@ export class AnnonceComponent implements OnInit {
     }
     this.annonces = data ?? [];
     this.ngbPaginationPage = this.page;
+    sessionStorage.setItem("dataAnnonce",  JSON.stringify(this.annonces));
+    this.annonceService.initilizeMap();
   }
 
   protected onError(): void {

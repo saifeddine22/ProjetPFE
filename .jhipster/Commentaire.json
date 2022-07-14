@@ -21,6 +21,14 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityField": "firstName",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "commentaire",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
       "otherEntityField": "titre",
       "otherEntityName": "annonce",
       "otherEntityRelationshipName": "commentaire",
