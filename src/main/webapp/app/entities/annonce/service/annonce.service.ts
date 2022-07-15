@@ -89,35 +89,45 @@ export class AnnonceService {
     this.map.addLayer(ajustementDrawPolygonVector);
     let arr=[];
     arr= JSON.parse(String(sessionStorage.getItem("dataAnnonce")));
-    console.log(arr);
-    sessionStorage.removeItem("dataAnnonce");
+
     const format = new GeoJSON({});
     let dldlGeojson = '{"type": "FeatureCollection","features": [';
     let testGeojson = '';
-    for (let index = 0; index < arr.length; index++) {
-      const element = arr[index];
-      const id = String(element.id);
-      const description = String(element.description);
-      const lat = String(element.latitude);
-      const lon = String(element.longitude);
-      const activ = String(element.activite.nomFr);
-      const categ = String(element.activite.categorieFr);
-      /*alert('{"id" : "'+id+'","type": "Feature","geometry":{"type":"Point", "coordinates":['+lat+','+lon+']},"properties": {"id": "'+id+'","description": "'+description+'"}}');*/
-      
-      testGeojson = '{"id" : "'+id+'","type": "Feature","geometry":{"type":"Point", "coordinates":['+lat+','+lon+']},"properties": {"id": "'+id+'","nom": "'+description+'","Activité": "'+activ+'","Catégorie": "'+categ+'"}}';
-      testGeojson = testGeojson.replace(/(\r\n|\n|\r)/gm, "");
-      dldlGeojson +=testGeojson+','; 
-
+    if(arr.length > 0){
+      for (let index = 0; index < arr.length; index++) {
+        const element = arr[index];
+        const id = String(element.id);
+        const description = String(element.description);
+        const lat = String(element.latitude);
+        const lon = String(element.longitude);
+        const activ = String(element.activite.nomFr);
+        const categ = String(element.activite.categorieFr);
+        /*alert('{"id" : "'+id+'","type": "Feature","geometry":{"type":"Point", "coordinates":['+lat+','+lon+']},"properties": {"id": "'+id+'","description": "'+description+'"}}');*/
+        
+        testGeojson = '{"id" : "'+id+'","type": "Feature","geometry":{"type":"Point", "coordinates":['+lat+','+lon+']},"properties": {"id": "'+id+'","nom": "'+description+'","Activité": "'+activ+'","Catégorie": "'+categ+'"}}';
+        testGeojson = testGeojson.replace(/(\r\n|\n|\r)/gm, "");
+        dldlGeojson +=testGeojson+','; 
+  
+      }
+    }else{
+        const id = String(arr.id);
+        const description = String(arr.description);
+        const lat = String(arr.latitude);
+        const lon = String(arr.longitude);
+        const activ = String(arr.activite.nomFr);
+        const categ = String(arr.activite.categorieFr);
+        testGeojson = '{"id" : "'+id+'","type": "Feature","geometry":{"type":"Point", "coordinates":['+lat+','+lon+']},"properties": {"id": "'+id+'","nom": "'+description+'","Activité": "'+activ+'","Catégorie": "'+categ+'"}}';
+        testGeojson = testGeojson.replace(/(\r\n|\n|\r)/gm, "");
+        dldlGeojson +=testGeojson+','; 
     }
+    
     dldlGeojson +=']}';
     dldlGeojson = dldlGeojson.replace(",]}", "]}");
 
+    console.log(dldlGeojson);
     const ft = format.readFeatures(dldlGeojson, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:4326'});
     ajustementGPSPointsVector.clear();
     ajustementGPSPointsVector.addFeatures(ft);
-    /* const vectorSource = new VectorSource({
-      features: new GeoJSON().readFeatures(dldlGeojson, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:4326'}),
-    }); */
  
 
     
@@ -128,6 +138,12 @@ export class AnnonceService {
     this.latitude=coordinate[0];
     this.longitude=coordinate[1];
     /* alert(`latitude :  ${this.latitude} , longitude :  ${this.longitude}`); */
+    this.map.forEachFeatureAtPixel(event.pixel,function(feature, layer) {
+      ////console.log(layer.get('name'));
+          if(layer.get('name')==='soufiane'){
+              alert(feature.get('nom'));
+          }
+  });
     return coordinate;
   }
   
