@@ -4,7 +4,7 @@
       "home": {
         "title": "Commentaires",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Commentaire",
+        "createLabel": "Ajouter un Commentaire",
         "createOrEditLabel": "Créer ou éditer un Commentaire",
         "notFound": "Aucun Commentaire trouvé"
       },

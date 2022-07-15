@@ -104,7 +104,7 @@
           <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
         </button> -->
 
-      <button class="btn btn-info" [routerLink]="['/annonce', annonce.id, 'commentaires']">commentaires</button>
+      <!-- <button class="btn btn-info" [routerLink]="['/annonce', annonce.id, 'commentaires']">commentaires</button> -->
 
       <button
         *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
@@ -150,13 +150,13 @@
         Edit photos
       </button>
       <dl>
-        <dt>Commantaires</dt>
+        <dt>Commentaires</dt>
         <p *ngFor="let commentaire of annonce.commentaires">
           <dd>
-            {{ commentaire.user?.login }} 
+            {{ commentaire.user?.login }}
             {{ commentaire.details }}
-            <br>
-            {{ commentaire.dateCommentaire}}
+            <br />
+            {{ commentaire.dateCommentaire }}
           </dd>
         </p>
       </dl>
