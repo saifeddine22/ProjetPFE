@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -29,7 +29,7 @@ export class CommentaireUpdateComponent implements OnInit {
     id: [],
     details: [],
     dateCommentaire: [],
-    user: [null, Validators.required],
+    user: [],
     annonce: [],
   });
 
@@ -132,7 +132,7 @@ export class CommentaireUpdateComponent implements OnInit {
       dateCommentaire: this.editForm.get(['dateCommentaire'])!.value
         ? dayjs(this.editForm.get(['dateCommentaire'])!.value, DATE_TIME_FORMAT)
         : undefined,
-      user: this.editForm.get(['user'])!.value,
+      user: { id: Number(sessionStorage.getItem('userConnectedId')) },
       annonce: { id: Number(sessionStorage.getItem('currentAnnonce')) },
     };
   }

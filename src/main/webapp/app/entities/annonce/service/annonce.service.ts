@@ -102,8 +102,6 @@ export class AnnonceService {
         const lon = String(element.longitude);
         const activ = String(element.activite.nomFr);
         const categ = String(element.activite.categorieFr);
-        /*alert('{"id" : "'+id+'","type": "Feature","geometry":{"type":"Point", "coordinates":['+lat+','+lon+']},"properties": {"id": "'+id+'","description": "'+description+'"}}');*/
-        
         testGeojson = '{"id" : "'+id+'","type": "Feature","geometry":{"type":"Point", "coordinates":['+lat+','+lon+']},"properties": {"id": "'+id+'","nom": "'+description+'","Activité": "'+activ+'","Catégorie": "'+categ+'"}}';
         testGeojson = testGeojson.replace(/(\r\n|\n|\r)/gm, "");
         dldlGeojson +=testGeojson+','; 
@@ -139,7 +137,7 @@ export class AnnonceService {
     this.longitude=coordinate[1];
     /* alert(`latitude :  ${this.latitude} , longitude :  ${this.longitude}`); */
     this.map.forEachFeatureAtPixel(event.pixel,function(feature, layer) {
-      ////console.log(layer.get('name'));
+      // console.log(layer.get('name'));
           if(layer.get('name')==='soufiane'){
               alert(feature.get('nom'));
           }

@@ -69,11 +69,11 @@ export class AnnonceUpdateComponent implements OnInit {
         const today = dayjs().startOf('minutes');
         annonce.dateAnnonce = today;
       }
-      sessionStorage.setItem("dataAnnonce",  JSON.stringify(annonce));
-      this.annonceService.initilizeMap();
       this.updateForm(annonce);
 
       this.loadRelationshipsOptions();
+      sessionStorage.setItem("dataAnnonce",  JSON.stringify(annonce));
+      this.annonceService.initilizeMap();
     });
   }
 
