@@ -4,9 +4,9 @@
       "home": {
         "title": "Notes",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer une nouveau Note",
-        "createOrEditLabel": "Créer ou éditer un Note",
-        "notFound": "Aucun Note trouvé"
+        "createLabel": "Attribuer une Note",
+        "createOrEditLabel": "Créer ou éditer une Note",
+        "notFound": "Aucune Note trouvée"
       },
       "created": "Une nouvelle Note a été créée",
       "updated": "La Note a été mise à jour",

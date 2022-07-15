@@ -57,8 +57,7 @@ export class AnnonceUpdateComponent implements OnInit {
     protected fb: FormBuilder
   ) {}
 
-
-  onChekCategorie(): number{
+  onChekCategorie(): number {
     const catId = this.editForm.get(['categorie'])!.value;
     return Number(catId);
   }
@@ -69,11 +68,11 @@ export class AnnonceUpdateComponent implements OnInit {
         const today = dayjs().startOf('minutes');
         annonce.dateAnnonce = today;
       }
-      sessionStorage.setItem("dataAnnonce",  JSON.stringify(annonce));
-      this.annonceService.initilizeMap();
-      this.updateForm(annonce);
 
+      this.updateForm(annonce);
       this.loadRelationshipsOptions();
+      sessionStorage.setItem('dataAnnonce', JSON.stringify(annonce));
+      this.annonceService.initilizeMap();
     });
   }
 
@@ -161,8 +160,8 @@ export class AnnonceUpdateComponent implements OnInit {
       .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
 
-      this.categorieService
-      .query({size:25})
+    this.categorieService
+      .query({ size: 25 })
       .pipe(map((res: HttpResponse<ICategorie[]>) => res.body ?? []))
       .pipe(
         map((categories: ICategorie[]) =>
@@ -180,7 +179,7 @@ export class AnnonceUpdateComponent implements OnInit {
       .subscribe((communes: ICommune[]) => (this.communesSharedCollection = communes));
 
     this.activiteService
-      .query({size:200})
+      .query({ size: 200 })
       .pipe(map((res: HttpResponse<IActivite[]>) => res.body ?? []))
       .pipe(
         map((activites: IActivite[]) =>
