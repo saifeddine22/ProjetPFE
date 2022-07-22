@@ -36,14 +36,13 @@ export class AnnonceDetailComponent implements OnInit {
     protected modalService: NgbModal,
     private router: Router
   ) {}
-  
-  afficherCarte(): void{
+
+  afficherCarte(): void {
     sessionStorage.setItem('dataAnnonce', JSON.stringify(this.annonce));
     this.annonceService.initilizeMap();
     this.annonceService.vectorMap();
   }
 
-  
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ annonce }) => {
       this.annonce = annonce;
@@ -65,7 +64,7 @@ export class AnnonceDetailComponent implements OnInit {
   }
 
   addRating(note: INote | undefined): void {
-    const modalRef = this.modalService.open(NoteUpdateComponent, { size: 'lg', backdrop: 'static' });
+    this.modalService.open(NoteUpdateComponent, { size: 'lg', backdrop: 'static' });
   }
 
   moy(notes: INote[]): number {
@@ -80,6 +79,6 @@ export class AnnonceDetailComponent implements OnInit {
   }
 
   addComment(commentaire: ICommentaire | undefined): void {
-    const modalRef = this.modalService.open(CommentaireUpdateComponent, { size: 'lg', backdrop: 'static' });
+    this.modalService.open(CommentaireUpdateComponent, { size: 'lg', backdrop: 'static' });
   }
 }
