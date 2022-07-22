@@ -9,11 +9,6 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <!-- <dt><span jhiTranslate="global.field.id">ID</span></dt>
-        <dd>
-          <span>{{ annonce.id }}</span>
-        </dd> -->
-
         <dt></dt>
         <dd>
           <ngb-carousel *ngIf="annonce.photos" style="width: 60%; height: 300px">
@@ -23,7 +18,6 @@
               </div>
               <div class="carousel-caption">
                 <h3>Bricovite</h3>
-                <!-- <p>{{ photo.libelle }}</p> -->
               </div>
             </ng-template>
           </ngb-carousel>
@@ -40,15 +34,6 @@
         <dd>
           <span>{{ annonce.adresse }}</span>
         </dd>
-        <!-- <dt><span jhiTranslate="bricoviteApp.annonce.geometry">Geometry</span></dt>
-        <dd>
-          <span>{{ annonce.geometry }}</span>
-        </dd> -->
-        <!--  <dt><span jhiTranslate="bricoviteApp.annonce.status">Status</span></dt>
-        <dd>
-          <span>{{ annonce.status }}</span>
-        </dd> -->
-
         <dt><span jhiTranslate="bricoviteApp.annonce.dateAnnonce">Date Annonce</span></dt>
         <dd>
           <span>{{ annonce.dateAnnonce | formatMediumDatetime }}</span>
@@ -59,10 +44,6 @@
             <a>{{ annonce.user?.login }}</a>
           </div>
         </dd>
-        <!-- <dt><span jhiTranslate="bricoviteApp.annonce.commune">Commune</span></dt>
-        <dd>
-          <span>{{ annonce.commune?.nomFr }}</span>
-        </dd> -->
         <dt><span jhiTranslate="">Catégorie</span></dt>
         <dd>
           <span>{{ annonce.activite?.categorieFr }}</span>
@@ -73,21 +54,19 @@
         </dd>
         <dt><span jhiTranslate="bricoviteApp.annonce.note">Note</span></dt>
         <dd *ngIf="annonce.notes">
-          <span *ngFor="let note of annonce.notes">{{ note.valeur }}</span>
-        </dd>
+          <div>
+            <span>{{ moy(annonce.notes) | number: '1.2-2' }}</span>
+          </div>
 
-        <!-- <dt><span jhiTranslate="bricoviteApp.annonce.commune">Commune</span></dt>
-        <dd>
-          <div *ngIf="annonce.commune">
-            <a [routerLink]="['/commune', annonce.commune?.id, 'view']">{{ annonce.commune?.nomFr }}</a>
-          </div>
+          <button type="button" (click)="updateRating()">Update Rating</button>
+          <ngb-rating class="ngb-rating" [max]="5" [(rate)]="rating" [readonly]="true">
+            <ng-template let-fill="fill">
+              <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
+                <span class="paintedStar" [style.width.%]="fill">★</span>★
+              </span>
+            </ng-template>
+          </ngb-rating>
         </dd>
-        <dt><span jhiTranslate="bricoviteApp.annonce.activite">Activite</span></dt>
-        <dd>
-          <div *ngIf="annonce.activite">
-            <a [routerLink]="['/activite', annonce.activite?.id, 'view']">{{ annonce.activite?.nomFr }}</a>
-          </div>
-        </dd> -->
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
@@ -95,52 +74,27 @@
       </button>
 
       <button class="btn btn-info" (click)="goToPersonneDetails(annonce.user?.id)">Contacter</button>
-
-      <!-- <button type="button" 
-          *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-          [hidden]="annonce.user?.id != userConnect " 
-          [routerLink]="['/annonce', annonce.id, 'edit']"
-          class="btn btn-primary">
-          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
-        </button> -->
-
-      <!-- <button class="btn btn-info" [routerLink]="['/annonce', annonce.id, 'commentaires']">commentaires</button> -->
-
       <button
         *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-commentaire"
-        [routerLink]="['/commentaire/new']"
+        (click)="addComment(commentaire)"
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
       </button>
 
-      <!--  <button class="btn btn-info" [routerLink]="['/annonce', annonce.id, 'photos']">Photos</button> -->
       <button
         *jhiHasAnyAuthority="'ROLE_USER'"
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-note"
-        [routerLink]="['/note/new']"
+        (click)="addRating(note)"
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="bricoviteApp.note.home.createLabel"> Create a new note </span>
       </button>
-
-      <!--  <button
-        *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-        id="jh-create-entity"
-        [hidden]="annonce.user?.id != userConnect"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-photo"
-        [routerLink]="['/photo/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="bricoviteApp.photo.home.createLabel"> Create a new Photo </span>
-      </button> -->
-
       <button
         *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
         class="btn btn-info"
