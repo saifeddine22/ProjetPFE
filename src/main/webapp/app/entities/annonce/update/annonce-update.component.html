@@ -7,7 +7,11 @@
 
       <div>
         <jhi-alert-error></jhi-alert-error>
-        <div id="map" class="map" (click)="this.annonceService.getCoord($event)"></div>
+        <div id="map" class="map"></div>
+        <div id="popup" class="ol-popup">
+          <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+          <div id="popup-content"></div>
+        </div>
         <div class="row mb-3" [hidden]="true">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />

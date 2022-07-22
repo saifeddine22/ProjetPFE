@@ -73,6 +73,9 @@ export class AnnonceUpdateComponent implements OnInit {
       
       sessionStorage.setItem('dataAnnonce', JSON.stringify(annonce));
       this.annonceService.initilizeMap();
+      this.annonceService.vectorMap();
+      this.annonceService.map.removeInteraction(this.annonceService.draw);
+      this.annonceService.map.addInteraction(this.annonceService.draw);
     });
   }
 

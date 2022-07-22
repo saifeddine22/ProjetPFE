@@ -41,8 +41,7 @@ Generic styles
 /* other generic styles */
 
 .jh-card {
-  padding: 1.5%;
-  margin-top: 20px;
+  padding: 40px 0;
   border: none;
 }
 
@@ -79,6 +78,7 @@ Generic styles
 
 .footer {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
+  padding-top: 40px;
 }
 
 .hand,
@@ -144,7 +144,7 @@ entity detail page css
       float: left;
       overflow: hidden;
       clear: left;
-      text-align: right;
+      text-align: left;
       text-overflow: ellipsis;
       white-space: nowrap;
       padding: 0.5em 0;
@@ -196,6 +196,10 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   ul.navbar-nav {
     .nav-item {
       margin-left: 0.5em;
+      .nav-link{
+        color: #2e477d;
+        :hover{color: #3399f3;}
+      }
     }
   }
 }

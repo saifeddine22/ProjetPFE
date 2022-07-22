@@ -9,6 +9,7 @@ import { PersonneService } from 'app/entities/personne/service/personne.service'
 import { PhotoService } from 'app/entities/photo/service/photo.service';
 
 import { IAnnonce } from '../annonce.model';
+import { AnnonceService } from '../service/annonce.service';
 
 @Component({
   selector: 'jhi-annonce-detail',
@@ -20,6 +21,7 @@ export class AnnonceDetailComponent implements OnInit {
   note: INote | null = null;
 
   constructor(
+    public annonceService: AnnonceService,
     protected activatedRoute: ActivatedRoute,
     protected personneService: PersonneService,
     protected commentaireService: CommentaireService,
@@ -28,7 +30,14 @@ export class AnnonceDetailComponent implements OnInit {
     protected modalService: NgbModal,
     private router: Router
   ) {}
+  
+  afficherCarte(): void{
+    sessionStorage.setItem('dataAnnonce', JSON.stringify(this.annonce));
+    this.annonceService.initilizeMap();
+    this.annonceService.vectorMap();
+  }
 
+  
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ annonce }) => {
       this.annonce = annonce;
