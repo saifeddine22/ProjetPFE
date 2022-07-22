@@ -73,26 +73,27 @@
           <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
             <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
           </button>
-          <button
-            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
-            id="jh-create-entity"
-            data-cy="entityCreateButton"
-            class="btn btn-primary jh-create-entity create-commentaire"
-            [routerLink]="['/commentaire/new']"
-          >
-            <fa-icon icon="plus"></fa-icon>
-            <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
-          </button>
-          <button
-            *jhiHasAnyAuthority="'ROLE_USER'"
-            id="jh-create-entity"
-            data-cy="entityCreateButton"
-            class="btn btn-primary jh-create-entity create-note"
-            [routerLink]="['/note/new']"
-          >
-            <fa-icon icon="plus"></fa-icon>
-            <span jhiTranslate="bricoviteApp.note.home.createLabel"> Create a new note </span>
-          </button>
+           <button
+        *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-commentaire"
+        (click)="addComment(commentaire)"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
+      </button>
+
+      <button
+        *jhiHasAnyAuthority="'ROLE_USER'"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-note"
+        (click)="addRating(note)"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="bricoviteApp.note.home.createLabel"> Create a new note </span>
+      </button>
 
           <button
             *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
@@ -127,6 +128,23 @@
             <div class="card-body">
               <p *ngIf="annonce.notes" class="card-text">
                 <span *ngFor="let note of annonce.notes">{{ note.valeur }}</span>
+              </p>
+              <p>
+                  <dt><span jhiTranslate="bricoviteApp.annonce.note">Note</span></dt>
+                  <dd *ngIf="annonce.notes">
+                    <div>
+                      <span>{{ moy(annonce.notes) | number: '1.2-2' }}</span>
+                    </div>
+
+                    <button type="button" (click)="updateRating()">Update Rating</button>
+                    <ngb-rating class="ngb-rating" [max]="5" [(rate)]="rating" [readonly]="true">
+                      <ng-template let-fill="fill">
+                        <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
+                          <span class="paintedStar" [style.width.%]="fill">★</span>★
+                        </span>
+                      </ng-template>
+                    </ngb-rating>
+                  </dd>
               </p>
             </div>
           </div>

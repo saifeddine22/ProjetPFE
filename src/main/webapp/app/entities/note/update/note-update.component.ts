@@ -9,6 +9,7 @@ import { INote, Note } from '../note.model';
 import { NoteService } from '../service/note.service';
 import { IAnnonce } from 'app/entities/annonce/annonce.model';
 import { AnnonceService } from 'app/entities/annonce/service/annonce.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-note-update',
@@ -17,7 +18,11 @@ import { AnnonceService } from 'app/entities/annonce/service/annonce.service';
 export class NoteUpdateComponent implements OnInit {
   isSaving = false;
 
+  note: INote | null = null;
+
   annoncesSharedCollection: IAnnonce[] = [];
+
+  starRating = 0;
 
   editForm = this.fb.group({
     id: [],
@@ -29,29 +34,32 @@ export class NoteUpdateComponent implements OnInit {
     protected noteService: NoteService,
     protected annonceService: AnnonceService,
     protected activatedRoute: ActivatedRoute,
+    protected activeModal: NgbActiveModal,
     protected fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ note }) => {
+    /* this.activatedRoute.data.subscribe(({ note }) => {
       this.updateForm(note);
-
       this.loadRelationshipsOptions();
-    });
+    }); */
+    console.log('');
   }
 
   previousState(): void {
-    window.history.back();
+    /* window.history.back(); */
+    this.activeModal.dismiss();
   }
 
   save(): void {
     this.isSaving = true;
     const note = this.createFromForm();
-    if (note.id !== undefined) {
-      this.subscribeToSaveResponse(this.noteService.update(note));
-    } else {
-      this.subscribeToSaveResponse(this.noteService.create(note));
-    }
+    console.log(note);
+    //if (note.id !== undefined) {
+    // this.subscribeToSaveResponse(this.noteService.update(note));
+    //} else {
+    this.subscribeToSaveResponse(this.noteService.create(note));
+    // }
   }
 
   trackAnnonceById(_index: number, item: IAnnonce): number {
@@ -66,7 +74,8 @@ export class NoteUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.previousState();
+    /* this.previousState(); */
+    this.activeModal.dismiss();
   }
 
   protected onSaveError(): void {

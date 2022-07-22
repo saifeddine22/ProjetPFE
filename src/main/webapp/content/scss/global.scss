@@ -204,3 +204,22 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   }
 }
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+.ngb-rating {
+  color: #ffc107;
+  font-size: 50px;
+
+  .defaultStar {
+    position: relative;
+    display: inline-block;
+    color: gray;
+    font-size: 50px;
+  }
+
+  .paintedStar {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #ffc107;
+  }
+}

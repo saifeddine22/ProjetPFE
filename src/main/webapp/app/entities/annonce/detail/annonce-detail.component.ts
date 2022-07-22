@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ICommentaire } from 'app/entities/commentaire/commentaire.model';
 import { CommentaireService } from 'app/entities/commentaire/service/commentaire.service';
+import { CommentaireUpdateComponent } from 'app/entities/commentaire/update/commentaire-update.component';
 import { INote } from 'app/entities/note/note.model';
 import { NoteService } from 'app/entities/note/service/note.service';
+import { NoteUpdateComponent } from 'app/entities/note/update/note-update.component';
 import { PersonneDetailComponent } from 'app/entities/personne/detail/personne-detail.component';
 import { PersonneService } from 'app/entities/personne/service/personne.service';
 import { PhotoService } from 'app/entities/photo/service/photo.service';
@@ -18,7 +21,10 @@ import { AnnonceService } from '../service/annonce.service';
 export class AnnonceDetailComponent implements OnInit {
   annonce: IAnnonce | null = null;
   userConnect = Number(sessionStorage.getItem('userConnectedId'));
-  note: INote | null = null;
+  note!: INote;
+  commentaire!: ICommentaire;
+  moyNote = 0;
+  rating = this.moyNote;
 
   constructor(
     public annonceService: AnnonceService,
@@ -49,17 +55,6 @@ export class AnnonceDetailComponent implements OnInit {
     window.history.back();
   }
 
-  /*  goToPersonneDetails(userId: number | undefined): void {
-    if (userId) {
-      this.personneService.findByUserId(userId).subscribe(res => {
-        const personneId = res.body?.id;
-        if (personneId) {
-          this.router.navigate(['personne', personneId, 'view']);
-        }
-      });
-    }
-  } */
-
   goToPersonneDetails(userId: number | undefined): void {
     const modalRef = this.modalService.open(PersonneDetailComponent, { size: 'lg', backdrop: 'static' });
     if (userId) {
@@ -67,5 +62,24 @@ export class AnnonceDetailComponent implements OnInit {
         modalRef.componentInstance.personne = res.body;
       });
     }
+  }
+
+  addRating(note: INote | undefined): void {
+    const modalRef = this.modalService.open(NoteUpdateComponent, { size: 'lg', backdrop: 'static' });
+  }
+
+  moy(notes: INote[]): number {
+    const som = notes.map(n => n.valeur ?? 0).reduce((a, b) => a + b, 0);
+    this.moyNote = som / notes.length;
+    return this.moyNote;
+  }
+
+  updateRating(): number {
+    this.rating = this.moyNote;
+    return this.rating;
+  }
+
+  addComment(commentaire: ICommentaire | undefined): void {
+    const modalRef = this.modalService.open(CommentaireUpdateComponent, { size: 'lg', backdrop: 'static' });
   }
 }

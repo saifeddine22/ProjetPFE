@@ -14,6 +14,7 @@ import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { IAnnonce } from 'app/entities/annonce/annonce.model';
 import { AnnonceService } from 'app/entities/annonce/service/annonce.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-commentaire-update',
@@ -27,7 +28,7 @@ export class CommentaireUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    details: [],
+    details: [null, Validators.required],
     dateCommentaire: [],
     user: [],
     annonce: [],
@@ -38,6 +39,7 @@ export class CommentaireUpdateComponent implements OnInit {
     protected userService: UserService,
     protected annonceService: AnnonceService,
     protected activatedRoute: ActivatedRoute,
+    protected activeModal: NgbActiveModal,
     protected fb: FormBuilder
   ) {}
 
@@ -48,24 +50,25 @@ export class CommentaireUpdateComponent implements OnInit {
         commentaire.dateCommentaire = today;
       }
 
-      this.updateForm(commentaire);
+      /*  this.updateForm(commentaire);
 
-      this.loadRelationshipsOptions();
+      this.loadRelationshipsOptions(); */
     });
   }
 
   previousState(): void {
-    window.history.back();
+    /* window.history.back(); */
+    this.activeModal.dismiss();
   }
 
   save(): void {
     this.isSaving = true;
     const commentaire = this.createFromForm();
-    if (commentaire.id !== undefined) {
+    /* if (commentaire.id !== undefined) {
       this.subscribeToSaveResponse(this.commentaireService.update(commentaire));
-    } else {
-      this.subscribeToSaveResponse(this.commentaireService.create(commentaire));
-    }
+    } else { */
+    this.subscribeToSaveResponse(this.commentaireService.create(commentaire));
+    /* } */
   }
 
   trackUserById(_index: number, item: IUser): number {
@@ -84,7 +87,8 @@ export class CommentaireUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.previousState();
+    /* this.previousState(); */
+    this.activeModal.dismiss();
   }
 
   protected onSaveError(): void {
@@ -129,9 +133,7 @@ export class CommentaireUpdateComponent implements OnInit {
       ...new Commentaire(),
       id: this.editForm.get(['id'])!.value,
       details: this.editForm.get(['details'])!.value,
-      dateCommentaire: this.editForm.get(['dateCommentaire'])!.value
-        ? dayjs(this.editForm.get(['dateCommentaire'])!.value, DATE_TIME_FORMAT)
-        : undefined,
+      dateCommentaire: dayjs().startOf('minutes'),
       user: { id: Number(sessionStorage.getItem('userConnectedId')) },
       annonce: { id: Number(sessionStorage.getItem('currentAnnonce')) },
     };

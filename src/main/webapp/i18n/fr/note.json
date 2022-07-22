@@ -5,10 +5,10 @@
         "title": "Notes",
         "refreshListLabel": "Actualiser la liste",
         "createLabel": "Attribuer une Note",
-        "createOrEditLabel": "Créer ou éditer une Note",
+        "createOrEditLabel": "Ajouter une Note",
         "notFound": "Aucune Note trouvée"
       },
-      "created": "Une nouvelle Note a été créée",
+      "created": "Une nouvelle Note a été Ajoutée",
       "updated": "La Note a été mise à jour",
       "deleted": "La Note a été supprimée",
       "delete": {

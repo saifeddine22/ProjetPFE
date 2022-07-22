@@ -14,6 +14,7 @@ import { ICategorie } from 'app/entities/categorie/categorie.model';
 import { IActivite } from 'app/entities/activite/activite.model';
 import { CategorieService } from 'app/entities/categorie/service/categorie.service';
 import { ActiviteService } from 'app/entities/activite/service/activite.service';
+import { AnnonceDetailComponent } from '../detail/annonce-detail.component';
 /* import { RegionService } from 'app/entities/region/service/region.service';
 import { IRegion } from 'app/entities/region/region.model'; */
 
@@ -35,8 +36,11 @@ export class AnnonceComponent implements OnInit {
   categoriesSharedCollection: ICategorie[] = [];
   activitesSharedCollection: IActivite[] = [];
   /* regionsSharedCollection: IRegion[] = []; */
+  annonceDetailComponenet?: AnnonceDetailComponent;
 
   isMesAnnonces = false;
+  starRating = 0;
+  txtRateValue = 0;
 
   editForm = this.fb.group({
     id: [],
