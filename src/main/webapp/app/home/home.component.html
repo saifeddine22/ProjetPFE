@@ -1,25 +1,140 @@
-<div class="row">
-  <div class="col-md-9 mx-auto">
-    <h1 class="display-4"><span jhiTranslate="home.title">Need a service or a hand ?</span></h1>
+<section>
+  <div class="container">
+    <div class="row">
+      <h1 class="display-4"><span jhiTranslate="home.title">Need a service or a hand ?</span></h1>
 
-    <p class="lead" jhiTranslate="home.subtitle">Find the service provider you need in just a few clicks!</p>
+      <p class="lead" jhiTranslate="home.subtitle">Find the service provider you need in just a few clicks!</p>
 
-    <div [ngSwitch]="account !== null">
-      <div class="alert alert-success" *ngSwitchCase="true">
-        <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message" [translateValues]="{ username: account.login }"
-          >You are logged in as user "{{ account.login }}".</span
-        >
-      </div>
+      <div [ngSwitch]="account !== null">
+        <div class="alert alert-success" *ngSwitchCase="true">
+          <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message" [translateValues]="{ username: account.login }"
+            >You are logged in as user "{{ account.login }}".</span
+          >
+        </div>
 
-      <div class="alert alert-warning" *ngSwitchCase="false">
-        <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
-        <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">sign in</a>
-      </div>
+        <div class="alert alert-warning" *ngSwitchCase="false">
+          <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
+          <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">sign in</a>
+        </div>
 
-      <div class="alert alert-warning" *ngSwitchCase="false">
-        <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
-        <a class="alert-link" routerLink="account/register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
+        <div class="alert alert-warning" *ngSwitchCase="false">
+          <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
+          <a class="alert-link" routerLink="account/register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+<section class="promotion">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 mx-auto">
+        <p class="h2 promoTitle text-center">comment ça marche?</p>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-2 mb-md-0">
+        <div class="card">
+          <div class="card-block col-10 mx-auto">
+            <div class="card-header col-12 text-center">
+              <p class="h3">Je propose mes services</p>
+            </div>
+            <div class="col-12 text-center">
+              <div>
+                <p>
+                  Répondre aux annonces.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-2 mb-md-0">
+        <div class="card">
+          <div class="card-block col-10 mx-auto">
+            <div class="card-header col-12 text-center">
+              <p class="h3">Je cherche un service</p>
+            </div>
+            <div class="col-12 text-center">
+              <div>
+                <p>
+                  Trouvez le service qu'il vous faut à l'aide du formulaire de 
+                  recherche en saisissant vos critères.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="promotion bg-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 mx-auto">
+        <p class="h2 promoTitle text-center">Ce qui va vous plaire</p>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <div class="service-box">
+          <i class="large material-icons">access_alarm</i>
+          <p class="h3">Temps gagné</p>
+          <p>
+            Cherchez et comparez les services en quelques clics
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="service-box">
+          <i class="large material-icons">security</i>
+          <p class="h3">Espace sécurisé</p>
+          <p>
+            Gardez le contrôle sur vos données
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="service-box">
+          <i class="large material-icons">recent_actors</i>
+          <p class="h3">Grande variété</p>
+          <p>
+            Accédez à une base de données riche 
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-md-5">
+      <div class="col-md-4 text-center">
+        <div class="service-box">
+          <i class="large material-icons">person_pin_circle</i>
+          <p class="h3">Recherche ciblée</p>
+          <p>
+            Saisissez vos critères et trouvez le bon Prestataire.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="service-box">
+          <i class="large material-icons">dashboard</i>
+          <p class="h3">Compte personnel</p>
+          <p>
+            Votre espace dédié vous permet de gérer facilement votre activité
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="service-box">
+          <i class="large material-icons">equalizer</i>
+          <p class="h3">Optimiser</p>
+          <p>
+            Surveillez votre activité 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

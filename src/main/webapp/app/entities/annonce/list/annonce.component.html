@@ -1,298 +1,203 @@
-<div>
-  <h2 id="page-heading" data-cy="AnnonceHeading">
-    <span jhiTranslate="bricoviteApp.annonce.home.title">Annonces</span>
-    <form [formGroup]="editForm">
-      <div class="d-flex justify-content-end">
-        <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
-          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-          <span jhiTranslate="bricoviteApp.annonce.home.refreshListLabel">Refresh List</span>
-        </button>
 
-        <button
-          *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-          id="jh-create-entity"
-          data-cy="entityCreateButton"
-          class="btn btn-primary jh-create-entity create-annonce"
-          [routerLink]="['/annonce/new']"
-        >
-          <fa-icon icon="plus"></fa-icon>
-          <span jhiTranslate="bricoviteApp.annonce.home.createLabel"> Create a new Annonce </span>
-        </button>
+      <section>
+        <div class="container">
+          <h2 id="page-heading" data-cy="AnnonceHeading">
+            <span jhiTranslate="bricoviteApp.annonce.home.title">Annonces</span>
+          </h2>
+          <form [formGroup]="editForm">
+            <div class="row">
+              <div class="col-md-5 col-sm-8 mb-2">
+                <button
+                  *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+                  id="jh-create-entity"
+                  data-cy="entityCreateButton"
+                  class="btn btn-outline-bricoVite jh-create-entity create-annonce"
+                  [routerLink]="['/annonce/new']"
+                >
+                  <fa-icon icon="plus"></fa-icon>
+                  <span jhiTranslate="bricoviteApp.annonce.home.createLabel"> Create a new Annonce </span>
+                </button>
+              </div>
+              <div class="col-md-7 col-sm-10 mb-2 clearfix overflow-hidden">
+              
+                <div *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'" class="float-end">
+                  <button *ngIf="isMesAnnonces" class="btn btn-bricoVite" [routerLink]="['/annonce']">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span> Tous </span>
+                  </button>
+                  <button *ngIf="!isMesAnnonces" class="btn btn-outline-bricoVite" [routerLink]="['/annonce', 'mesAnnonces']">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span> Mes annonces </span>
+                  </button>
+                </div>
+                <button class="btn btn-outline-bricoVite me-2 float-end" (click)="loadPage()" [disabled]="isLoading">
+                  <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+                  <span jhiTranslate="bricoviteApp.annonce.home.refreshListLabel">Refresh List</span>
+                </button>
+              </div>
 
-        <div *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'" class="d-flex justify-content-end">
-          <button *ngIf="isMesAnnonces" class="btn btn-info" [routerLink]="['/annonce']">
-            <fa-icon icon="eye"></fa-icon>
-            <span> Tous </span>
-          </button>
-          <button *ngIf="!isMesAnnonces" class="btn btn-info" [routerLink]="['/annonce', 'mesAnnonces']">
-            <fa-icon icon="eye"></fa-icon>
-            <span> Mes annonces </span>
-          </button>
-        </div>
-
-        <!--  <div class="d-flex justify-content-end">
-        <label class="form-label" for="field_region">Région</label>
-        <select
-          class="form-control"
-          id="field_region"
-          data-cy="region"
-          name="region"
-          formControlName="region"
-        >
-          <option [ngValue]="null">Tous</option>
-          <option
-            [ngValue]=" regionOption.id"
-            *ngFor="let regionOption of regionsSharedCollection; trackBy: trackRegionById"
-          >
-            {{ regionOption.nomFr }}
-          </option>
-        </select>
-      </div> -->
-
-        <div class="d-flex justify-content-end">
-          <label class="form-label" jhiTranslate="bricoviteApp.annonce.categorie" for="field_categorie">Categorie</label>
-          <select
-            class="form-control"
-            id="field_categorie"
-            data-cy="categorie"
-            name="categorie"
-            formControlName="categorie"
-            (change)="onChekCategorie()"
-          >
-            <option [ngValue]="null">Tous</option>
-            <option [ngValue]="categorieOption.id" *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById">
-              {{ categorieOption.nomFr }}
-            </option>
-          </select>
-        </div>
-
-        <div class="d-flex justify-content-end">
-          <label class="form-label" jhiTranslate="bricoviteApp.annonce.activite" for="field_activite">Activite</label>
-          <select class="form-control" id="field_activite" data-cy="activite" name="activite" formControlName="activite">
-            <option *ngIf="!editForm.get('activite')!.value" [ngValue]="null" selected>Tous</option>
-            <option
-              [ngValue]="activiteOption.id"
-              *ngFor="let activiteOption of filterActivites(); trackBy: trackActiviteById"
-              [hidden]="activiteOption.categorie?.id != onChekCategorie()"
-            >
-              {{ activiteOption.nomFr }}
-            </option>
-          </select>
-        </div>
-
-        <button
-          id="jh-search-entity"
-          data-cy="entitySearchButton"
-          class="btn btn-primary jh-search-entity search-annonce"
-          (click)="search()"
-        >
-          <fa-icon icon="eye"></fa-icon>
-          <span> Chercher </span>
-        </button>
-      </div>
-    </form>
-  </h2>
-
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-  <div id="map" class="map" (click)="this.annonceService.getCoord($event)"></div>
-  <div class="alert alert-warning" id="no-result" *ngIf="annonces?.length === 0">
-    <span jhiTranslate="bricoviteApp.annonce.home.notFound">No annonces found</span>
-  </div>
-  <div class="row">
-    <div class="col-lg-9" id="entities" *ngIf="annonces && annonces.length > 0">
-      <div class="annonceContent row" *ngFor="let annonce of annonces; trackBy: trackId">
-        <div class="col-sm-3">
-          <span *ngFor="let photo of annonce.photos; let isFirst = first" [hidden]="!isFirst">
-            <a [routerLink]="['/annonce', annonce.id, 'view']">
-              <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="max-height: 150px; width: 200px" />
-            </a>
-          </span>
-        </div>
-        <div class="col-sm-7">
-          <a [routerLink]="['/annonce', annonce.id, 'view']">
-            <p class="h3">{{ annonce.titre }}</p>
-            <p>{{ annonce.activite?.nomFr }}</p>
-            <p>{{ annonce.dateAnnonce | formatMediumDatetime }}</p>
-            <p>{{ annonce.commune?.provinceFr }}</p>
-          </a>
-        </div>
-        <div class="col-sm-2">
-          <div class="btn-group">
-            <!--  <button
-                type="submit"
-                [routerLink]="['/annonce', annonce.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
+            </div>
+              <!--  <div class="d-flex justify-content-end">
+              <label class="form-label" for="field_region">Région</label>
+              <select
+                class="form-control"
+                id="field_region"
+                data-cy="region"
+                name="region"
+                formControlName="region"
               >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button> -->
+                <option [ngValue]="null">Tous</option>
+                <option
+                  [ngValue]=" regionOption.id"
+                  *ngFor="let regionOption of regionsSharedCollection; trackBy: trackRegionById"
+                >
+                  {{ regionOption.nomFr }}
+                </option>
+              </select>
+            </div> -->
+            
+            <div class="card">
+              <div class="row">
+                <div class="col-sm-10 mx-auto">
+                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.categorie" for="field_categorie">Categorie</label>
+                  <select
+                    class="form-control"
+                    id="field_categorie"
+                    data-cy="categorie"
+                    name="categorie"
+                    formControlName="categorie"
+                    (change)="onChekCategorie()"
+                  >
+                    <option [ngValue]="null" selected>Tous</option>
+                    <option [ngValue]="categorieOption.id" *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById">
+                      {{ categorieOption.nomFr }}
+                    </option>
+                  </select>
 
-            <button
-              *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-              type="submit"
-              [routerLink]="['/annonce', annonce.id, 'edit']"
-              [hidden]="annonce.user?.id != userConnect"
-              class="btn btn-primary btn-sm"
-              data-cy="entityEditButton"
-            >
-              <fa-icon icon="pencil-alt"></fa-icon>
-              <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-            </button>
+                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.activite" for="field_activite">Activite</label>
+                  <select class="form-control" id="field_activite" data-cy="activite" name="activite" formControlName="activite">
+                    <option *ngIf="!editForm.get('activite')!.value" [ngValue]="null" selected>Tous</option>
+                    <option
+                      [ngValue]="activiteOption.id"
+                      *ngFor="let activiteOption of filterActivites(); trackBy: trackActiviteById"
+                      [hidden]="activiteOption.categorie?.id != onChekCategorie()"
+                    >
+                      {{ activiteOption.nomFr }}
+                    </option>
+                    </select>
+                  <button
+                    id="jh-search-entity"
+                    data-cy="entitySearchButton"
+                    class="btn btn-primary jh-search-entity search-annonce"
+                    (click)="search()"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span> Chercher </span>
+                  </button>
+                </div>
 
-            <button
-              *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-              [hidden]="annonce.user?.id != userConnect"
-              type="submit"
-              (click)="delete(annonce)"
-              class="btn btn-danger btn-sm"
-              data-cy="entityDeleteButton"
-            >
-              <fa-icon icon="times"></fa-icon>
-              <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-            </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="card carte">
+            <div id="map" class="map"></div>
+            <div id="popup" class="ol-popup">
+              <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+              <div id="popup-content"></div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-lg-3"></div>
-  </div>
-  <!-- <div class="table-responsive" id="entities" *ngIf="annonces && annonces.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-        
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th> 
+      </section>
+      <section>
+        <div class="container">
+          <jhi-alert-error></jhi-alert-error>
 
-          <th scope="col" jhiSortBy="image"><span jhiTranslate="bricoviteApp.photo.image">Image</span> <fa-icon icon="sort"></fa-icon></th>
+          <jhi-alert></jhi-alert>
+          <div class="alert alert-warning" id="no-result" *ngIf="annonces?.length === 0">
+            <span jhiTranslate="bricoviteApp.annonce.home.notFound">No annonces found</span>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-9" id="entities" *ngIf="annonces && annonces.length > 0">
+              <div class="annonceContent" *ngFor="let annonce of annonces; trackBy: trackId">
+                <div class="card">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <span *ngFor="let photo of annonce.photos; let isFirst = first" [hidden]="!isFirst">
+                        <a [routerLink]="['/annonce', annonce.id, 'view']">
+                          <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" class="img-thumbnail" />
+                        </a>
+                      </span>
+                    </div>
+                    <div class="col-sm-6 card-body">
+                      <a [routerLink]="['/annonce', annonce.id, 'view']">
+                        <p class="h3 card-title">{{ annonce.titre }}</p>
+                        <p class="card-text">{{ annonce.activite?.nomFr }}</p>
+                        <p class="card-text">{{ annonce.commune?.provinceFr }}</p>
+                        <p class="card-text"><small class="text-muted">{{ annonce.dateAnnonce | formatMediumDatetime }}</small></p>
+                      </a>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="btn-group">
+                        <button
+                          *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+                          type="submit"
+                          [routerLink]="['/annonce', annonce.id, 'edit']"
+                          [hidden]="annonce.user?.id != userConnect"
+                          class="btn btn-primary btn-sm"
+                          data-cy="entityEditButton"
+                        >
+                          <fa-icon icon="pencil-alt"></fa-icon>
+                          <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
 
-          <th scope="col" jhiSortBy="titre">
-            <span jhiTranslate="bricoviteApp.annonce.titre">Titre</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="description">
-            <span jhiTranslate="bricoviteApp.annonce.description">Description</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="adresse">
-            <span jhiTranslate="bricoviteApp.annonce.adresse">Adresse</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="geometry">
-            <span jhiTranslate="bricoviteApp.annonce.geometry">Geometry</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="status">
-            <span jhiTranslate="bricoviteApp.annonce.status">Status</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="dateAnnonce">
-            <span jhiTranslate="bricoviteApp.annonce.dateAnnonce">Date Annonce</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="user.firstName">
-            <span jhiTranslate="bricoviteApp.annonce.user">User</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="commune.nomFr">
-            <span jhiTranslate="bricoviteApp.annonce.commune">Commune</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="activite.nomFr">
-            <span jhiTranslate="bricoviteApp.annonce.activite">Activite</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let annonce of annonces; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/annonce', annonce.id, 'view']">{{ annonce.id }}</a>
-          </td>
-
-          <td>{{ annonce.notes }}</td>
-          <td>{{ annonce.photos }}</td>
-
-          <span *ngFor="let photo of annonce.photos;let isFirst = first;">
-            <td *ngIf="isFirst">
-              <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style=" max-height: 150px;width: 200px;" alt="photo image" />
-            </td>
-          </span>
-          <td>{{ annonce.titre }}</td>
-          <td>{{ annonce.description }}</td>
-          <td>{{ annonce.adresse }}</td>
-          <td>{{ annonce.geometry }}</td>
-          <td>{{ annonce.status }}</td>
-          <td>{{ annonce.dateAnnonce | formatMediumDatetime }}</td>
-          <td>
-            {{ annonce.user?.login }}
-          </td>
-          <td>{{ annonce.commune?.nomFr }}</td>
-          <td>{{ annonce.activite?.nomFr }}</td>
-          <td>
-            <div *ngIf="annonce.commune">
-              <a [routerLink]="['/commune', annonce.commune?.id, 'view']">{{ annonce.commune?.nomFr }}</a>
+                        <button
+                          *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+                          [hidden]="annonce.user?.id != userConnect"
+                          type="submit"
+                          (click)="delete(annonce)"
+                          class="btn btn-danger btn-sm"
+                          data-cy="entityDeleteButton"
+                        >
+                          <fa-icon icon="times"></fa-icon>
+                          <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </td>
-          <td>
-            <div *ngIf="annonce.activite">
-              <a [routerLink]="['/activite', annonce.activite?.id, 'view']">{{ annonce.activite?.nomFr }}</a>
+            <div class="col-lg-3"></div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div *ngIf="annonces && annonces.length > 0">
+            <div class="d-flex justify-content-center">
+              <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
             </div>
-          </td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                title="Afficher"
-                type="submit"
-                [routerLink]="['/annonce', annonce.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
 
-              <button
-                title="Modifier"
-                *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-                type="submit"
-                [routerLink]="['/annonce', annonce.id, 'edit']"
-                [hidden]="annonce.user?.id != userConnect"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
-
-              <button
-                title="Supprimer"
-                *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-                [hidden]="annonce.user?.id != userConnect"
-                type="submit"
-                (click)="delete(annonce)"
-                class="btn btn-danger btn-sm"
-                data-cy="entityDeleteButton"
-              >
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
+            <div class="d-flex justify-content-center">
+              <ngb-pagination
+                [collectionSize]="totalItems"
+                [(page)]="ngbPaginationPage"
+                [pageSize]="itemsPerPage"
+                [maxSize]="5"
+                [rotate]="true"
+                [boundaryLinks]="true"
+                (pageChange)="loadPage($event)"
+              ></ngb-pagination>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div *ngIf="annonces && annonces.length > 0">
-    <div class="d-flex justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
-
-    <div class="d-flex justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
-        [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
-    </div>
-  </div> -->
-</div>
+          </div> 
+        </div>
+      </section>

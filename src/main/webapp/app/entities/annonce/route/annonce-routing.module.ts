@@ -56,7 +56,7 @@ const annonceRoute: Routes = [
     path: ':mesAnnonces',
     component: AnnonceComponent,
     data: {
-      defaultSort: 'id,asc',
+      defaultSort: 'dateAnnonce,desc',
       mesAnnonces: true,
     },
   },

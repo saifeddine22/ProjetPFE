@@ -133,6 +133,16 @@ export class AnnonceComponent implements OnInit {
       this.handleNavigation();
       this.updateForm(data);
       this.loadRelationshipsOptions();
+      this.annonceService.initilizeMap();
+      this.annonceService.map.removeInteraction(this.annonceService.draw);
+      this.annonceService.map.addInteraction(this.annonceService.drawCircle);
+      this.annonceService.drawCircle.on('drawend', (event) =>{
+        const ext = event.feature.getGeometry()?.getExtent();
+        this.annonceService.map.getView().fit(ext!); 
+      });
+      this.annonceService.map.on('pointermove',  () => {
+        this.annonceService.map.addInteraction(this.annonceService.drawCircle);
+      });
     });
     sessionStorage.removeItem('currentAnnonce');
   }
@@ -199,8 +209,8 @@ export class AnnonceComponent implements OnInit {
     }
     this.annonces = data ?? [];
     this.ngbPaginationPage = this.page;
-    sessionStorage.setItem('dataAnnonce', JSON.stringify(this.annonces));
-    this.annonceService.initilizeMap();
+    sessionStorage.setItem("dataAnnonce",  JSON.stringify(this.annonces));
+    this.annonceService.vectorMap();
   }
 
   protected onError(): void {
