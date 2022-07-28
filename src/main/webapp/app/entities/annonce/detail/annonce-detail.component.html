@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
   <div class="container" *ngIf="annonce">
 
     <jhi-alert-error></jhi-alert-error>
@@ -11,16 +11,18 @@
           <div class="card-header titreAnnonce">
             <p data-cy="annonceDetailsHeading" class="h2">{{ annonce.titre }}</p>
             <!-- Button trigger modal -->
-            <button type="button" (click)="this.afficherCarte()" class="btn btn-primary affichCarte" data-toggle="modal" data-target=".bd-example-modal-lg">Afficher dans la Carte</button>
+            <button type="button" (click)="this.afficherCarte()" class="btn btn-bricoVite affichCarte btnCercle" data-toggle="modal" data-target=".bd-example-modal-lg">Afficher dans la Carte</button>
 
             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
+                  <div class="card">
                     <div id="map" class="map"></div>
                     <div id="popup" class="ol-popup">
                       <a href="#" id="popup-closer" class="ol-popup-closer"></a>
                       <div id="popup-content"></div>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -44,15 +46,15 @@
                 <img src="content/images/jhipster_family_member_1_head-192.png" alt="">
                 {{ annonce.user?.login }}
               </span>
-              <a class="btn btn-outline-bricoVite float-end" (click)="goToPersonneDetails(annonce.user?.id)">Contacter</a>
+              <a class="btn btn-outline-bricoVite float-end btnCercle" (click)="goToPersonneDetails(annonce.user?.id)">Contacter</a>
             </p>
             <p class="card-text clearfix">
-              <small class="text-muted float-start">{{ annonce.commune?.provinceFr }}</small>
+              <small class="text-muted float-start">{{ annonce.commune?.nomFr }} - {{ annonce.commune?.provinceFr }}</small>
               <small class="text-muted float-end">{{ annonce.dateAnnonce | formatMediumDatetime }}</small>
             </p>
             <hr>
             <dl class="row-md jh-entity-details">
-              <dt><span jhiTranslate="">Catégorie</span></dt>
+              <dt><span jhiTranslate="bricoviteApp.annonce.categorie">Catégorie</span></dt>
               <dd>
                 <span>{{ annonce.activite?.categorieFr }}</span>
               </dd>
@@ -70,14 +72,14 @@
               </dd>
             </dl>
           </div>
-          <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <button type="submit" (click)="previousState()" class="btn btn-info float btnCercle" data-cy="entityDetailsBackButton">
             <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
           </button>
            <button
         *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
         id="jh-create-entity"
         data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-commentaire"
+        class="btn btn-outline-bricoVite float-end jh-create-entity create-commentaire btnCercle"
         (click)="addComment(commentaire)"
       >
         <fa-icon icon="plus"></fa-icon>
@@ -88,7 +90,7 @@
         *jhiHasAnyAuthority="'ROLE_USER'"
         id="jh-create-entity"
         data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-note"
+        class="btn btn-outline-bricoVite float-end jh-create-entity create-note btnCercle"
         (click)="addRating(note)"
       >
         <fa-icon icon="plus"></fa-icon>
@@ -97,7 +99,7 @@
 
           <button
             *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-            class="btn btn-info"
+            class="btn btn-outline-bricoVite float-end btnCercle"
             [hidden]="annonce.user?.id != userConnect"
             [routerLink]="['/annonce', annonce.id, 'photos']"
           >
@@ -126,25 +128,17 @@
               <p jhiTranslate="bricoviteApp.annonce.note">Note</p>
             </div>
             <div class="card-body">
-              <p *ngIf="annonce.notes" class="card-text">
-                <span *ngFor="let note of annonce.notes">{{ note.valeur }}</span>
-              </p>
-              <p>
-                  <dt><span jhiTranslate="bricoviteApp.annonce.note">Note</span></dt>
-                  <dd *ngIf="annonce.notes">
-                    <div>
-                      <span>{{ moy(annonce.notes) | number: '1.2-2' }}</span>
-                    </div>
-
-                    <button type="button" (click)="updateRating()">Update Rating</button>
-                    <ngb-rating class="ngb-rating" [max]="5" [(rate)]="rating" [readonly]="true">
-                      <ng-template let-fill="fill">
-                        <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
-                          <span class="paintedStar" [style.width.%]="fill">★</span>★
-                        </span>
-                      </ng-template>
-                    </ngb-rating>
-                  </dd>
+              <p class="card-text">
+                <span *ngIf="annonce.notes">
+                  <span hidden>{{ annonceService.moy(annonce.notes) | number: '1.2-2' }}</span>
+                  <ngb-rating class="ngb-rating" [max]="5" [rate]="annonceService.updateRating()" [readonly]="true">
+                    <ng-template let-fill="fill">
+                      <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
+                        <span class="paintedStar" [style.width.%]="fill">★</span>★
+                      </span>
+                    </ng-template>
+                  </ngb-rating>
+                </span>
               </p>
             </div>
           </div>

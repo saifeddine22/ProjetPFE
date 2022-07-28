@@ -42,7 +42,7 @@
     </div>
   </div>
 </div> -->
-
+<div class="col-8 mx-auto">
 <form *ngIf="personne" name="personneDetails">
   <div class="modal-header">
     <h2 data-cy="personneDetailsHeading"><span jhiTranslate="bricoviteApp.personne.detail.title">Personne</span></h2>
@@ -52,28 +52,23 @@
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
 
-    <dl>
-      <dt *jhiHasAnyAuthority="'ROLE_ADMIN'"><span jhiTranslate="global.field.id">ID</span></dt>
-      <dd *jhiHasAnyAuthority="'ROLE_ADMIN'">
+      <p *jhiHasAnyAuthority="'ROLE_ADMIN'">
+        <span jhiTranslate="global.field.id">ID</span> : 
         <span>{{ personne.id }}</span>
-      </dd>
-      <dt><span jhiTranslate="bricoviteApp.personne.cnie">Cnie</span></dt>
-      <dd>
+      </p>
+      <p><span jhiTranslate="bricoviteApp.personne.cnie">Cnie</span>
+       : 
         <span>{{ personne.cnie }}</span>
-      </dd>
-      <dt><span jhiTranslate="bricoviteApp.personne.tel">Tel</span></dt>
-      <dd>
+      </p>
+      <p><span jhiTranslate="bricoviteApp.personne.tel">Tel</span> : 
         <span>{{ personne.tel }}</span>
-      </dd>
-      <dt><span>Email</span></dt>
-      <dd>
+      </p>
+      <p><span>Email</span> : 
         <span>{{ personne.user?.email }}</span>
-      </dd>
-      <dt><span jhiTranslate="bricoviteApp.personne.user">User</span></dt>
-      <dd>
+      </p>
+      <p><span jhiTranslate="bricoviteApp.personne.user">User</span> : 
         <span>{{ personne.user?.login }}</span>
-      </dd>
-    </dl>
+      </p>
   </div>
 
   <div class="modal-footer">
@@ -86,3 +81,4 @@
     </button>
   </div>
 </form>
+</div>

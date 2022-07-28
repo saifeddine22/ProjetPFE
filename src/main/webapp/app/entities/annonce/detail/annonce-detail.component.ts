@@ -23,8 +23,6 @@ export class AnnonceDetailComponent implements OnInit {
   userConnect = Number(sessionStorage.getItem('userConnectedId'));
   note!: INote;
   commentaire!: ICommentaire;
-  moyNote = 0;
-  rating = this.moyNote;
 
   constructor(
     public annonceService: AnnonceService,
@@ -38,9 +36,14 @@ export class AnnonceDetailComponent implements OnInit {
   ) {}
 
   afficherCarte(): void {
+    document.getElementById('map')!.innerHTML='';
     sessionStorage.setItem('dataAnnonce', JSON.stringify(this.annonce));
     this.annonceService.initilizeMap();
     this.annonceService.vectorMap();
+    document.getElementById('map')!.style.height='399px';
+    this.annonceService.map.updateSize();
+    this.annonceService.map.render();
+    this.annonceService.map.removeInteraction(this.annonceService.draw);
   }
 
   ngOnInit(): void {
@@ -67,16 +70,7 @@ export class AnnonceDetailComponent implements OnInit {
     this.modalService.open(NoteUpdateComponent, { size: 'lg', backdrop: 'static' });
   }
 
-  moy(notes: INote[]): number {
-    const som = notes.map(n => n.valeur ?? 0).reduce((a, b) => a + b, 0);
-    this.moyNote = som / notes.length;
-    return this.moyNote;
-  }
-
-  updateRating(): number {
-    this.rating = this.moyNote;
-    return this.rating;
-  }
+  
 
   addComment(commentaire: ICommentaire | undefined): void {
     this.modalService.open(CommentaireUpdateComponent, { size: 'lg', backdrop: 'static' });

@@ -41,8 +41,9 @@ Generic styles
 /* other generic styles */
 
 .jh-card {
-  padding: 40px 0;
+  padding: 0 0;
   border: none;
+  min-height: 318px;
 }
 
 .error {
@@ -79,6 +80,7 @@ Generic styles
 .footer {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
   padding-top: 40px;
+  background-color: #233140;
 }
 
 .hand,
@@ -204,16 +206,14 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   }
 }
 /* jhipster-needle-scss-add-main JHipster will add new css style */
-
 .ngb-rating {
   color: #ffc107;
-  font-size: 50px;
 
   .defaultStar {
     position: relative;
     display: inline-block;
     color: gray;
-    font-size: 50px;
+    font-size: 43px;
   }
 
   .paintedStar {
@@ -223,3 +223,5 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
     color: #ffc107;
   }
 }
+
+.col-sm-2 .ngb-rating span.defaultStar{font-size: 22px;}

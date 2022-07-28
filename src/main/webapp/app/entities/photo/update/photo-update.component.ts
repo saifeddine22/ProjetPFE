@@ -1,3 +1,4 @@
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
@@ -38,15 +39,17 @@ export class PhotoUpdateComponent implements OnInit {
     protected annonceService: AnnonceService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
+    protected activeModal: NgbActiveModal,
     protected fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ photo }) => {
+   /*  this.activatedRoute.data.subscribe(({ photo }) => {
       this.updateForm(photo);
 
       this.loadRelationshipsOptions();
-    });
+    }); */
+    console.log('');
   }
 
   byteSize(base64String: string): string {
@@ -75,17 +78,22 @@ export class PhotoUpdateComponent implements OnInit {
   }
 
   previousState(): void {
-    window.history.back();
+    /* window.history.back(); */
+    this.activeModal.dismiss();
+    window.location.reload();
+  }
+  dismiss(): void {
+    this.activeModal.dismiss();
   }
 
   save(): void {
     this.isSaving = true;
     const photo = this.createFromForm();
-    if (photo.id !== undefined) {
+    /* if (photo.id !== undefined) {
       this.subscribeToSaveResponse(this.photoService.update(photo));
-    } else {
+    } else { */
       this.subscribeToSaveResponse(this.photoService.create(photo));
-    }
+    /* } */
   }
 
   trackAnnonceById(_index: number, item: IAnnonce): number {

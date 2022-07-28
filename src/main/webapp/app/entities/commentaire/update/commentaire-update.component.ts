@@ -59,6 +59,7 @@ export class CommentaireUpdateComponent implements OnInit {
   previousState(): void {
     /* window.history.back(); */
     this.activeModal.dismiss();
+    window.location.reload();
   }
 
   save(): void {
@@ -87,8 +88,7 @@ export class CommentaireUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    /* this.previousState(); */
-    this.activeModal.dismiss();
+    this.previousState(); 
   }
 
   protected onSaveError(): void {

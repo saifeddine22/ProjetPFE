@@ -49,15 +49,16 @@ export class NoteUpdateComponent implements OnInit {
   previousState(): void {
     /* window.history.back(); */
     this.activeModal.dismiss();
+    window.location.reload();
   }
 
   save(): void {
     this.isSaving = true;
     const note = this.createFromForm();
     console.log(note);
-    //if (note.id !== undefined) {
+    // if (note.id !== undefined) {
     // this.subscribeToSaveResponse(this.noteService.update(note));
-    //} else {
+    // } else {
     this.subscribeToSaveResponse(this.noteService.create(note));
     // }
   }
@@ -74,8 +75,7 @@ export class NoteUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    /* this.previousState(); */
-    this.activeModal.dismiss();
+    this.previousState(); 
   }
 
   protected onSaveError(): void {
