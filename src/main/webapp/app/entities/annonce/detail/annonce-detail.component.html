@@ -10,8 +10,16 @@
           <div class="card-header titreAnnonce">
             <p data-cy="annonceDetailsHeading" class="h2">{{ annonce.titre }}</p>
             <!-- Button trigger modal -->
-            
-            <button type="button" (click)="this.afficherCarte()" class="btn btn-bricoVite affichCarte btnCercle" data-toggle="modal" data-target=".bd-example-modal-lg">Afficher dans la Carte</button>
+
+            <button
+              type="button"
+              (click)="this.afficherCarte()"
+              class="btn btn-bricoVite affichCarte btnCercle"
+              data-toggle="modal"
+              data-target=".bd-example-modal-lg"
+            >
+              Afficher dans la Carte
+            </button>
 
             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
@@ -75,27 +83,27 @@
           <button type="submit" (click)="previousState()" class="btn btn-info float btnCercle" data-cy="entityDetailsBackButton">
             <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
           </button>
-           <button
-        *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-outline-bricoVite float-end jh-create-entity create-commentaire btnCercle"
-        (click)="addComment(commentaire)"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
-      </button>
+          <button
+            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+            class="btn btn-outline-bricoVite float-end jh-create-entity create-commentaire btnCercle"
+            (click)="addComment(commentaire)"
+          >
+            <fa-icon icon="plus"></fa-icon>
+            <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
+          </button>
 
-      <button
-        *jhiHasAnyAuthority="'ROLE_USER'"
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-outline-bricoVite float-end jh-create-entity create-note btnCercle"
-        (click)="addRating(note)"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="bricoviteApp.note.home.createLabel"> Create a new note </span>
-      </button>
+          <button
+            *jhiHasAnyAuthority="'ROLE_USER'"
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+            class="btn btn-outline-bricoVite float-end jh-create-entity create-note btnCercle"
+            (click)="addRating(note)"
+          >
+            <fa-icon icon="plus"></fa-icon>
+            <span jhiTranslate="bricoviteApp.note.home.createLabel"> Create a new note </span>
+          </button>
 
           <button
             *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
@@ -125,7 +133,7 @@
         <div class="col-md-3 mx-auto">
           <div class="card">
             <div class="card-header">
-              <!--           <p jhiTranslate="bricoviteApp.annonce.note">Note</p>
+              <p jhiTranslate="bricoviteApp.annonce.note">Note</p>
             </div>
             <div class="card-body">
               <p class="card-text">
