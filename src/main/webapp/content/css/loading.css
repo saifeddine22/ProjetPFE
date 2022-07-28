@@ -154,12 +154,15 @@ body{color: #2e477d !important;}
 .disabledSelect {
   pointer-events: none;
 }
-
-.annonceContent {border: none;position: relative;margin: 0.5rem 0 1rem 0;background-color: #fff; }
+.card:has(section.home){padding: 0;}
+section.home{background: url('../images/petit-bricolage-en-bois-facile3-scaled.jpg') center;
+  background-size: auto;height: 500px;background-size: cover;padding: 50px;color: #fff;}
+.annonceContent, .pubContent {border: none;position: relative;margin: 0.5rem 0 1rem 0 !important; }
 .annonceContent:hover {box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
 .annonceContent a{text-decoration: none;color: #233140;}
 .annonceContent .card{padding: 10px;}
 .annonceContent .card a .img-thumbnail{height: 177px;width: 100%;}
+.annonceContent .col-sm-2,.annonceContent .col-sm-6{border-left: 1px solid #F5F5F5;}
 
 .map {height:400px;width: 100%;}
 .ol-popup {position: absolute;background-color: white;box-shadow: 0 1px 4px rgba(0,0,0,0.2);padding: 15px;border-radius: 10px;border: 1px solid #cccccc;bottom: 12px;left: -50px;min-width: 280px;}
@@ -168,15 +171,18 @@ body{color: #2e477d !important;}
 .ol-popup:before {border-top-color: #cccccc;border-width: 11px;left: 48px;margin-left: -11px;}
 .ol-popup-closer {text-decoration: none;position: absolute;top: 2px;right: 8px;}
 .ol-popup-closer:after {content: "✖";}
+.popup-content a{text-decoration: none;color: #2e477d;}
 
 .card.annonceDetails{padding: 25px;}
-.card .card-header.titreAnnonce{overflow: hidden;display: block;padding: 1rem;}
+.card .card-header.titreAnnonce{overflow: hidden;display: block;padding: 1rem 0;}
 .card .card-header.titreAnnonce p{float: left;margin: 0;}
 .card .card-header.titreAnnonce button.affichCarte{float: right;}
 .card .card-body p.utilisateur img{width: 100px;border: 1px solid #2e477d;border-radius: 50px;padding: 5px;}
 .card .card-body .card-text.comment img{width: 50px;border: 1px solid #2e477d;border-radius: 50px;padding: 1px;}
-.card .card-body p.utilisateur a{margin: 28px auto;border-radius: 20px;}
+.card .card-body p.utilisateur a{margin: 28px auto;}
 .card .col-md-3 .card{height: 150px;margin: 15px 0;}
+.btn.btnCercle{border-radius: 20px;}
+.card-header.recherche{border-bottom: none;}
 
 
 
@@ -188,9 +194,14 @@ section.promotion{background-color: #F5F5F5;padding: 40px;}
 i.large {font-size: 5rem;}
 
 footer p a{text-decoration: none;color: #2e477d;}
-footer p.copyright{margin-top: 1rem !important;}
+footer p.copyright{margin-top: 1rem !important;color: #fff;}
 
-.btn.btn-outline-bricoVite,.btn.btn-bricoVite:hover {color: #2e477d;border-color: #2e477d;}
+.btn.btn-outline-bricoVite,.btn.btn-bricoVite:hover {color: #2e477d;border-color: #2e477d;background-color: #fff;}
 .btn.btn-bricoVite,.btn.btn-outline-bricoVite:hover {color: #fff;background-color: #2e477d;border-color: #2e477d;}
 
 
+.authenticate .card{height: fit-content;}
+.authenticate{background: url('../images/outils-bricolage_1446-32172.jpg') center;background-size: auto;background-size: cover;}
+.annonceBg section:first-child{background: url('../images/bricoleur-de-constructeur-avec-des-outils-de-construction-89838029.jpg') center;background-size: auto;background-size: cover;}
+.annonceBg{background-color: #F5F5F5;}
+.annonceBg section:first-child h2{color: #fff;}

@@ -8,6 +8,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IAnnonce, getAnnonceIdentifier } from '../annonce.model';
+import { INote } from 'app/entities/note/note.model';
 
 import 'ol/ol.css';
 import { Fill, Stroke, Style, Circle as CircleStyle, Icon } from 'ol/style';
@@ -28,12 +29,32 @@ export type EntityArrayResponseType = HttpResponse<IAnnonce[]>;
 
 @Injectable({ providedIn: 'root' })
 export class AnnonceService {
+  note!: INote;
+  moyNote = 0;
+  rating = this.moyNote;
   map!: Map;
   latitude = 0;
   longitude = 0;
   source = new VectorSource({wrapX: false});
-  vector = new VectorLayer({ source: this.source,opacity:0.3});
-  draw = new Draw({source: this.source,type: 'Point',});
+  /* vector = new VectorLayer({ source: this.source,opacity:0.3}); */
+  vector = new VectorLayer({ source: this.source,style: new Style({
+    fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
+    stroke: new Stroke({ color: '#ffcc33', width: 2 }),
+    image: new Icon({
+      anchor: [0.5, 46],
+      anchorXUnits: 'fraction',
+      anchorYUnits: 'pixels',
+      src: 'content/images/mapIcons/location.png',
+    })}),});
+  draw = new Draw({source: this.source,type: 'Point',style: new Style({
+    fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
+    stroke: new Stroke({ color: '#ffcc33', width: 2 }),
+    image: new Icon({
+      anchor: [0.5, 46],
+      anchorXUnits: 'fraction',
+      anchorYUnits: 'pixels',
+      src: 'content/images/mapIcons/location.png',
+    })}),});
   drawCircle = new Draw({source: this.source,type: 'Circle',});
   view = new View({center: [-6.531926743408018, 33.6278503045078],zoom: 8,projection: 'EPSG:4326',});
 
@@ -71,7 +92,7 @@ export class AnnonceService {
             anchor: [0.5, 46],
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
-            src: 'content/images/mapIcons/canvas.png',
+            src: 'content/images/mapIcons/1.png',
           }),
         });
       } else {
@@ -127,15 +148,18 @@ export class AnnonceService {
       const hdms = toStringHDMS(toLonLat(coordinate));
       this.latitude = coordinate[0];
       this.longitude = coordinate[1];
+      /* alert(`latitude :  ${this.latitude} , longitude :  ${this.longitude}`); */
       this.map.forEachFeatureAtPixel(evt.pixel,(feature) => {
+        const id = String(feature.get('id'));
         const description = String(feature.get('nom'));
         const activ = String(feature.get('Activité'));
         const categ = String(feature.get('Catégorie'));
         if(feature.get('Catégorie') !== undefined){
           document.getElementById('popup-content')!.innerHTML = '<p class="h2">Annonce :</p>'+
+          `<a href="/annonce/${id}/view">`+
           '<p class="h4">'+categ+'</p>'+
           '<p class="h5">'+activ+'</p>'+
-          '<p class="h6">'+description+'</p>'
+          '<p class="h6">'+description+'</p></a>'
           +'<code>' + hdms + '</code>';
           overlay.setPosition(coordinate);
           
@@ -218,6 +242,16 @@ export class AnnonceService {
     return coordinate;
   } */
   
+  moy(notes: INote[]): number {
+    const som = notes.map(n => n.valeur ?? 0).reduce((a, b) => a + b, 0);
+    this.moyNote = som / notes.length;
+    return this.moyNote;
+  }
+
+  updateRating(): number {
+    this.rating = this.moyNote;
+    return this.rating;
+  }
 
   create(annonce: IAnnonce): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(annonce);

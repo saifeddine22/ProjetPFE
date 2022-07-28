@@ -11,6 +11,7 @@ import { PhotoService } from '../service/photo.service';
 import { PhotoDeleteDialogComponent } from '../delete/photo-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { IAnnonce } from 'app/entities/annonce/annonce.model';
+import { PhotoUpdateComponent } from '../update/photo-update.component';
 
 @Component({
   selector: 'jhi-photo',
@@ -26,6 +27,7 @@ export class PhotoComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
   annonce: IAnnonce | undefined;
+  photo!: IPhoto;
 
   constructor(
     protected photoService: PhotoService,
@@ -90,6 +92,10 @@ export class PhotoComponent implements OnInit {
         this.loadPage();
       }
     });
+  }
+
+  addPhoto(photo: IPhoto | undefined): void {
+    this.modalService.open(PhotoUpdateComponent, { size: 'lg', backdrop: 'static' });
   }
 
   protected sort(): string[] {
