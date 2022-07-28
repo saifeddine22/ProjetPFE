@@ -47,7 +47,11 @@ export class NoteUpdateComponent implements OnInit {
   }
 
   previousState(): void {
-    /* window.history.back(); */
+    window.location.reload();
+    this.activeModal.dismiss();
+  }
+
+  dismiss(): void {
     this.activeModal.dismiss();
     window.location.reload();
   }

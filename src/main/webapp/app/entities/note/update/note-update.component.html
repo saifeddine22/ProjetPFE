@@ -27,10 +27,9 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-outline-secondary" (click)="previousState()">
+    <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-outline-secondary" (click)="dismiss()">
       <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
     </button>
-
     <button
       type="submit"
       id="save-entity"
