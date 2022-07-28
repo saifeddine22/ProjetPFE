@@ -24,7 +24,7 @@ export class AnnonceDetailComponent implements OnInit {
   note!: INote;
   commentaire!: ICommentaire;
   moyNote = 0;
-  rating = this.moyNote;
+  rating = 0;
 
   constructor(
     public annonceService: AnnonceService,

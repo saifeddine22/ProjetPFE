@@ -44,20 +44,26 @@ export class CommentaireUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ commentaire }) => {
+    /* this.activatedRoute.data.subscribe(({ commentaire }) => {
       if (commentaire.id === undefined) {
         const today = dayjs().startOf('minutes');
         commentaire.dateCommentaire = today;
       }
 
-      /*  this.updateForm(commentaire);
+       this.updateForm(commentaire);
 
-      this.loadRelationshipsOptions(); */
-    });
+      this.loadRelationshipsOptions();
+    }); */
+    console.log('');
   }
 
   previousState(): void {
     /* window.history.back(); */
+    window.location.reload();
+    this.activeModal.dismiss();
+  }
+
+  dismiss(): void {
     this.activeModal.dismiss();
   }
 
@@ -87,8 +93,7 @@ export class CommentaireUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    /* this.previousState(); */
-    this.activeModal.dismiss();
+    this.previousState();
   }
 
   protected onSaveError(): void {

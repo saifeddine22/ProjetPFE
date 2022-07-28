@@ -1,6 +1,5 @@
 <div class="d-flex justify-content-center">
   <div class="container" *ngIf="annonce">
-
     <jhi-alert-error></jhi-alert-error>
 
     <jhi-alert></jhi-alert>
@@ -11,37 +10,45 @@
           <div class="card-header titreAnnonce">
             <p data-cy="annonceDetailsHeading" class="h2">{{ annonce.titre }}</p>
             <!-- Button trigger modal -->
-            <button type="button" (click)="this.afficherCarte()" class="btn btn-primary affichCarte" data-toggle="modal" data-target=".bd-example-modal-lg">Afficher dans la Carte</button>
+            <button
+              type="button"
+              (click)="this.afficherCarte()"
+              class="btn btn-primary affichCarte"
+              data-toggle="modal"
+              data-target=".bd-example-modal-lg"
+            >
+              Afficher dans la Carte
+            </button>
 
             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div id="map" class="map"></div>
-                    <div id="popup" class="ol-popup">
-                      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-                      <div id="popup-content"></div>
-                    </div>
+                  <div id="map" class="map"></div>
+                  <div id="popup" class="ol-popup">
+                    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                    <div id="popup-content"></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-      
-          <div class="card text-bg-dark" style="max-height: 300px;min-height: 150px;height: auto;margin: 20px 0;">
-            <ngb-carousel *ngIf="annonce.photos" >
+
+          <div class="card text-bg-dark" style="max-height: 300px; min-height: 150px; height: auto; margin: 20px 0">
+            <ngb-carousel *ngIf="annonce.photos">
               <ng-template *ngFor="let photo of annonce.photos" ngbSlide>
                 <div class="picsum-img-wrapper">
-                  <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" class="card-img" style="max-height: 298px"/>
+                  <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" class="card-img" style="max-height: 298px" />
                 </div>
                 <div class="carousel-caption">
                   <h3>Bricovite</h3>
                 </div>
               </ng-template>
-            </ngb-carousel> 
+            </ngb-carousel>
           </div>
           <div class="card-body">
             <p *ngIf="annonce.user" class="card-title h4 utilisateur clearfix">
               <span class="float-start">
-                <img src="content/images/jhipster_family_member_1_head-192.png" alt="">
+                <img src="content/images/jhipster_family_member_1_head-192.png" alt="" />
                 {{ annonce.user?.login }}
               </span>
               <a class="btn btn-outline-bricoVite float-end" (click)="goToPersonneDetails(annonce.user?.id)">Contacter</a>
@@ -50,7 +57,7 @@
               <small class="text-muted float-start">{{ annonce.commune?.provinceFr }}</small>
               <small class="text-muted float-end">{{ annonce.dateAnnonce | formatMediumDatetime }}</small>
             </p>
-            <hr>
+            <hr />
             <dl class="row-md jh-entity-details">
               <dt><span jhiTranslate="">Catégorie</span></dt>
               <dd>
@@ -73,27 +80,27 @@
           <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
             <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
           </button>
-           <button
-        *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-commentaire"
-        (click)="addComment(commentaire)"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
-      </button>
+          <button
+            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+            class="btn btn-primary jh-create-entity create-commentaire"
+            (click)="addComment(commentaire)"
+          >
+            <fa-icon icon="plus"></fa-icon>
+            <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
+          </button>
 
-      <button
-        *jhiHasAnyAuthority="'ROLE_USER'"
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-note"
-        (click)="addRating(note)"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="bricoviteApp.note.home.createLabel"> Create a new note </span>
-      </button>
+          <button
+            *jhiHasAnyAuthority="'ROLE_USER'"
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+            class="btn btn-primary jh-create-entity create-note"
+            (click)="addRating(note)"
+          >
+            <fa-icon icon="plus"></fa-icon>
+            <span jhiTranslate="bricoviteApp.note.home.createLabel"> Create a new note </span>
+          </button>
 
           <button
             *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
@@ -108,43 +115,42 @@
             <span *ngFor="let commentaire of annonce.commentaires">
               <p class="card-text comment my-0">
                 <span>
-                  <img src="content/images/jhipster_family_member_0_head-192.png" alt="">
-                  {{ commentaire.user?.login }}     :
+                  <img src="content/images/jhipster_family_member_0_head-192.png" alt="" />
+                  {{ commentaire.user?.login }} :
                 </span>
                 <span>{{ commentaire.details }}</span>
-              </p>  
+              </p>
               <p class="card-text overflow-hidden">
                 <small class="text-muted float-end">{{ commentaire.dateCommentaire }}</small>
               </p>
-              <hr>
+              <hr />
             </span>
           </div>
         </div>
         <div class="col-md-3 mx-auto">
           <div class="card">
             <div class="card-header">
-              <p jhiTranslate="bricoviteApp.annonce.note">Note</p>
+              <!--           <p jhiTranslate="bricoviteApp.annonce.note">Note</p>
             </div>
             <div class="card-body">
               <p *ngIf="annonce.notes" class="card-text">
                 <span *ngFor="let note of annonce.notes">{{ note.valeur }}</span>
-              </p>
+              </p> -->
               <p>
-                  <dt><span jhiTranslate="bricoviteApp.annonce.note">Note</span></dt>
-                  <dd *ngIf="annonce.notes">
-                    <div>
-                      <span>{{ moy(annonce.notes) | number: '1.2-2' }}</span>
-                    </div>
+                <dt><span jhiTranslate="bricoviteApp.annonce.note">Note</span></dt>
+                <dd *ngIf="annonce.notes">
+                  <div>
+                    <span>{{ moy(annonce.notes) | number: '1.2-2' }} / 5</span>
+                  </div>
 
-                    <button type="button" (click)="updateRating()">Update Rating</button>
-                    <ngb-rating class="ngb-rating" [max]="5" [(rate)]="rating" [readonly]="true">
-                      <ng-template let-fill="fill">
-                        <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
-                          <span class="paintedStar" [style.width.%]="fill">★</span>★
-                        </span>
-                      </ng-template>
-                    </ngb-rating>
-                  </dd>
+                  <ngb-rating class="ngb-rating" [max]="5" [rate]="updateRating()" [readonly]="true">
+                    <ng-template let-fill="fill">
+                      <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
+                        <span class="paintedStar" [style.width.%]="fill">★</span>★
+                      </span>
+                    </ng-template>
+                  </ngb-rating>
+                </dd>
               </p>
             </div>
           </div>
