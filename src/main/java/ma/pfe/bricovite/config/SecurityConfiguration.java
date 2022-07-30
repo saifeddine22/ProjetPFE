@@ -94,7 +94,7 @@ public class SecurityConfiguration {
             .antMatchers("/api/account/reset-password/finish").permitAll()
             .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/regions").authenticated()
-            .antMatchers("/api/provinces").authenticated()
+            .antMatchers("/api/provinces").permitAll()
             .antMatchers("/api/photos").authenticated()
             .antMatchers("/api/personnes").authenticated()
             .antMatchers("/api/notes").authenticated()

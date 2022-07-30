@@ -48,4 +48,12 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
     Page<Annonce> findAllByUserId(Pageable pageable, Long id);
 
     Page<Annonce> findByActiviteId(Pageable pageable, Long id);
+
+    @Query(
+        "select a from Annonce a where  " +
+        "(?1 = -1 or a.commune.province.id = ?1) " +
+        "and (?2 = -1 or a.activite.id = ?2) " +
+        "and (?3 = -1 or a.activite.categorie.id = ?3 )"
+    )
+    Page<Annonce> search(Integer provinceId, Integer activiteId, Integer categorieId, Pageable pageable);
 }

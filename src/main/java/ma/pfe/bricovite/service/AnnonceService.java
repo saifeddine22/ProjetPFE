@@ -4,6 +4,7 @@ import java.util.Optional;
 import ma.pfe.bricovite.domain.Annonce;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 /**
  * Service Interface for managing {@link Annonce}.
@@ -66,5 +67,5 @@ public interface AnnonceService {
 
     Page<Annonce> findAllByUserId(Pageable pageable, Long id);
 
-    Page<Annonce> findByActiviteId(Pageable pageable, Long id);
+    Page<Annonce> search(String provinceId, String activiteId, String categorieId, Pageable pageable);
 }

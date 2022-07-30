@@ -207,14 +207,16 @@ public class AnnonceResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-    @GetMapping("annonces/activite")
-    public ResponseEntity<List<Annonce>> findByActiviteId(
+    @GetMapping("annonces/search")
+    public ResponseEntity<List<Annonce>> search(
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         @RequestParam(required = false, defaultValue = "true") boolean eagerload,
-        @RequestParam Long activiteId
+        @RequestParam String provinceId,
+        @RequestParam String activiteId,
+        @RequestParam String categorieId
     ) {
         log.debug("REST request to get a page of Annonces");
-        Page<Annonce> page = annonceService.findByActiviteId(pageable, activiteId);
+        Page<Annonce> page = annonceService.search(provinceId, activiteId, categorieId, pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
