@@ -28,7 +28,7 @@
                     <div id="map" class="map"></div>
                     <div id="popup" class="ol-popup">
                       <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-                      <div id="popup-content"></div>
+                      <div id="popup-content" class="popup-content"></div>
                     </div>
                   </div>
                 </div>
@@ -56,7 +56,7 @@
               </span>
               <a class="btn btn-outline-bricoVite float-end btnCercle" (click)="goToPersonneDetails(annonce.user?.id)">Contacter</a>
             </p>
-            <p class="card-text clearfix">
+            <p class="card-text cmProv clearfix">
               <small class="text-muted float-start">{{ annonce.commune?.nomFr }} - {{ annonce.commune?.provinceFr }}</small>
               <small class="text-muted float-end">{{ annonce.dateAnnonce | formatMediumDatetime }}</small>
             </p>
@@ -131,14 +131,16 @@
           </div>
         </div>
         <div class="col-md-3 mx-auto">
-          <div class="card">
+          <div class="card row">
             <div class="card-header">
-              <p jhiTranslate="bricoviteApp.annonce.note">Note</p>
+              <span *ngIf="annonce.notes">
+                <p class="mb-0">Note : 
+                  <small class="text-muted">{{ annonceService.moy(annonce.notes) | number: '1.2-2' }} / 5</small>
+                </p>
+              </span>
             </div>
             <div class="card-body">
               <p class="card-text">
-                <span *ngIf="annonce.notes">
-                  <span hidden>{{ annonceService.moy(annonce.notes) | number: '1.2-2' }}</span>
                   <ngb-rating class="ngb-rating" [max]="5" [rate]="annonceService.updateRating()" [readonly]="true">
                     <ng-template let-fill="fill">
                       <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
@@ -146,9 +148,11 @@
                       </span>
                     </ng-template>
                   </ngb-rating>
-                </span>
               </p>
             </div>
+          </div>
+          <div class="card row">
+            <div class="card-header">Publicité</div>
           </div>
         </div>
       </div>

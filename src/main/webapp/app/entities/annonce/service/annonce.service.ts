@@ -88,11 +88,7 @@ export class AnnonceService {
         return new Style({
           fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
           stroke: new Stroke({ color: '#ffcc33', width: 2 }),
-          image: new Icon({
-            anchor: [0.5, 46],
-            anchorXUnits: 'fraction',
-            anchorYUnits: 'pixels',
-            src: 'content/images/mapIcons/1.png',
+          image: new Icon({anchor: [0.5, 46],anchorXUnits: 'fraction',anchorYUnits: 'pixels',src: 'content/images/mapIcons/1.png',
           }),
         });
       } else {
@@ -243,8 +239,12 @@ export class AnnonceService {
   } */
   
   moy(notes: INote[]): number {
-    const som = notes.map(n => n.valeur ?? 0).reduce((a, b) => a + b, 0);
-    this.moyNote = som / notes.length;
+    if(notes.length !==0){
+      const som = notes.map(n => n.valeur ?? 0).reduce((a, b) => a + b, 0);
+      this.moyNote = som / notes.length;
+    }else{
+      this.moyNote=0;
+    }
     return this.moyNote;
   }
 

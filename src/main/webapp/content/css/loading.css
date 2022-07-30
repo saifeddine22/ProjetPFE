@@ -161,8 +161,10 @@ section.home{background: url('../images/petit-bricolage-en-bois-facile3-scaled.j
 .annonceContent:hover {box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
 .annonceContent a{text-decoration: none;color: #233140;}
 .annonceContent .card{padding: 10px;}
-.annonceContent .card a .img-thumbnail{height: 177px;width: 100%;}
+.annonceContent .card a .img-thumbnail{height: 175px;width: 100%;padding: 0;}
+.annonceContent .card div.img-thumbnail{height: 177px;}
 .annonceContent .col-sm-2,.annonceContent .col-sm-6{border-left: 1px solid #F5F5F5;}
+.card .card-body p.cmProv{padding-left: 25px;background: url("../images/mapIcons/location-mark.png") left center no-repeat;background-size: auto;background-size: contain;}
 
 .map {height:400px;width: 100%;}
 .ol-popup {position: absolute;background-color: white;box-shadow: 0 1px 4px rgba(0,0,0,0.2);padding: 15px;border-radius: 10px;border: 1px solid #cccccc;bottom: 12px;left: -50px;min-width: 280px;}
@@ -171,7 +173,10 @@ section.home{background: url('../images/petit-bricolage-en-bois-facile3-scaled.j
 .ol-popup:before {border-top-color: #cccccc;border-width: 11px;left: 48px;margin-left: -11px;}
 .ol-popup-closer {text-decoration: none;position: absolute;top: 2px;right: 8px;}
 .ol-popup-closer:after {content: "✖";}
-.popup-content a{text-decoration: none;color: #2e477d;}
+.card .card-header.titreAnnonce .ol-popup .popup-content a,.ol-popup .popup-content a
+{text-decoration: none;color: #2e477d;display: block;overflow: hidden;}
+.card .card-header.titreAnnonce .ol-popup .popup-content p.h2{float: none;}
+.card .card-header.titreAnnonce .ol-popup .popup-content p{text-transform: none;}
 
 .card.annonceDetails{padding: 25px;}
 .card .card-header.titreAnnonce{overflow: hidden;display: block;padding: 1rem 0;}

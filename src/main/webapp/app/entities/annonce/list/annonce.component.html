@@ -146,17 +146,21 @@
                 <div class="card">
                   <div class="row">
                     <div class="col-sm-4">
-                      <span *ngFor="let photo of annonce.photos; let isFirst = first" [hidden]="!isFirst">
-                        <a [routerLink]="['/annonce', annonce.id, 'view']">
-                          <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" class="img-thumbnail" />
-                        </a>
-                      </span>
+                      <div class="img-thumbnail p-0">
+                        <span *ngFor="let photo of annonce.photos; let isFirst = first" [hidden]="!isFirst">
+                          <a [routerLink]="['/annonce', annonce.id, 'view']">
+                            <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" class="img-thumbnail" />
+                          </a>
+                        </span>
+                      </div>
                     </div>
                     <div class="col-sm-6 card-body">
                       <a [routerLink]="['/annonce', annonce.id, 'view']">
                         <p class="h3 card-title">{{ annonce.titre }}</p>
                         <p class="card-text">{{ annonce.activite?.nomFr }}</p>
-                        <p class="card-text">{{ annonce.commune?.nomFr }} - {{ annonce.commune?.provinceFr }}</p>
+                        <p class="card-text cmProv">
+                          {{ annonce.commune?.nomFr }} - {{ annonce.commune?.provinceFr }}
+                        </p>
                         <p class="card-text"><small class="text-muted">{{ annonce.dateAnnonce | formatMediumDatetime }}</small></p>
                       </a>
                     </div>
