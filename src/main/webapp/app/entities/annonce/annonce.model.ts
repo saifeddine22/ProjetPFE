@@ -7,6 +7,7 @@ import { ICommune } from 'app/entities/commune/commune.model';
 import { IActivite } from 'app/entities/activite/activite.model';
 import { ICategorie } from '../categorie/categorie.model';
 import { IPersonne } from '../personne/personne.model';
+import { IProvince } from '../province/province.model';
 
 export interface IAnnonce {
   id?: number;
@@ -25,6 +26,7 @@ export interface IAnnonce {
   commune?: ICommune | null;
   activite?: IActivite;
   personne?: IPersonne | null;
+  province?: IProvince;
 }
 
 export class Annonce implements IAnnonce {

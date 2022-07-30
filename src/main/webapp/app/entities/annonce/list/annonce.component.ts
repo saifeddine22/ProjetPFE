@@ -15,8 +15,8 @@ import { IActivite } from 'app/entities/activite/activite.model';
 import { CategorieService } from 'app/entities/categorie/service/categorie.service';
 import { ActiviteService } from 'app/entities/activite/service/activite.service';
 import { AnnonceDetailComponent } from '../detail/annonce-detail.component';
-/* import { RegionService } from 'app/entities/region/service/region.service';
-import { IRegion } from 'app/entities/region/region.model'; */
+import { ProvinceService } from 'app/entities/province/service/province.service';
+import { IProvince } from 'app/entities/province/province.model';
 
 @Component({
   selector: 'jhi-annonce',
@@ -35,7 +35,7 @@ export class AnnonceComponent implements OnInit {
   annonce: IAnnonce | undefined;
   categoriesSharedCollection: ICategorie[] = [];
   activitesSharedCollection: IActivite[] = [];
-  /* regionsSharedCollection: IRegion[] = []; */
+  provincesSharedCollection: IProvince[] = [];
   annonceDetailComponenet?: AnnonceDetailComponent;
 
   isMesAnnonces = false;
@@ -46,7 +46,7 @@ export class AnnonceComponent implements OnInit {
     id: [],
     categorie: [],
     activite: [],
-    /*  region: [], */
+    province: [],
   });
 
   constructor(
@@ -56,7 +56,7 @@ export class AnnonceComponent implements OnInit {
     protected modalService: NgbModal,
     protected categorieService: CategorieService,
     protected activiteService: ActiviteService,
-    /*  protected regionService: RegionService, */
+    protected provinceService: ProvinceService,
     protected fb: FormBuilder
   ) {}
 
@@ -77,10 +77,12 @@ export class AnnonceComponent implements OnInit {
   search(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
-    const activiteId = this.editForm.get('activite')?.value;
+    const activiteId = this.editForm.get('activite')?.value ?? -1;
+    const provinceId = this.editForm.get('province')?.value ?? -1;
+    const categorieId = this.editForm.get('categorie')?.value ?? -1;
 
     this.annonceService
-      .findByActiviteId(activiteId, {
+      .search(activiteId, provinceId, categorieId, {
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -136,11 +138,11 @@ export class AnnonceComponent implements OnInit {
       this.annonceService.initilizeMap();
       this.annonceService.map.removeInteraction(this.annonceService.draw);
       this.annonceService.map.addInteraction(this.annonceService.drawCircle);
-      this.annonceService.drawCircle.on('drawend', (event) =>{
+      this.annonceService.drawCircle.on('drawend', event => {
         const ext = event.feature.getGeometry()?.getExtent();
-        this.annonceService.map.getView().fit(ext!); 
+        this.annonceService.map.getView().fit(ext!);
       });
-      this.annonceService.map.on('pointermove',  () => {
+      this.annonceService.map.on('pointermove', () => {
         this.annonceService.map.addInteraction(this.annonceService.drawCircle);
       });
     });
@@ -156,9 +158,9 @@ export class AnnonceComponent implements OnInit {
   trackActiviteById(_index: number, item: IActivite): number {
     return item.id!;
   }
-  /*   trackRegionById(_index: number, item: IRegion): number {
+  trackProvinceById(_index: number, item: IProvince): number {
     return item.id!;
-  } */
+  }
 
   delete(annonce: IAnnonce): void {
     const modalRef = this.modalService.open(AnnonceDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
@@ -209,7 +211,7 @@ export class AnnonceComponent implements OnInit {
     }
     this.annonces = data ?? [];
     this.ngbPaginationPage = this.page;
-    sessionStorage.setItem("dataAnnonce",  JSON.stringify(this.annonces));
+    sessionStorage.setItem('dataAnnonce', JSON.stringify(this.annonces));
     this.annonceService.vectorMap();
   }
 
@@ -222,7 +224,7 @@ export class AnnonceComponent implements OnInit {
       id: annonce.id,
       categorie: annonce.categorie,
       activite: annonce.activite,
-      /*  region: annonce.region, */
+      province: annonce.province,
     });
 
     this.categoriesSharedCollection = this.categorieService.addCategorieToCollectionIfMissing(
@@ -233,10 +235,10 @@ export class AnnonceComponent implements OnInit {
       this.activitesSharedCollection,
       annonce.activite
     );
-    /*     this.regionsSharedCollection = this.regionService.addRegionToCollectionIfMissing(
-      this.regionsSharedCollection,
-      annonce.region
-    ); */
+    this.provincesSharedCollection = this.provinceService.addProvinceToCollectionIfMissing(
+      this.provincesSharedCollection,
+      annonce.province
+    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -260,14 +262,14 @@ export class AnnonceComponent implements OnInit {
       )
       .subscribe((activites: IActivite[]) => (this.activitesSharedCollection = activites));
 
-    /*  this.regionService
-      .query({size:200})
-      .pipe(map((res: HttpResponse<IRegion[]>) => res.body ?? []))
+    this.provinceService
+      .query({ size: 200 })
+      .pipe(map((res: HttpResponse<IProvince[]>) => res.body ?? []))
       .pipe(
-        map((regions: IRegion[]) =>
-          this.regionService.addRegionToCollectionIfMissing(regions, this.editForm.get('region')!.value)
+        map((provinces: IProvince[]) =>
+          this.provinceService.addProvinceToCollectionIfMissing(provinces, this.editForm.get('province')!.value)
         )
       )
-      .subscribe((regions: IRegion[]) => (this.regionsSharedCollection = regions)); */
+      .subscribe((provinces: IProvince[]) => (this.provincesSharedCollection = provinces));
   }
 }

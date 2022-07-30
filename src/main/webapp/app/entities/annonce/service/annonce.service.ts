@@ -35,28 +35,37 @@ export class AnnonceService {
   map!: Map;
   latitude = 0;
   longitude = 0;
-  source = new VectorSource({wrapX: false});
+  source = new VectorSource({ wrapX: false });
   /* vector = new VectorLayer({ source: this.source,opacity:0.3}); */
-  vector = new VectorLayer({ source: this.source,style: new Style({
-    fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
-    stroke: new Stroke({ color: '#ffcc33', width: 2 }),
-    image: new Icon({
-      anchor: [0.5, 46],
-      anchorXUnits: 'fraction',
-      anchorYUnits: 'pixels',
-      src: 'content/images/mapIcons/location.png',
-    })}),});
-  draw = new Draw({source: this.source,type: 'Point',style: new Style({
-    fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
-    stroke: new Stroke({ color: '#ffcc33', width: 2 }),
-    image: new Icon({
-      anchor: [0.5, 46],
-      anchorXUnits: 'fraction',
-      anchorYUnits: 'pixels',
-      src: 'content/images/mapIcons/location.png',
-    })}),});
-  drawCircle = new Draw({source: this.source,type: 'Circle',});
-  view = new View({center: [-6.531926743408018, 33.6278503045078],zoom: 8,projection: 'EPSG:4326',});
+  vector = new VectorLayer({
+    source: this.source,
+    style: new Style({
+      fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
+      stroke: new Stroke({ color: '#ffcc33', width: 2 }),
+      image: new Icon({
+        anchor: [0.5, 46],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'pixels',
+        src: 'content/images/mapIcons/location.png',
+      }),
+    }),
+  });
+  draw = new Draw({
+    source: this.source,
+    type: 'Point',
+    style: new Style({
+      fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
+      stroke: new Stroke({ color: '#ffcc33', width: 2 }),
+      image: new Icon({
+        anchor: [0.5, 46],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'pixels',
+        src: 'content/images/mapIcons/location.png',
+      }),
+    }),
+  });
+  drawCircle = new Draw({ source: this.source, type: 'Circle' });
+  view = new View({ center: [-6.531926743408018, 33.6278503045078], zoom: 8, projection: 'EPSG:4326' });
 
   ajustementGPSPointsVector = new VectorSource();
 
@@ -139,42 +148,49 @@ export class AnnonceService {
     /* this.map.addInteraction(this.draw); */
     this.vector.getSource()?.clear();
 
-    this.map.on('click',  (evt) => {
+    this.map.on('click', evt => {
       const coordinate = evt.coordinate;
       const hdms = toStringHDMS(toLonLat(coordinate));
       this.latitude = coordinate[0];
       this.longitude = coordinate[1];
       /* alert(`latitude :  ${this.latitude} , longitude :  ${this.longitude}`); */
-      this.map.forEachFeatureAtPixel(evt.pixel,(feature) => {
+      this.map.forEachFeatureAtPixel(evt.pixel, feature => {
         const id = String(feature.get('id'));
         const description = String(feature.get('nom'));
         const activ = String(feature.get('Activité'));
         const categ = String(feature.get('Catégorie'));
-        if(feature.get('Catégorie') !== undefined){
-          document.getElementById('popup-content')!.innerHTML = '<p class="h2">Annonce :</p>'+
-          `<a href="/annonce/${id}/view">`+
-          '<p class="h4">'+categ+'</p>'+
-          '<p class="h5">'+activ+'</p>'+
-          '<p class="h6">'+description+'</p></a>'
-          +'<code>' + hdms + '</code>';
+        if (feature.get('Catégorie') !== undefined) {
+          document.getElementById('popup-content')!.innerHTML =
+            '<p class="h2">Annonce :</p>' +
+            `<a href="/annonce/${id}/view">` +
+            '<p class="h4">' +
+            categ +
+            '</p>' +
+            '<p class="h5">' +
+            activ +
+            '</p>' +
+            '<p class="h6">' +
+            description +
+            '</p></a>' +
+            '<code>' +
+            hdms +
+            '</code>';
           overlay.setPosition(coordinate);
-          
+
           this.map.removeInteraction(this.drawCircle);
         }
       });
-      if(Number(this.vector.getSource()?.getFeatures().length) > 1){
+      if (Number(this.vector.getSource()?.getFeatures().length) > 1) {
         const fk = this.vector.getSource()?.getFeatures()[0];
         this.vector.getSource()?.removeFeature(fk!);
       }
-      
+
       /* this.draw.removeLastPoint();
       this.map.removeInteraction(this.draw); */
-    
     });
   }
 
   vectorMap(): void {
-    
     let arr = [];
     arr = JSON.parse(String(sessionStorage.getItem('dataAnnonce')));
     console.log(arr);
@@ -190,12 +206,27 @@ export class AnnonceService {
         const lon = String(element.longitude);
         const activ = String(element.activite.nomFr);
         const categ = String(element.activite.categorieFr);
-        testGeojson = '{"id" : "'+id+'","type": "Feature","geometry":{"type":"Point", "coordinates":['+lat+','+lon+']},"properties": {"id": "'+id+'","nom": "'+description+'","Activité": "'+activ+'","Catégorie": "'+categ+'"}}';
-        testGeojson = testGeojson.replace(/(\r\n|\n|\r)/gm, "");
-        dldlGeojson +=testGeojson+','; 
+        testGeojson =
+          '{"id" : "' +
+          id +
+          '","type": "Feature","geometry":{"type":"Point", "coordinates":[' +
+          lat +
+          ',' +
+          lon +
+          ']},"properties": {"id": "' +
+          id +
+          '","nom": "' +
+          description +
+          '","Activité": "' +
+          activ +
+          '","Catégorie": "' +
+          categ +
+          '"}}';
+        testGeojson = testGeojson.replace(/(\r\n|\n|\r)/gm, '');
+        dldlGeojson += testGeojson + ',';
       }
     } else {
-      if(arr.id !== undefined){
+      if (arr.id !== undefined) {
         const id = String(arr.id);
         const description = String(arr.description);
 
@@ -203,7 +234,22 @@ export class AnnonceService {
         const lon = String(arr.longitude);
         const activ = String(arr.activite.nomFr);
         const categ = String(arr.activite.categorieFr);
-        testGeojson ='{"id" : "' +id +'","type": "Feature","geometry":{"type":"Point", "coordinates":[' +lat +',' +lon +']},"properties": {"id": "' +id +'","nom": "' +description +'","Activité": "' +activ +'","Catégorie": "' +categ +'"}}';
+        testGeojson =
+          '{"id" : "' +
+          id +
+          '","type": "Feature","geometry":{"type":"Point", "coordinates":[' +
+          lat +
+          ',' +
+          lon +
+          ']},"properties": {"id": "' +
+          id +
+          '","nom": "' +
+          description +
+          '","Activité": "' +
+          activ +
+          '","Catégorie": "' +
+          categ +
+          '"}}';
         testGeojson = testGeojson.replace(/(\r\n|\n|\r)/gm, '');
         dldlGeojson += testGeojson + ',';
       }
@@ -218,7 +264,7 @@ export class AnnonceService {
     console.log(this.ajustementGPSPointsVector.getFeatures().length);
     this.ajustementGPSPointsVector.addFeatures(ft);
     const ext = this.ajustementGPSPointsVector.getExtent();
-    this.map.getView().fit(ext); 
+    this.map.getView().fit(ext);
     this.map.getView().setZoom(9);
     console.log(this.ajustementGPSPointsVector.getFeatures().length);
     this.map.updateSize();
@@ -237,7 +283,7 @@ export class AnnonceService {
     });
     return coordinate;
   } */
-  
+
   moy(notes: INote[]): number {
     if(notes.length !==0){
       const som = notes.map(n => n.valeur ?? 0).reduce((a, b) => a + b, 0);
@@ -287,10 +333,13 @@ export class AnnonceService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
-  findByActiviteId(activiteId: number, req?: any): Observable<EntityArrayResponseType> {
+  search(activiteId: number, provinceId: number, categorieId: number, req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
-      .get<IAnnonce[]>(`${this.resourceUrl}/activite?activiteId=${activiteId}`, { params: options, observe: 'response' })
+      .get<IAnnonce[]>(`${this.resourceUrl}/search?provinceId=${provinceId}&activiteId=${activiteId}&categorieId=${categorieId}`, {
+        params: options,
+        observe: 'response',
+      })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 

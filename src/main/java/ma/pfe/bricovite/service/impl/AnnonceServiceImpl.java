@@ -95,15 +95,20 @@ public class AnnonceServiceImpl implements AnnonceService {
         log.debug("Request to delete Annonce : {}", id);
         annonceRepository.deleteById(id);
     }
-     @Override
+
+    @Override
     public Page<Annonce> findAllByUserId(Pageable pageable, Long id) {
         // TODO Auto-generated method stub
         return annonceRepository.findAllByUserId(pageable, id);
     }
 
     @Override
-    public Page<Annonce> findByActiviteId(Pageable pageable, Long id) {
+    public Page<Annonce> search(String provinceId, String activiteId, String categorieId, Pageable pageable) {
         // TODO Auto-generated method stub
-        return annonceRepository.findByActiviteId(pageable, id);
+
+        Integer p = Integer.parseInt(provinceId);
+        Integer a = Integer.parseInt(activiteId);
+        Integer c = Integer.parseInt(categorieId);
+        return annonceRepository.search(p, a, c, pageable);
     }
 }
