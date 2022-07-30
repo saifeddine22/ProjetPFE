@@ -136,77 +136,7 @@
       </div>
     </div>
   </section>
-  <section>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-9" id="entities" *ngIf="annonces && annonces.length > 0">
-          <div class="annonceContent" *ngFor="let annonce of annonces; trackBy: trackId">
-            <div class="card">
-              <div class="row">
-                <div class="col-sm-4">
-                  <span *ngFor="let photo of annonce.photos; let isFirst = first" [hidden]="!isFirst">
-                    <a [routerLink]="['/annonce', annonce.id, 'view']">
-                      <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" class="img-thumbnail" />
-                    </a>
-                  </span>
-                </div>
-                <div class="col-sm-6 card-body">
-                  <a [routerLink]="['/annonce', annonce.id, 'view']">
-                    <p class="h3 card-title">{{ annonce.titre }}</p>
-                    <p class="card-text">{{ annonce.activite?.nomFr }}</p>
-                    <p class="card-text">{{ annonce.commune?.nomFr }} - {{ annonce.commune?.provinceFr }}</p>
-                    <p class="card-text">
-                      <small class="text-muted">{{ annonce.dateAnnonce | formatMediumDatetime }}</small>
-                    </p>
-                  </a>
-                </div>
-                <div class="col-sm-2">
-                  <p *ngIf="annonce.notes">
-                    <span hidden>{{ annonceService.moy(annonce.notes) | number: '1.2-2' }}</span>
-                    <ngb-rating class="ngb-rating" [max]="5" [rate]="annonceService.updateRating()" [readonly]="true">
-                      <ng-template let-fill="fill">
-                        <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
-                          <span class="paintedStar" [style.width.%]="fill">★</span>★
-                        </span>
-                      </ng-template>
-                    </ngb-rating>
-                  </p>
-                  <div class="btn-group float-end">
-                    <button
-                      *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-                      type="submit"
-                      [routerLink]="['/annonce', annonce.id, 'edit']"
-                      [hidden]="annonce.user?.id != userConnect"
-                      class="btn btn-outline-bricoVite btn-sm"
-                      data-cy="entityEditButton"
-                    >
-                      <fa-icon icon="pencil-alt"></fa-icon>
-                      <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                    </button>
-
-                    <button
-                      *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
-                      [hidden]="annonce.user?.id != userConnect"
-                      type="submit"
-                      (click)="delete(annonce)"
-                      class="btn btn-outline-danger btn-sm"
-                      data-cy="entityDeleteButton"
-                    >
-                      <fa-icon icon="times"></fa-icon>
-                      <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 pubContent">
-          <div class="card">
-            <div class="card-header">Publicité</div>
-          </div>
-        </div>
-      </section>
+  
       <section>
         <div class="container">
           <div class="row">
@@ -281,7 +211,6 @@
             </div>
           </div>
       </div>
-    </div>
   </section>
   <section>
     <div class="container">
