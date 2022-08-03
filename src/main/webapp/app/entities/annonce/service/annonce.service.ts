@@ -97,14 +97,15 @@ export class AnnonceService {
         return new Style({
           fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
           stroke: new Stroke({ color: '#ffcc33', width: 2 }),
-          image: new Icon({anchor: [0.5, 46],anchorXUnits: 'fraction',anchorYUnits: 'pixels',src: 'content/images/mapIcons/1.png',
+          image: new Icon({anchor: [0.5, 46],anchorXUnits: 'fraction',anchorYUnits: 'pixels',src: 'content/images/mapIcons/location.png',
           }),
         });
       } else {
         return new Style({
           fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
           stroke: new Stroke({ color: '#ffcc33', width: 2 }),
-          image: new CircleStyle({ radius: 5, fill: new Fill({ color: '#000' }) }),
+          image: new Icon({anchor: [0.5, 46],anchorXUnits: 'fraction',anchorYUnits: 'pixels',src: 'content/images/mapIcons/location1.png',
+        }),
         });
       }
     }
@@ -283,6 +284,21 @@ export class AnnonceService {
     });
     return coordinate;
   } */
+  // JavaScript code
+  search_fast(): void {
+    let input = (<HTMLInputElement>document.getElementById('rechRapide')).value;
+    input=input.toLowerCase();
+    const x = document.getElementsByClassName('annonceContent') as HTMLCollectionOf<HTMLElement>;
+      
+    for (let i = 0; i < x.length; i++) { 
+        if (!x[i].innerHTML.toLowerCase().includes(input)) {
+            x[i].style.display="none";
+        }
+        else {
+            x[i].style.display="list-item";                 
+        }
+    }
+  }
 
   moy(notes: INote[]): number {
     if(notes.length !==0){

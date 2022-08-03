@@ -85,7 +85,7 @@
                   </p>
                   <p>
                     <select class="form-control" id="field_activite" data-cy="activite" name="activite" formControlName="activite">
-                      <option *ngIf="!editForm.get('activite')!.value" class="dropdown-item" selected [ngValue]="undefined">
+                      <option class="dropdown-item" selected [ngValue]="undefined">
                         Choisir une Activité
                       </option>
                       <option
@@ -205,6 +205,14 @@
               </div>
             </div>
             <div class="col-lg-3 pubContent">
+              <div class="card mb-3">
+                <div class="card-header">Recherche rapide</div>
+                <div class="card-body">
+                  <p class="card-text">
+                    <input type="search" name="rechRapide" class="rechRapide" id="rechRapide" (keyup)="annonceService.search_fast()" placeholder="Recherche rapide...">
+                  </p>
+                </div>
+              </div>
               <div class="card">
                 <div class="card-header">Publicité</div>
               </div>

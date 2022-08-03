@@ -1,7 +1,7 @@
 <section class="mt-5 pt-5 pb-5">
   <div class="container">
     <div class="card">
-      <div class="card-header">
+      <div class="card-header"> 
         <h2 id="page-heading" data-cy="PhotoHeading">
           <span jhiTranslate="bricoviteApp.photo.home.title">Photos</span>{{ annonce?.id ? ' de cette annonce' : '' }}
     
@@ -14,7 +14,7 @@
             <button
               id="jh-create-entity"
               data-cy="entityCreateButton"
-              class="btn btn-outline-bricoVite jh-create-entity create-photo"
+              class="btn btn-outline-bricoVite jh-create-entity create-photo btnCercle"
               (click)="addPhoto(photo)"
             >
               <fa-icon icon="plus"></fa-icon>
@@ -74,14 +74,14 @@
                       *jhiHasAnyAuthority="'ROLE_ADMIN'"
                       type="submit"
                       [routerLink]="['/photo', photo.id, 'view']"
-                      class="btn btn-outline-info btn-sm"
+                      class="btn btn-outline-bricoVite btn-sm"
                       data-cy="entityDetailsButton"
                     >
                       <fa-icon icon="eye"></fa-icon>
                       <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                     </button>
 
-                    <button
+                    <!-- <button
                       *jhiHasAnyAuthority="'ROLE_ADMIN'"
                       type="submit"
                       [routerLink]="['/photo', photo.id, 'edit']"
@@ -90,7 +90,7 @@
                     >
                       <fa-icon icon="pencil-alt"></fa-icon>
                       <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                    </button>
+                    </button> -->
 
                     <button type="submit" (click)="delete(photo)" class="btn btn-outline-danger btn-sm" data-cy="entityDeleteButton">
                       <fa-icon icon="times"></fa-icon>
