@@ -72,11 +72,11 @@
   </div>
 
   <div class="modal-footer">
-    <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+    <button type="submit" (click)="previousState()" class="btn btn-outline-info btnCercle" data-cy="entityDetailsBackButton">
       <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
     </button>
 
-    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button" [routerLink]="['/personne', personne.id, 'edit']" class="btn btn-primary">
+    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button" (click)="previousState()" [routerLink]="['/personne', personne.id, 'edit']" class="btn btn-outline-bricoVite btnCercle">
       <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
     </button>
   </div>

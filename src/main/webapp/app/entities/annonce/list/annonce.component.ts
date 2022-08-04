@@ -64,6 +64,9 @@ export class AnnonceComponent implements OnInit {
     const catId = this.editForm.get(['categorie'])!.value;
     return Number(catId);
   }
+  supprimerClass():void{
+    document.getElementById('collapseExample')?.classList.remove('show');
+  }
 
   filterActivites(): IActivite[] {
     const catId = this.editForm.get('categorie')?.value;
@@ -91,6 +94,7 @@ export class AnnonceComponent implements OnInit {
         next: (res: HttpResponse<IAnnonce[]>) => {
           this.isLoading = false;
           this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
+          this.supprimerClass();
         },
         error: () => {
           this.isLoading = false;

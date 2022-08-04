@@ -97,7 +97,7 @@ export class AnnonceService {
         return new Style({
           fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
           stroke: new Stroke({ color: '#ffcc33', width: 2 }),
-          image: new Icon({anchor: [0.5, 46],anchorXUnits: 'fraction',anchorYUnits: 'pixels',src: 'content/images/mapIcons/location.png',
+          image: new Icon({anchor: [0.5, 46],anchorXUnits: 'fraction',anchorYUnits: 'pixels',src: 'content/images/mapIcons/location2.png',
           }),
         });
       } else {
