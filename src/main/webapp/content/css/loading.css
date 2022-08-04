@@ -197,7 +197,8 @@ section.promotion{background-color: #F5F5F5;padding: 40px;}
 .card.carte{margin: 30px 0;}
 .card-block{padding: 1.25rem;}
 i.large {font-size: 5rem;}
-.col-lg-3.pubContent .card{height: 110px;}
+.col-lg-3.pubContent .card:first-child{height: 110px;}
+.col-lg-3.pubContent .card:last-child{height: 94.65%;}
 .col-lg-3.pubContent .card .card-body .card-text .rechRapide{width: 100%;height: 35px;border: 2px solid #F5F5F5;border-radius: 6px;padding: 1px 15px;}
 
 footer p a{text-decoration: none;color: #2e477d;}
