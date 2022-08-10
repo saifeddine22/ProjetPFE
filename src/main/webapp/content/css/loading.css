@@ -381,3 +381,8 @@ footer p.copyright {
 .annonceBg section:first-child h2 {
   color: #fff;
 }
+.politique .card .card-body p, .politique .card .card-body li{text-align: justify;}
+
+.socialNetwork a {display: inline-block;margin: 0 3px;}
+.socialNetwork a img{width: 30px;height: 30px;}
+
