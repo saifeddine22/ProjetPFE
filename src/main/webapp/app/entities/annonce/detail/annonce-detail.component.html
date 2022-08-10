@@ -43,7 +43,7 @@
                   <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" class="card-img" style="max-height: 298px" />
                 </div>
                 <div class="carousel-caption">
-                  <h3>Bricovite</h3>
+                  <h3>BricoVite</h3>
                 </div>
               </ng-template>
             </ngb-carousel>
@@ -134,20 +134,21 @@
           <div class="card row">
             <div class="card-header">
               <span *ngIf="annonce.notes">
-                <p class="mb-0">Note : 
-                  <small class="text-muted">{{ annonceService.moy(annonce.notes) | number: '1.2-2' }} / 5</small>
+                <p class="mb-0">
+                  Note :
+                  <small class="text-muted">{{ annonceService.moy(annonce.notes) | number: '1.1-2' }} / 5</small>
                 </p>
               </span>
             </div>
             <div class="card-body">
               <p class="card-text">
-                  <ngb-rating class="ngb-rating" [max]="5" [rate]="annonceService.updateRating()" [readonly]="true">
-                    <ng-template let-fill="fill">
-                      <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
-                        <span class="paintedStar" [style.width.%]="fill">★</span>★
-                      </span>
-                    </ng-template>
-                  </ngb-rating>
+                <ngb-rating class="ngb-rating" [max]="5" [rate]="annonceService.updateRating()" [readonly]="true">
+                  <ng-template let-fill="fill">
+                    <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
+                      <span class="paintedStar" [style.width.%]="fill">★</span>★
+                    </span>
+                  </ng-template>
+                </ngb-rating>
               </p>
             </div>
           </div>
