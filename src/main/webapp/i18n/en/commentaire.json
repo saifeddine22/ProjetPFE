@@ -2,24 +2,24 @@
   "bricoviteApp": {
     "commentaire": {
       "home": {
-        "title": "Commentaires",
+        "title": "Comments",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Commentaire",
-        "createOrEditLabel": "Create or edit a Commentaire",
-        "notFound": "No Commentaires found"
+        "createLabel": "Create a new Comment",
+        "createOrEditLabel": "Create or edit a Comment",
+        "notFound": "No Comments found"
       },
-      "created": "A new Commentaire is created with identifier {{ param }}",
-      "updated": "A Commentaire is updated with identifier {{ param }}",
-      "deleted": "A Commentaire is deleted with identifier {{ param }}",
+      "created": "comment has been created",
+      "updated": "comment has been updated",
+      "deleted": "comment has been deleted",
       "delete": {
-        "question": "Are you sure you want to delete Commentaire {{ id }}?"
+        "question": "Are you sure you want to delete this Comment?"
       },
       "detail": {
-        "title": "Commentaire"
+        "title": "Comment"
       },
       "id": "ID",
       "details": "Details",
-      "dateCommentaire": "Date Commentaire",
+      "dateCommentaire": "Date Comment",
       "user": "User",
       "annonce": "Annonce"
     }

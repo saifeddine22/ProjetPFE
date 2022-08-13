@@ -17,6 +17,7 @@
               class="btn btn-bricoVite affichCarte btnCercle"
               data-toggle="modal"
               data-target=".bd-example-modal-lg"
+              jhiTranslate="bricoviteApp.annonce.afficherDansCarte"
             >
               Afficher dans la Carte
             </button>
@@ -54,7 +55,9 @@
                 <img src="content/images/jhipster_family_member_1_head-192.png" alt="" />
                 {{ annonce.user?.login }}
               </span>
-              <a class="btn btn-outline-bricoVite float-end btnCercle" (click)="goToPersonneDetails(annonce.user?.id)">Contacter</a>
+              <a class="btn btn-outline-bricoVite float-end btnCercle" 
+                  (click)="goToPersonneDetails(annonce.user?.id)"
+                  jhiTranslate="bricoviteApp.annonce.contacter">Contacter</a>
             </p>
             <p class="card-text cmProv clearfix">
               <small class="text-muted float-start">{{ annonce.commune?.nomFr }} - {{ annonce.commune?.provinceFr }}</small>
@@ -110,11 +113,12 @@
             class="btn btn-outline-bricoVite float-end btnCercle"
             [hidden]="annonce.user?.id != userConnect"
             [routerLink]="['/annonce', annonce.id, 'photos']"
+            jhiTranslate="bricoviteApp.annonce.editPhoto"
           >
             Edit photos
           </button>
           <div class="card-body">
-            <p class="card-header mb-4">Commentaires</p>
+            <p class="card-header mb-4" jhiTranslate="bricoviteApp.commentaire.home.title">Commentaires</p>
             <span *ngFor="let commentaire of annonce.commentaires">
               <p class="card-text comment my-0">
                 <span>
@@ -131,10 +135,25 @@
           </div>
         </div>
         <div class="col-md-3 mx-auto">
+          <div class="card row disponibilite">
+            <div class="card-header" jhiTranslate="bricoviteApp.annonce.disponibilite">Disponibilité</div>
+            <div class="card-body">
+              <p>
+                <span class="btn btn-outline-success btnCercle" 
+                      jhiTranslate="bricoviteApp.annonce.disponible"
+                      [hidden]="annonce.status == false">
+                </span>
+                <span class="btn btn-outline-danger btnCercle" 
+                      jhiTranslate="bricoviteApp.annonce.indisponible"
+                      [hidden]="annonce.status == true">
+                </span>
+              </p>
+            </div>
+          </div>
           <div class="card row">
             <div class="card-header">
               <span *ngIf="annonce.notes">
-                <p class="mb-0">
+                <p class="mb-0" jhiTranslate="bricoviteApp.annonce.note">
                   Note :
                   <small class="text-muted">{{ annonceService.moy(annonce.notes) | number: '1.1-2' }} / 5</small>
                 </p>
@@ -153,7 +172,7 @@
             </div>
           </div>
           <div class="card row">
-            <div class="card-header">Publicité</div>
+            <div class="card-header" jhiTranslate="bricoviteApp.annonce.publicite">Publicité</div>
           </div>
         </div>
       </div>

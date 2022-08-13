@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-md-9 mx-auto">
           <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <div class="card-header titreAnnonce">
+            <div class="card-header titreAnnonce CrUp">
               <p id="jhi-annonce-heading" data-cy="AnnonceCreateUpdateHeading" jhiTranslate="bricoviteApp.annonce.home.createOrEditLabel" class="h2">
                 Create or edit a Annonce
               </p>
@@ -97,10 +97,13 @@
                   <input type="number" class="form-control" name="longitude" id="field_longitude" data-cy="longitude" formControlName="longitude" />
                 </div>
 
-                <!-- <div class="row mb-3">
-                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.status" for="field_status">Status</label>
-                  <input type="checkbox" class="form-check" name="status" id="field_status" data-cy="status" formControlName="status" />
-                </div> -->
+                <div class="col-md-10 mx-auto mb-3">
+                  <p class="dispo">
+                    <label class="form-label" jhiTranslate="bricoviteApp.annonce.disponibilite" for="field_status">Disponibilité</label>
+                    <span>:</span>
+                    <input type="checkbox" class="form-check" name="status" id="field_status" data-cy="status" formControlName="status" />
+                  </p>
+                </div>
 
                 <div class="col-md-10 mx-auto mb-3">
                   <label class="form-label" jhiTranslate="bricoviteApp.annonce.dateAnnonce" for="field_dateAnnonce">Date Annonce</label>

@@ -2,26 +2,26 @@
   "bricoviteApp": {
     "commentaire": {
       "home": {
-        "title": "Commentaires",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Commentaire",
-        "createOrEditLabel": "Create or edit a Commentaire",
-        "notFound": "No Commentaires found"
+        "title": "التعليقات",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء تعليق جديد",
+        "createOrEditLabel": "إنشاء تعليق أو تحريره",
+        "notFound": "لم يتم العثور على تعليقات"
       },
-      "created": "A new Commentaire is created with identifier {{ param }}",
-      "updated": "A Commentaire is updated with identifier {{ param }}",
-      "deleted": "A Commentaire is deleted with identifier {{ param }}",
+      "created": "تم إنشاء التعليق",
+      "updated": "تم تحديث التعليق",
+      "deleted": "تم حذف التعليق",
       "delete": {
-        "question": "Are you sure you want to delete Commentaire {{ id }}?"
+        "question": "هل أنت متأكد أنك تريد حذف هذا التعليق؟"
       },
       "detail": {
-        "title": "Commentaire"
+        "title": "تعليق"
       },
       "id": "ID",
-      "details": "Details",
-      "dateCommentaire": "Date Commentaire",
-      "user": "User",
-      "annonce": "Annonce"
+      "details": "التفاصيل",
+      "dateCommentaire": "تاريخ التعليق",
+      "user": "المستخدم",
+      "annonce": "إعلان"
     }
   }
 }

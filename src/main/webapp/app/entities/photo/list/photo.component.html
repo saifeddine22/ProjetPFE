@@ -11,7 +11,8 @@
               <span jhiTranslate="bricoviteApp.photo.home.refreshListLabel">Refresh List</span>
             </button> -->
     
-            <!-- <button
+            <button
+              *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
               id="jh-create-entity"
               data-cy="entityCreateButton"
               class="btn btn-outline-bricoVite jh-create-entity create-photo btnCercle"
@@ -19,7 +20,7 @@
             >
               <fa-icon icon="plus"></fa-icon>
               <span jhiTranslate="bricoviteApp.photo.home.createLabel"> Create a new Photo </span>
-            </button> -->
+            </button>
           </div>
         </h2>
       </div>

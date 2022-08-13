@@ -150,5 +150,13 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
+
+  "politique" : "نهج الخصوصية",
+  "condition" : "شروط الاستخدام",
+  "quiSommesNous" : "من نحن؟",
+  "mentionLegal" : "إشعار قانوني",
+  "aProposNous" : "نبذة عنا",
+  "contactezNous" : "اتصل بنا",
+  "suivezNous" : "تابعنا",
   "footer": "هنا يضع الفووتر"
 }

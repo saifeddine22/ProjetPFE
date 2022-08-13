@@ -3,17 +3,25 @@
     "annonce": {
       "home": {
         "title": "Annonces",
+        "mesAnnonces": "my Announcements",
+        "toutesAnnonces": "All Announcements",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Annonce",
         "createOrEditLabel": "Create or edit a Annonce",
-        "notFound": "No Annonces found"
+        "notFound": "No Annonces found",
+        "recherche": "Search",
+        "rechercheRapide": "Quick Find"
       },
-      "created": "A new Annonce is created with identifier {{ param }}",
-      "updated": "A Annonce is updated with identifier {{ param }}",
-      "deleted": "A Annonce is deleted with identifier {{ param }}",
+      "publicite" : "advertisement",
+      "created": "A new Annonce has been created",
+      "updated": "Announcement has been updated",
+      "deleted": "Annonce has been removed",
       "delete": {
-        "question": "Are you sure you want to delete Annonce {{ id }}?"
+        "question": "Are you sure you want to delete Annonce?"
       },
+      "afficherDansCarte" : "Display in Map",
+      "contacter" : "Contact",
+      "editPhoto" : "Edit photos",
       "detail": {
         "title": "Annonce"
       },
@@ -31,7 +39,10 @@
       "user": "Service provider",
       "commune": "Commune",
       "activite": "Activity",
-      "categorie": "Category"
+      "categorie": "Category",
+      "disponibilite": "Availability",
+      "disponible": "Available",
+      "indisponible": "Unavailable"
     }
   }
 }

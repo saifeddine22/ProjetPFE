@@ -9,10 +9,10 @@
         "notFound": "Aucun Commentaire trouvé"
       },
       "created": "Commentaire ajouté",
-      "updated": "Le Commentaire avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Commentaire avec l'identifiant {{ param }} a été supprimé",
+      "updated": "Commentaire a été mis à jour",
+      "deleted": "Commentaire a été supprimé",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le Commentaire {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer ce Commentaire?"
       },
       "detail": {
         "title": "Commentaire"

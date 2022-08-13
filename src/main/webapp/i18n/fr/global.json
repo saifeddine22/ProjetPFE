@@ -151,5 +151,12 @@
       "not.image": "Le fichier doit être une image et non du type \"{{ fileType }}\""
     }
   },
+  "politique" : "Politique de confidentialité",
+  "condition" : "Conditions d'utilisation",
+  "quiSommesNous" : "Qui Sommes-Nous?",
+  "mentionLegal" : "Mentions légales",
+  "aProposNous" : "À propos de nous",
+  "contactezNous" : "Contactez-nous",
+  "suivezNous" : "Suivez-Nous",
   "footer": "Ceci est votre pied de page"
 }

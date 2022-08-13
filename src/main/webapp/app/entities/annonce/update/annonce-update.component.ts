@@ -84,6 +84,10 @@ export class AnnonceUpdateComponent implements OnInit {
   }
 
   save(): void {
+    if(this.annonceService.latitude && this.annonceService.longitude){
+      this.editForm.get(['latitude'])?.setValue(this.annonceService.latitude);
+      this.editForm.get(['longitude'])?.setValue(this.annonceService.longitude);
+    }
     this.isSaving = true;
     const annonce = this.createFromForm();
     if (annonce.id !== undefined) {
@@ -203,8 +207,8 @@ export class AnnonceUpdateComponent implements OnInit {
       dateAnnonce: this.editForm.get(['dateAnnonce'])!.value
         ? dayjs(this.editForm.get(['dateAnnonce'])!.value, DATE_TIME_FORMAT)
         : undefined,
-      latitude: this.annonceService.latitude,
-      longitude: this.annonceService.longitude,
+      latitude: this.editForm.get(['latitude'])!.value,
+      longitude: this.editForm.get(['longitude'])!.value,
       user: { id: Number(sessionStorage.getItem('userConnectedId')) },
       categorie: this.editForm.get(['categorie'])!.value,
       commune: this.editForm.get(['commune'])!.value,

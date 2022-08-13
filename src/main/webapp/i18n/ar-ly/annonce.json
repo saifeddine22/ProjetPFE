@@ -2,36 +2,47 @@
   "bricoviteApp": {
     "annonce": {
       "home": {
-        "title": "Annonces",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Annonce",
-        "createOrEditLabel": "Create or edit a Annonce",
-        "notFound": "No Annonces found"
+        "title": "الإعلانات",
+        "mesAnnonces": "إعلاناتي",
+        "toutesAnnonces": "كافة الإعلانات",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء إعلان جديد",
+        "createOrEditLabel": "إنشاء أو تحرير إعلان",
+        "notFound": "لم يتم العثور على الإعلانات",
+        "recherche": "البحث",
+        "rechercheRapide": "البحث السريع"
       },
-      "created": "A new Annonce is created with identifier {{ param }}",
-      "updated": "A Annonce is updated with identifier {{ param }}",
-      "deleted": "A Annonce is deleted with identifier {{ param }}",
+      "publicite" : "إشهار",
+      "created": "تم إنشاء إعلان جديد",
+      "updated": "تم تحديث الإعلان",
+      "deleted": "تمت إزالة الإعلان",
       "delete": {
-        "question": "Are you sure you want to delete Annonce {{ id }}?"
+        "question": "هل أنت متأكد أنك تريد حذف هذا الإعلان؟"
       },
+      "afficherDansCarte" : "العرض في الخريطة",
+      "contacter" : "اتصال",
+      "editPhoto" : "تعديل الصور",
       "detail": {
-        "title": "Annonce"
+        "title": "إعلان"
       },
       "id": "ID",
-      "titre": "Titre",
-      "description": "Description",
-      "adresse": "Adresse",
-      "status": "Status",
-      "dateAnnonce": "Date Annonce",
-      "latitude": "Latitude",
-      "longitude": "Longitude",
-      "photo": "Photo",
-      "commentaire": "Commentaire",
-      "note": "Note",
-      "user": "Prestataire",
-      "commune": "Commune",
-      "activite": "Activité",
-      "categorie": "Catégorie"
+      "titre": "العنوان",
+      "description": "الوصف",
+      "adresse": "عنوان",
+      "status": "الحالة",
+      "dateAnnonce": "تاريخ الإعلان",
+      "latitude": "خط العرض",
+      "longitude": "خط الطول",
+      "photo": "صورة",
+      "commentaire": "تعليق",
+      "note": "تصنيف",
+      "user": "مقدم الخدمة",
+      "commune": "البلدية",
+      "activite": "النشاط",
+      "categorie": "الفئة",
+      "disponibilite": "التوفر",
+      "disponible": "متاح",
+      "indisponible": "غير متاح" 
     }
   }
 }

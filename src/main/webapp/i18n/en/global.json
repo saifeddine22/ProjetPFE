@@ -151,5 +151,12 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
+  "politique" : "privacy policy",
+  "condition" : "Terms of Use",
+  "quiSommesNous" : "Who are we?",
+  "mentionLegal" : "Legal notice",
+  "aProposNous" : "About us",
+  "contactezNous" : "Contact us",
+  "suivezNous" : "Follow us",
   "footer": "This is your footer"
 }
