@@ -8,7 +8,7 @@
       "entities": {
         "main": "الكيانات",
         "personne": "Personne",
-        "annonce": "Annonce",
+        "annonce": "الإعلانات",
         "photo": "Photo",
         "region": "Region",
         "province": "Province",
@@ -151,12 +151,12 @@
     }
   },
 
-  "politique" : "نهج الخصوصية",
-  "condition" : "شروط الاستخدام",
-  "quiSommesNous" : "من نحن؟",
-  "mentionLegal" : "إشعار قانوني",
-  "aProposNous" : "نبذة عنا",
-  "contactezNous" : "اتصل بنا",
-  "suivezNous" : "تابعنا",
+  "politique": "نهج الخصوصية",
+  "condition": "شروط الاستخدام",
+  "quiSommesNous": "من نحن؟",
+  "mentionLegal": "إشعار قانوني",
+  "aProposNous": "نبذة عنا",
+  "contactezNous": "اتصل بنا",
+  "suivezNous": "تابعنا",
   "footer": "هنا يضع الفووتر"
 }

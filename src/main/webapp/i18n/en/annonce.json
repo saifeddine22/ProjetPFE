@@ -2,7 +2,7 @@
   "bricoviteApp": {
     "annonce": {
       "home": {
-        "title": "Annonces",
+        "title": "Announcements",
         "mesAnnonces": "my Announcements",
         "toutesAnnonces": "All Announcements",
         "refreshListLabel": "Refresh list",
