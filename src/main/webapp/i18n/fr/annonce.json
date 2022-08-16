@@ -12,16 +12,16 @@
         "recherche": "Recherche",
         "rechercheRapide": "Recherche rapide"
       },
-      "publicite" : "Publicité",
+      "publicite": "Publicité",
       "created": "Une nouvelle Annonce a été créée",
       "updated": "L'Annonce a été mise à jour",
       "deleted": "L'Annonce a été supprimée",
       "delete": {
         "question": "Êtes-vous certain de vouloir supprimer cette Annonce?"
       },
-      "afficherDansCarte" : "Afficher dans la Carte",
-      "contacter" : "Contacter",
-      "editPhoto" : "Edit photos",
+      "afficherDansCarte": "Afficher dans la Carte",
+      "contacter": "Contacter",
+      "editPhoto": "Edit photos",
       "detail": {
         "title": "Annonce"
       },
@@ -40,7 +40,8 @@
       "commune": "Commune",
       "activite": "Activité",
       "categorie": "Catégorie",
-      "disponibilite": "Disponibilité",
+      "disponibilite": "Disponibilité (Cocher si vous êtes disponible)",
+      "disponibiliteCadre": "Disponibilité",
       "disponible": "Disponible",
       "indisponible": "Indisponible"
     }

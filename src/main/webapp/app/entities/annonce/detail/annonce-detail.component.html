@@ -55,9 +55,12 @@
                 <img src="content/images/jhipster_family_member_1_head-192.png" alt="" />
                 {{ annonce.user?.login }}
               </span>
-              <a class="btn btn-outline-bricoVite float-end btnCercle" 
-                  (click)="goToPersonneDetails(annonce.user?.id)"
-                  jhiTranslate="bricoviteApp.annonce.contacter">Contacter</a>
+              <a
+                class="btn btn-outline-bricoVite float-end btnCercle"
+                (click)="goToPersonneDetails(annonce.user?.id)"
+                jhiTranslate="bricoviteApp.annonce.contacter"
+                >Contacter</a
+              >
             </p>
             <p class="card-text cmProv clearfix">
               <small class="text-muted float-start">{{ annonce.commune?.nomFr }} - {{ annonce.commune?.provinceFr }}</small>
@@ -136,16 +139,20 @@
         </div>
         <div class="col-md-3 mx-auto">
           <div class="card row disponibilite">
-            <div class="card-header" jhiTranslate="bricoviteApp.annonce.disponibilite">Disponibilité</div>
+            <div class="card-header" jhiTranslate="bricoviteApp.annonce.disponibiliteCadre">Disponibilité</div>
             <div class="card-body">
               <p>
-                <span class="btn btn-outline-success btnCercle" 
-                      jhiTranslate="bricoviteApp.annonce.disponible"
-                      [hidden]="annonce.status == false">
+                <span
+                  class="btn btn-outline-success btnCercle"
+                  jhiTranslate="bricoviteApp.annonce.disponible"
+                  [hidden]="annonce.status == false"
+                >
                 </span>
-                <span class="btn btn-outline-danger btnCercle" 
-                      jhiTranslate="bricoviteApp.annonce.indisponible"
-                      [hidden]="annonce.status == true">
+                <span
+                  class="btn btn-outline-danger btnCercle"
+                  jhiTranslate="bricoviteApp.annonce.indisponible"
+                  [hidden]="annonce.status == true"
+                >
                 </span>
               </p>
             </div>

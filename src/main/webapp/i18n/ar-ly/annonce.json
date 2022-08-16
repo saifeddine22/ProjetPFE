@@ -12,16 +12,16 @@
         "recherche": "البحث",
         "rechercheRapide": "البحث السريع"
       },
-      "publicite" : "إشهار",
+      "publicite": "إشهار",
       "created": "تم إنشاء إعلان جديد",
       "updated": "تم تحديث الإعلان",
       "deleted": "تمت إزالة الإعلان",
       "delete": {
         "question": "هل أنت متأكد أنك تريد حذف هذا الإعلان؟"
       },
-      "afficherDansCarte" : "العرض في الخريطة",
-      "contacter" : "اتصال",
-      "editPhoto" : "تعديل الصور",
+      "afficherDansCarte": "العرض في الخريطة",
+      "contacter": "اتصال",
+      "editPhoto": "تعديل الصور",
       "detail": {
         "title": "إعلان"
       },
@@ -40,9 +40,10 @@
       "commune": "البلدية",
       "activite": "النشاط",
       "categorie": "الفئة",
-      "disponibilite": "التوفر",
+      "disponibilite": " (حدد هذا الخيار إذا كنت متاحًا) التوفر",
+      "disponibiliteCadre": "التوفر",
       "disponible": "متاح",
-      "indisponible": "غير متاح" 
+      "indisponible": "غير متاح"
     }
   }
 }
