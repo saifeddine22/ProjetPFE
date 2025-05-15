@@ -18,6 +18,16 @@ module.exports = async (config, options, targetOptions) => {
     algo: 'md5',
     encoding: 'hex',
     files: { include: ['*.json'] },
+    devServer: {
+      proxy: {
+        '/osm-tiles': {
+          target: 'https://tile.openstreetmap.org',
+          pathRewrite: { '^/osm-tiles': '' },
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    },
   });
 
   // PLUGINS

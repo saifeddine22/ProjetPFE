@@ -16,7 +16,6 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "module": "es2020",
-    "types": ["node", "ol", "openlayers"],
     "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {

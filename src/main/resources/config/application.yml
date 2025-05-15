@@ -235,3 +235,9 @@ jhipster:
 # ===================================================================
 
 # application:
+# Configuration pour Ollama
+ollama:
+  api:
+    url: ${OLLAMA_API_URL:http://localhost:11434}
+    model: ${OLLAMA_MODEL:gemma:2b}
+    timeout: 60

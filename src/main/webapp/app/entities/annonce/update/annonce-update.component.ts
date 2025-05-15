@@ -14,10 +14,11 @@ import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { ICommune } from 'app/entities/commune/commune.model';
 import { CommuneService } from 'app/entities/commune/service/commune.service';
-import { IActivite } from 'app/entities/activite/activite.model';
-import { ActiviteService } from 'app/entities/activite/service/activite.service';
 import { ICategorie } from 'app/entities/categorie/categorie.model';
 import { CategorieService } from 'app/entities/categorie/service/categorie.service';
+import { IActivite } from 'app/entities/activite/activite.model';
+import { ActiviteService } from 'app/entities/activite/service/activite.service';
+import { AIService, ServiceDetailsDTO } from '../ai.service';
 
 @Component({
   selector: 'jhi-annonce-update',
@@ -25,10 +26,17 @@ import { CategorieService } from 'app/entities/categorie/service/categorie.servi
 })
 export class AnnonceUpdateComponent implements OnInit {
   isSaving = false;
+  isLoadingAISuggestions = false;
+
+  // Variables pour les suggestions IA
+  titleSuggestions: { title: string } | null = null;
+  aiSuggestions: { enhancedDescription: string } | null = null;
+  keywordSuggestions: string[] = [];
+  priceSuggestions: { minPrice: number; maxPrice: number; currency: string } | null = null;
 
   usersSharedCollection: IUser[] = [];
-  categoriesSharedCollection: ICategorie[] = [];
   communesSharedCollection: ICommune[] = [];
+  categoriesSharedCollection: ICategorie[] = [];
   activitesSharedCollection: IActivite[] = [];
 
   editForm = this.fb.group({
@@ -36,46 +44,36 @@ export class AnnonceUpdateComponent implements OnInit {
     titre: [null, [Validators.required]],
     description: [null, [Validators.required]],
     adresse: [null, [Validators.required]],
-    status: [],
-
-    dateAnnonce: [],
     latitude: [],
     longitude: [],
-    user: [],
-    categorie: [],
+    status: [],
+    dateAnnonce: [],
+    user: [null, Validators.required],
     commune: [],
+    categorie: [],
     activite: [null, Validators.required],
   });
 
   constructor(
-    public annonceService: AnnonceService,
+    protected annonceService: AnnonceService,
     protected userService: UserService,
-    protected categorieService: CategorieService,
     protected communeService: CommuneService,
+    protected categorieService: CategorieService,
     protected activiteService: ActiviteService,
+    protected aiService: AIService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
 
-  onChekCategorie(): number {
-    const catId = this.editForm.get(['categorie'])!.value;
-    return Number(catId);
-  }
-
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ annonce }) => {
       if (annonce.id === undefined) {
-        const today = dayjs().startOf('minutes');
+        const today = dayjs().startOf('day');
         annonce.dateAnnonce = today;
       }
+
       this.updateForm(annonce);
       this.loadRelationshipsOptions();
-      
-      sessionStorage.setItem('dataAnnonce', JSON.stringify(annonce));
-      this.annonceService.initilizeMap();
-      this.annonceService.vectorMap();
-      this.annonceService.map.removeInteraction(this.annonceService.draw);
-      this.annonceService.map.addInteraction(this.annonceService.draw);
     });
   }
 
@@ -84,10 +82,6 @@ export class AnnonceUpdateComponent implements OnInit {
   }
 
   save(): void {
-    if(this.annonceService.latitude && this.annonceService.longitude){
-      this.editForm.get(['latitude'])?.setValue(this.annonceService.latitude);
-      this.editForm.get(['longitude'])?.setValue(this.annonceService.longitude);
-    }
     this.isSaving = true;
     const annonce = this.createFromForm();
     if (annonce.id !== undefined) {
@@ -97,11 +91,128 @@ export class AnnonceUpdateComponent implements OnInit {
     }
   }
 
-  trackUserById(_index: number, item: IUser): number {
-    return item.id!;
+  // Méthode pour suggérer un titre en fonction de la description
+  suggestTitle(): void {
+    const description = this.editForm.get('description')?.value;
+
+    if (!description) {
+      return;
+    }
+
+    this.isLoadingAISuggestions = true;
+
+    this.aiService.generateTitle(description).subscribe(
+      (response: { title: string }) => {
+        this.titleSuggestions = response;
+        this.isLoadingAISuggestions = false;
+      },
+      (error: Error) => {
+        console.error('Erreur lors de la génération du titre:', error);
+        this.isLoadingAISuggestions = false;
+      }
+    );
   }
 
-  trackCategorieById(_index: number, item: ICategorie): number {
+  // Méthode pour appliquer la suggestion de titre
+  applyTitleSuggestion(): void {
+    if (this.titleSuggestions?.title) {
+      this.editForm.patchValue({
+        titre: this.titleSuggestions.title,
+      });
+      this.titleSuggestions = null;
+    }
+  }
+
+  // Méthode pour améliorer la description avec l'IA
+  enhanceWithAI(): void {
+    const description = this.editForm.get('description')?.value;
+
+    if (!description) {
+      return;
+    }
+
+    this.isLoadingAISuggestions = true;
+
+    this.aiService.enhanceDescription(description).subscribe(
+      (response: { enhancedDescription: string }) => {
+        this.aiSuggestions = response;
+        this.isLoadingAISuggestions = false;
+      },
+      (error: Error) => {
+        console.error("Erreur lors de l'amélioration de la description:", error);
+        this.isLoadingAISuggestions = false;
+      }
+    );
+  }
+
+  // Méthode pour appliquer la suggestion de description
+  applyDescriptionSuggestion(): void {
+    if (this.aiSuggestions?.enhancedDescription) {
+      this.editForm.patchValue({
+        description: this.aiSuggestions.enhancedDescription,
+      });
+      this.aiSuggestions = null;
+    }
+  }
+
+  // Méthode pour suggérer des mots-clés
+  suggestKeywords(): void {
+    const description = this.editForm.get('description')?.value;
+    const serviceType = this.getServiceTypeFromForm();
+
+    if (!description) {
+      return;
+    }
+
+    this.isLoadingAISuggestions = true;
+
+    this.aiService.suggestKeywords({ description, serviceType }).subscribe(
+      (result: string[]) => {
+        this.keywordSuggestions = result;
+        this.isLoadingAISuggestions = false;
+      },
+      (error: Error) => {
+        console.error('Erreur lors de la génération des mots-clés:', error);
+        this.isLoadingAISuggestions = false;
+      }
+    );
+  }
+
+  // Méthode pour estimer le prix
+  estimatePrice(): void {
+    const description = this.editForm.get('description')?.value;
+    const categorieId = this.editForm.get('categorie')?.value?.id;
+    const activiteId = this.editForm.get('activite')?.value?.id;
+
+    if (!description) {
+      return;
+    }
+
+    this.isLoadingAISuggestions = true;
+
+    const serviceDetails: ServiceDetailsDTO = {
+      description,
+      categorieId,
+      activiteId,
+    };
+
+    this.aiService.estimatePrice(serviceDetails).subscribe(
+      (response: { minPrice: number; maxPrice: number; currency: string }) => {
+        this.priceSuggestions = response;
+        this.isLoadingAISuggestions = false;
+      },
+      (error: Error) => {
+        console.error("Erreur lors de l'estimation du prix:", error);
+        this.isLoadingAISuggestions = false;
+      }
+    );
+  }
+
+  onChekCategorie(): ICategorie | null {
+    return this.editForm.get('categorie')?.value as ICategorie | null;
+  }
+
+  trackUserById(_index: number, item: IUser): number {
     return item.id!;
   }
 
@@ -109,8 +220,30 @@ export class AnnonceUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackCategorieById(_index: number, item: ICategorie): number {
+    return item.id!;
+  }
+
   trackActiviteById(_index: number, item: IActivite): number {
     return item.id!;
+  }
+
+  createFromForm(): IAnnonce {
+    return {
+      ...new Annonce(),
+      id: this.editForm.get('id')?.value,
+      titre: this.editForm.get('titre')?.value,
+      description: this.editForm.get('description')?.value,
+      adresse: this.editForm.get('adresse')?.value,
+      latitude: this.editForm.get('latitude')?.value,
+      longitude: this.editForm.get('longitude')?.value,
+      status: this.editForm.get('status')?.value,
+      dateAnnonce: this.editForm.get('dateAnnonce')?.value ? dayjs(this.editForm.get('dateAnnonce')?.value, DATE_TIME_FORMAT) : undefined,
+      user: this.editForm.get('user')?.value,
+      commune: this.editForm.get('commune')?.value,
+      categorie: this.editForm.get('categorie')?.value,
+      activite: this.editForm.get('activite')?.value,
+    };
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IAnnonce>>): void {
@@ -138,22 +271,22 @@ export class AnnonceUpdateComponent implements OnInit {
       titre: annonce.titre,
       description: annonce.description,
       adresse: annonce.adresse,
-      status: annonce.status,
-      dateAnnonce: annonce.dateAnnonce ? annonce.dateAnnonce.format(DATE_TIME_FORMAT) : null,
       latitude: annonce.latitude,
       longitude: annonce.longitude,
+      status: annonce.status,
+      dateAnnonce: annonce.dateAnnonce ? annonce.dateAnnonce.format(DATE_TIME_FORMAT) : null,
       user: annonce.user,
-      categorie: annonce.categorie,
       commune: annonce.commune,
+      categorie: annonce.categorie,
       activite: annonce.activite,
     });
 
     this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, annonce.user);
+    this.communesSharedCollection = this.communeService.addCommuneToCollectionIfMissing(this.communesSharedCollection, annonce.commune);
     this.categoriesSharedCollection = this.categorieService.addCategorieToCollectionIfMissing(
       this.categoriesSharedCollection,
       annonce.categorie
     );
-    this.communesSharedCollection = this.communeService.addCommuneToCollectionIfMissing(this.communesSharedCollection, annonce.commune);
     this.activitesSharedCollection = this.activiteService.addActiviteToCollectionIfMissing(
       this.activitesSharedCollection,
       annonce.activite
@@ -164,55 +297,49 @@ export class AnnonceUpdateComponent implements OnInit {
     this.userService
       .query()
       .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')?.value)))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
-
-    this.categorieService
-      .query({ size: 25 })
-      .pipe(map((res: HttpResponse<ICategorie[]>) => res.body ?? []))
-      .pipe(
-        map((categories: ICategorie[]) =>
-          this.categorieService.addCategorieToCollectionIfMissing(categories, this.editForm.get('categorie')!.value)
-        )
-      )
-      .subscribe((categories: ICategorie[]) => (this.categoriesSharedCollection = categories));
 
     this.communeService
       .query()
       .pipe(map((res: HttpResponse<ICommune[]>) => res.body ?? []))
       .pipe(
-        map((communes: ICommune[]) => this.communeService.addCommuneToCollectionIfMissing(communes, this.editForm.get('commune')!.value))
+        map((communes: ICommune[]) => this.communeService.addCommuneToCollectionIfMissing(communes, this.editForm.get('commune')?.value))
       )
       .subscribe((communes: ICommune[]) => (this.communesSharedCollection = communes));
 
+    this.categorieService
+      .query()
+      .pipe(map((res: HttpResponse<ICategorie[]>) => res.body ?? []))
+      .pipe(
+        map((categories: ICategorie[]) =>
+          this.categorieService.addCategorieToCollectionIfMissing(categories, this.editForm.get('categorie')?.value)
+        )
+      )
+      .subscribe((categories: ICategorie[]) => (this.categoriesSharedCollection = categories));
+
     this.activiteService
-      .query({ size: 200 })
+      .query()
       .pipe(map((res: HttpResponse<IActivite[]>) => res.body ?? []))
       .pipe(
         map((activites: IActivite[]) =>
-          this.activiteService.addActiviteToCollectionIfMissing(activites, this.editForm.get('activite')!.value)
+          this.activiteService.addActiviteToCollectionIfMissing(activites, this.editForm.get('activite')?.value)
         )
       )
       .subscribe((activites: IActivite[]) => (this.activitesSharedCollection = activites));
   }
 
-  protected createFromForm(): IAnnonce {
-    return {
-      ...new Annonce(),
-      id: this.editForm.get(['id'])!.value,
-      titre: this.editForm.get(['titre'])!.value,
-      description: this.editForm.get(['description'])!.value,
-      adresse: this.editForm.get(['adresse'])!.value,
-      status: this.editForm.get(['status'])!.value,
-      dateAnnonce: this.editForm.get(['dateAnnonce'])!.value
-        ? dayjs(this.editForm.get(['dateAnnonce'])!.value, DATE_TIME_FORMAT)
-        : undefined,
-      latitude: this.editForm.get(['latitude'])!.value,
-      longitude: this.editForm.get(['longitude'])!.value,
-      user: { id: Number(sessionStorage.getItem('userConnectedId')) },
-      categorie: this.editForm.get(['categorie'])!.value,
-      commune: this.editForm.get(['commune'])!.value,
-      activite: this.editForm.get(['activite'])!.value,
-    };
+  // Méthode utilitaire privée - doit être en dernier selon les règles de linting
+  private getServiceTypeFromForm(): string | undefined {
+    const categorie = this.editForm.get('categorie')?.value as ICategorie | null;
+    const activite = this.editForm.get('activite')?.value as IActivite | null;
+
+    if (categorie?.nomFr) {
+      return categorie.nomFr;
+    } else if (activite?.nomFr) {
+      return activite.nomFr;
+    }
+
+    return undefined;
   }
 }

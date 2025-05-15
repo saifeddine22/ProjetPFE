@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import locale from '@angular/common/locales/fr';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -27,6 +27,8 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { ContactComponent } from './entities/mentionLegal/contact/contact.component';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBan, faDollarSign, faList, faMagic, faMoneyBill, faSave, faTags } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   imports: [
@@ -40,6 +42,7 @@ import { ContactComponent } from './entities/mentionLegal/contact/contact.compon
     HttpClientModule,
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
     TranslationModule,
+    FontAwesomeModule,
   ],
   providers: [
     Title,
@@ -48,7 +51,15 @@ import { ContactComponent } from './entities/mentionLegal/contact/contact.compon
     FindLanguageFromKeyPipe,
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent, ContactComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    ContactComponent,
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {
@@ -57,5 +68,6 @@ export class AppModule {
     registerLocaleData(locale);
     iconLibrary.addIcons(...fontAwesomeIcons);
     dpConfig.minDate = { year: dayjs().subtract(100, 'year').year(), month: 1, day: 1 };
+    library.add(faSave, faBan, faMagic, faTags, faDollarSign, faList, faMoneyBill);
   }
 }

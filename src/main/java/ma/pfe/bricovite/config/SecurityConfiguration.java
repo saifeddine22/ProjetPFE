@@ -112,6 +112,7 @@ public class SecurityConfiguration {
             .antMatchers("/condition-d-utilisation").permitAll()
             .antMatchers("/aboutUs").permitAll()
             .antMatchers("/contactUs").permitAll()
+            .antMatchers("/api/map-tiles/**").permitAll()
         .and()
             .httpBasic()
         .and()

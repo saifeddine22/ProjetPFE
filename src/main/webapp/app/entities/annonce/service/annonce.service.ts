@@ -23,7 +23,9 @@ import VectorLayer from 'ol/layer/Vector';
 import Draw from 'ol/interaction/Draw';
 import Overlay from 'ol/Overlay';
 import { toLonLat } from 'ol/proj';
-
+import { Feature } from 'ol';
+import { Point } from 'ol/geom';
+import Tile from 'ol/Tile';
 export type EntityResponseType = HttpResponse<IAnnonce>;
 export type EntityArrayResponseType = HttpResponse<IAnnonce[]>;
 
@@ -41,7 +43,7 @@ export class AnnonceService {
     source: this.source,
     style: new Style({
       fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
-      stroke: new Stroke({ color: '#ffcc33', width: 2 }),
+      stroke: new Stroke({ color: '#e0ff33', width: 2 }),
       image: new Icon({
         anchor: [0.5, 46],
         anchorXUnits: 'fraction',
@@ -73,20 +75,38 @@ export class AnnonceService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
   initilizeMap(): void {
-    this.map = new Map({
-      target: 'map',
-      layers: [],
-      view: this.view,
-    }); /* center: [-10.25838565457947,28.438727490809264], zoom: 5.22*/
-    const layer = new TileLayer({
-      visible: true,
-      preload: Infinity,
-      source: new XYZ({
-        url: 'http://{1-4}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?app_id=xWVIueSv6JL0aJ5xqTxb&app_code=djPZyynKsbTjIUDOBcHZ2g',
-        crossOrigin: 'anonymous',
-      }),
+    try {
+      // Créer la carte
+      this.map = new Map({
+        target: 'map',
+        layers: [],
+        view: this.view,
+      });
+
+      // Ajouter une couche de tuiles OSM directement
+      const osmLayer = new TileLayer({
+        visible: true,
+        preload: Infinity,
+        source: new XYZ({
+          url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          attributions: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }),
+      });
+
+      this.map.addLayer(osmLayer);
+
+      // Continuer avec le reste de votre code...
+    } catch (err) {
+      console.error('Erreur dans initilizeMap:', err);
+    }
+    // Handle tile load errors globally
+    /* this.map.on('tileloaderror', (event: any) => {  // Explicitly typing 'event' as 'any'
+      const tileUrl = event.tile.src;
+      console.error(`Error loading tile: ${tileUrl}`, event);
+      // Optionally, you could display a fallback tile or a message to the user here
     });
-    this.map.addLayer(layer);
+
+    this.map.addLayer(layer);*/
     /* const ajustementDrawPolygonStyle = new Style({
       fill: new Fill({color: 'rgba(255, 255, 255, 0.2)'}),
       stroke: new Stroke({color: '#ffcc33',width: 2}),
@@ -97,15 +117,23 @@ export class AnnonceService {
         return new Style({
           fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
           stroke: new Stroke({ color: '#ffcc33', width: 2 }),
-          image: new Icon({anchor: [0.5, 46],anchorXUnits: 'fraction',anchorYUnits: 'pixels',src: 'content/images/mapIcons/location2.png',
+          image: new Icon({
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            src: 'content/images/mapIcons/location2.png',
           }),
         });
       } else {
         return new Style({
           fill: new Fill({ color: 'rgba(255, 255, 255, 0.2)' }),
           stroke: new Stroke({ color: '#ffcc33', width: 2 }),
-          image: new Icon({anchor: [0.5, 46],anchorXUnits: 'fraction',anchorYUnits: 'pixels',src: 'content/images/mapIcons/location1.png',
-        }),
+          image: new Icon({
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            src: 'content/images/mapIcons/location1.png',
+          }),
         });
       }
     }
@@ -144,7 +172,7 @@ export class AnnonceService {
     /* this.map.addInteraction(this.drawCircle);
     this.drawCircle.on('drawend', (event) =>{
       const ext = event.feature.getGeometry()?.getExtent();
-      this.map.getView().fit(ext!); 
+      this.map.getView().fit(ext!);
     }); */
     /* this.map.addInteraction(this.draw); */
     this.vector.getSource()?.clear();
@@ -192,7 +220,7 @@ export class AnnonceService {
   }
 
   vectorMap(): void {
-    let arr = [];
+    /*let arr = [];
     arr = JSON.parse(String(sessionStorage.getItem('dataAnnonce')));
     console.log(arr);
     const format = new GeoJSON({});
@@ -268,44 +296,98 @@ export class AnnonceService {
     this.map.getView().fit(ext);
     this.map.getView().setZoom(9);
     console.log(this.ajustementGPSPointsVector.getFeatures().length);
-    this.map.updateSize();
+    this.map.updateSize();*/
+    /*   const arr: IAnnonce[] = JSON.parse(String(sessionStorage.getItem('dataAnnonce'))) || [];
+       const format = new GeoJSON();
+
+       const features: Feature<Point>[] = arr
+         .map((element: IAnnonce) => {
+           const id = String(element.id);
+           const description = String(element.description);
+           const lat = parseFloat(String(element.latitude)); // Ensure these are valid numbers
+           const lon = parseFloat(String(element.longitude));
+           const activ = String(element.activite?.nomFr);
+           const categ = String(element.activite?.categorieFr);
+
+           // Check if lat/lon are valid numbers
+           if (isNaN(lat) || isNaN(lon)) {
+             console.error(`Invalid coordinates for annonce ${id}: ${lat}, ${lon}`);
+             return null; // Skip invalid entries
+           }
+
+           // Create a GeoJSON feature
+           return new Feature({
+             geometry: new Point([lon, lat]),
+             id,
+             nom: description,
+             Activité: activ,
+             Catégorie: categ
+           });
+         })
+         .filter((feature): feature is Feature<Point> => feature !== null); // Filter out nulls
+
+       // Clear previous features and add new ones
+       this.ajustementGPSPointsVector.clear();
+       this.ajustementGPSPointsVector.addFeatures(features); // Now `features` is of type `Feature<Point>[]`
+
+       const ext = this.ajustementGPSPointsVector.getExtent();
+       this.map.getView().fit(ext);
+       this.map.updateSize();
+
+     }*/
+    /* getCoord(event: any): Coordinate {
+      /* const coordinate = transform(this.map.getEventCoordinate(event),'EPSG:3857','EPSG:4326');
+      const coordinate = this.map.getEventCoordinate(event);
+      this.latitude = coordinate[0];
+      this.longitude = coordinate[1];
+      /* alert(`latitude :  ${this.latitude} , longitude :  ${this.longitude}`);
+      this.map.forEachFeatureAtPixel(event.pixel,function(feature, layer) {
+        // console.log(layer.get('name'));
+            if(layer.get('name')==='soufiane'){
+                alert(feature.get('nom'));
+            }
+      });
+      return coordinate;
+    } */
+    try {
+      // Récupérer les données d'annonce
+      let arr = [];
+      const annonceData = sessionStorage.getItem('dataAnnonce');
+
+      if (annonceData) {
+        arr = JSON.parse(annonceData);
+      } else {
+        console.warn("Aucune donnée d'annonce trouvée dans sessionStorage");
+        return; // Sortir si pas de données
+      }
+
+      // Le reste de votre code pour vectorMap...
+      // Ajoutez des vérifications pour s'assurer que les données existent avant de les utiliser
+    } catch (err) {
+      console.error('Erreur dans vectorMap:', err);
+    }
   }
-  /* getCoord(event: any): Coordinate {
-    /* const coordinate = transform(this.map.getEventCoordinate(event),'EPSG:3857','EPSG:4326'); 
-    const coordinate = this.map.getEventCoordinate(event);
-    this.latitude = coordinate[0];
-    this.longitude = coordinate[1];
-    /* alert(`latitude :  ${this.latitude} , longitude :  ${this.longitude}`); 
-    this.map.forEachFeatureAtPixel(event.pixel,function(feature, layer) {
-      // console.log(layer.get('name'));
-          if(layer.get('name')==='soufiane'){
-              alert(feature.get('nom'));
-          }
-    });
-    return coordinate;
-  } */
   // JavaScript code
   search_fast(): void {
     let input = (<HTMLInputElement>document.getElementById('rechRapide')).value;
-    input=input.toLowerCase();
+    input = input.toLowerCase();
     const x = document.getElementsByClassName('annonceContent') as HTMLCollectionOf<HTMLElement>;
-      
-    for (let i = 0; i < x.length; i++) { 
-        if (!x[i].innerHTML.toLowerCase().includes(input)) {
-            x[i].style.display="none";
-        }
-        else {
-            x[i].style.display="list-item";                 
-        }
+
+    for (let i = 0; i < x.length; i++) {
+      if (!x[i].innerHTML.toLowerCase().includes(input)) {
+        x[i].style.display = 'none';
+      } else {
+        x[i].style.display = 'list-item';
+      }
     }
   }
 
   moy(notes: INote[]): number {
-    if(notes.length !==0){
+    if (notes.length !== 0) {
       const som = notes.map(n => n.valeur ?? 0).reduce((a, b) => a + b, 0);
       this.moyNote = som / notes.length;
-    }else{
-      this.moyNote=0;
+    } else {
+      this.moyNote = 0;
     }
     return this.moyNote;
   }
