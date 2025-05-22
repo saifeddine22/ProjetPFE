@@ -1,7 +1,7 @@
 package ma.pfe.bricovite.service.dto;
 
-// Classe pour la description de l'annonce
-public class DescriptionDTO {
+// Classe pour la demande de suggestions de mots-clés
+public class KeywordSuggestionRequestDTO {
 
     private String description;
     private String serviceType;

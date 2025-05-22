@@ -36,7 +36,8 @@
             [routerLinkActiveOptions]="{ exact: true }"
             (click)="collapseNavbar()"
           >
-            <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+            <!-- Remplacé fa-icon par i -->
+            <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
             <span jhiTranslate="global.menu.entities.annonce">Annonce</span>
           </a>
         </li>
@@ -73,7 +74,8 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.entities.personne">Personne</span>
               </a>
             </li>
@@ -85,7 +87,8 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.entities.annonce">Annonce</span>
               </a>
             </li>
@@ -112,7 +115,8 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.entities.photo">Photo</span>
               </a>
             </li>
@@ -125,7 +129,8 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.entities.region">Region</span>
               </a>
             </li>
@@ -138,7 +143,8 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.entities.province">Province</span>
               </a>
             </li>
@@ -151,7 +157,8 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.entities.commune">Commune</span>
               </a>
             </li>
@@ -164,7 +171,8 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.entities.activite">Activite</span>
               </a>
             </li>
@@ -177,7 +185,8 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.entities.categorie">Categorie</span>
               </a>
             </li>
@@ -190,7 +199,8 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.entities.commentaire">Commentaire</span>
               </a>
             </li>
@@ -203,7 +213,8 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-asterisk" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.entities.note">Note</span>
               </a>
             </li>
@@ -220,44 +231,51 @@
         >
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu" data-cy="adminMenu">
             <span>
-              <fa-icon icon="users-cog"></fa-icon>
+              <i class="fas fa-users-cog"></i>
+              <!-- Icône remplacée -->
               <span jhiTranslate="global.menu.admin.main">Administration</span>
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
             <li>
               <a class="dropdown-item" routerLink="admin/user-management" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="users" [fixedWidth]="true"></fa-icon>
+                <i class="fas fa-users" style="width: 1.25em; text-align: center"></i>
+                <!-- Icône remplacée -->
                 <span jhiTranslate="global.menu.admin.userManagement">User management</span>
               </a>
             </li>
             <li>
               <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="tachometer-alt" [fixedWidth]="true"></fa-icon>
+                <i class="fas fa-tachometer-alt" style="width: 1.25em; text-align: center"></i>
+                <!-- Icône remplacée -->
                 <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
               </a>
             </li>
             <li>
               <a class="dropdown-item" routerLink="admin/health" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="heart" [fixedWidth]="true"></fa-icon>
+                <i class="fas fa-heart" style="width: 1.25em; text-align: center"></i>
+                <!-- Icône remplacée -->
                 <span jhiTranslate="global.menu.admin.health">Health</span>
               </a>
             </li>
             <li>
               <a class="dropdown-item" routerLink="admin/configuration" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="cogs" [fixedWidth]="true"></fa-icon>
+                <i class="fas fa-cogs" style="width: 1.25em; text-align: center"></i>
+                <!-- Icône remplacée -->
                 <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
               </a>
             </li>
             <li>
               <a class="dropdown-item" routerLink="admin/logs" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="tasks" [fixedWidth]="true"></fa-icon>
+                <i class="fas fa-tasks" style="width: 1.25em; text-align: center"></i>
+                <!-- Icône remplacée -->
                 <span jhiTranslate="global.menu.admin.logs">Logs</span>
               </a>
             </li>
             <li *ngIf="openAPIEnabled">
               <a class="dropdown-item" routerLink="admin/docs" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="book" [fixedWidth]="true"></fa-icon>
+                <i class="fas fa-book" style="width: 1.25em; text-align: center"></i>
+                <!-- Icône remplacée -->
                 <span jhiTranslate="global.menu.admin.apidocs">API</span>
               </a>
             </li>
@@ -267,7 +285,8 @@
         <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages && languages.length > 1">
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
             <span>
-              <fa-icon icon="flag"></fa-icon>
+              <!-- Remplacé fa-icon par i -->
+              <i class="fas fa-flag"></i>
               <span jhiTranslate="global.menu.language">Language</span>
             </span>
           </a>
@@ -292,7 +311,8 @@
         >
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
             <span *ngIf="!account?.imageUrl">
-              <fa-icon icon="user"></fa-icon>
+              <!-- Remplacé fa-icon par i -->
+              <i class="fas fa-user"></i>
               <span jhiTranslate="global.menu.account.main">Account</span>
             </span>
             <span *ngIf="account?.imageUrl">
@@ -308,7 +328,8 @@
                 (click)="collapseNavbar()"
                 data-cy="settings"
               >
-                <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-wrench" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.account.settings">Settings</span>
               </a>
             </li>
@@ -320,19 +341,22 @@
                 (click)="collapseNavbar()"
                 data-cy="passwordItem"
               >
-                <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-lock" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.account.password">Password</span>
               </a>
             </li>
             <li *ngSwitchCase="true">
               <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
-                <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
+                <!-- Remplacé fa-icon par i -->
+                <i class="fas fa-sign-out-alt" style="width: 1.25em; text-align: center"></i>
                 <span jhiTranslate="global.menu.account.logout">Sign out</span>
               </a>
             </li>
             <li *ngSwitchCase="false">
               <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
-                <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
+                <i class="fas fa-sign-in-alt" style="width: 1.25em; text-align: center"></i>
+                <!-- Icône remplacée -->
                 <span jhiTranslate="global.menu.account.login">Sign in</span>
               </a>
             </li>
@@ -344,7 +368,8 @@
                 (click)="collapseNavbar()"
                 data-cy="register"
               >
-                <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
+                <i class="fas fa-user-plus" style="width: 1.25em; text-align: center"></i>
+                <!-- Icône remplacée -->
                 <span jhiTranslate="global.menu.account.register">Register</span>
               </a>
             </li>

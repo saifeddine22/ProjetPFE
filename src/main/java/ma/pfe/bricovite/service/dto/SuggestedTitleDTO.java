@@ -1,17 +1,10 @@
 package ma.pfe.bricovite.service.dto;
 
+// Classe pour les titres suggérés par l'IA
 public class SuggestedTitleDTO {
 
     private String title;
 
-    // Constructeurs
-    public SuggestedTitleDTO() {}
-
-    public SuggestedTitleDTO(String title) {
-        this.title = title;
-    }
-
-    // Getters et setters
     public String getTitle() {
         return title;
     }

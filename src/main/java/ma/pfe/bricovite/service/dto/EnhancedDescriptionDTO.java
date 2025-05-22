@@ -1,17 +1,16 @@
 package ma.pfe.bricovite.service.dto;
 
+// Classe pour les descriptions améliorées par l'IA
 public class EnhancedDescriptionDTO {
 
     private String enhancedDescription;
 
-    // Constructeurs
     public EnhancedDescriptionDTO() {}
 
     public EnhancedDescriptionDTO(String enhancedDescription) {
         this.enhancedDescription = enhancedDescription;
     }
 
-    // Getters et setters
     public String getEnhancedDescription() {
         return enhancedDescription;
     }

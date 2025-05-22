@@ -1,21 +1,39 @@
 package ma.pfe.bricovite.service.dto;
 
+// Classe pour les détails du service
 public class ServiceDetailsDTO {
 
+    private String description;
+    private Integer categorieId;
+    private Integer activiteId;
     private String serviceType;
     private String location;
-    private String description;
 
-    // Constructeurs
-    public ServiceDetailsDTO() {}
+    // Getters et Setters
+    public String getDescription() {
+        return description;
+    }
 
-    public ServiceDetailsDTO(String serviceType, String location, String description) {
-        this.serviceType = serviceType;
-        this.location = location;
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    // Getters et setters
+    public Integer getCategorieId() {
+        return categorieId;
+    }
+
+    public void setCategorieId(Integer categorieId) {
+        this.categorieId = categorieId;
+    }
+
+    public Integer getActiviteId() {
+        return activiteId;
+    }
+
+    public void setActiviteId(Integer activiteId) {
+        this.activiteId = activiteId;
+    }
+
     public String getServiceType() {
         return serviceType;
     }
@@ -30,13 +48,5 @@ public class ServiceDetailsDTO {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }

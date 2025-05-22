@@ -34,45 +34,15 @@ export class AnnonceDetailComponent implements OnInit {
     protected modalService: NgbModal,
     private router: Router
   ) {}
+
   afficherCarte(): void {
-    /* document.getElementById('map')!.innerHTML='';
-    sessionStorage.setItem('dataAnnonce', JSON.stringify(this.annonce));
-    this.annonceService.initilizeMap();
-    this.annonceService.vectorMap();
-    document.getElementById('map')!.style.height='399px';
-    this.annonceService.map.updateSize();
-    this.annonceService.map.render();
-    this.annonceService.map.removeInteraction(this.annonceService.draw);*/
-    /*  document.getElementById('map')!.innerHTML = '';
-
-    // Définir la hauteur de la carte AVANT l'initialisation
-    document.getElementById('map')!.style.height = '399px';
-
-    // Stocker les données d'annonce
-    sessionStorage.setItem('dataAnnonce', JSON.stringify(this.annonce));
-
-    // Initialiser la carte
-    this.annonceService.initilizeMap();
-
-    // Ajouter un petit délai pour s'assurer que le DOM est prêt
-    setTimeout(() => {
-      // Ajouter les vecteurs à la carte
-      this.annonceService.vectorMap();
-
-      // Mettre à jour la taille de la carte
-      this.annonceService.map.updateSize();
-      this.annonceService.map.render();
-
-      // Retirer l'interaction de dessin
-      this.annonceService.map.removeInteraction(this.annonceService.draw);
-    }, 300);*/
     // Vider la carte existante
     const mapElement = document.getElementById('map');
     if (mapElement) {
       mapElement.innerHTML = '';
       mapElement.style.height = '399px';
 
-      // Stocker les données d'annonce - assurez-vous que l'annonce existe
+      // Stocker les données d'annonce - vérifie maintenant si l'annonce existe
       if (this.annonce) {
         sessionStorage.setItem('dataAnnonce', JSON.stringify(this.annonce));
 
@@ -92,10 +62,9 @@ export class AnnonceDetailComponent implements OnInit {
             this.annonceService.map.updateSize();
             this.annonceService.map.render();
 
-            // Retirer l'interaction de dessin
-            if (this.annonceService.draw) {
-              this.annonceService.map.removeInteraction(this.annonceService.draw);
-            }
+            // Retirer l'interaction de dessin - corrigé la condition
+            // Modification ici - Suppression de la vérification inutile
+            this.annonceService.map.removeInteraction(this.annonceService.draw);
           }, 300);
         } catch (err) {
           console.error("Erreur lors de l'initialisation de la carte:", err);
@@ -108,7 +77,9 @@ export class AnnonceDetailComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ annonce }) => {
       this.annonce = annonce;
     });
-    sessionStorage.setItem('currentAnnonce', String(this.annonce?.id));
+    if (this.annonce?.id) {
+      sessionStorage.setItem('currentAnnonce', String(this.annonce.id));
+    }
   }
 
   previousState(): void {

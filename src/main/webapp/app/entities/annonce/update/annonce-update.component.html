@@ -45,7 +45,8 @@
                       (click)="suggestTitle()"
                       [disabled]="isLoadingAISuggestions || !editForm.get('description')?.value"
                     >
-                      <fa-icon icon="magic"></fa-icon>
+                      <!-- Remplacé fa-icon par i avec classe fas -->
+                      <i class="fas fa-magic"></i>
                       <span class="d-none d-md-inline"> Suggérer avec IA</span>
                     </button>
                   </div>
@@ -104,7 +105,8 @@
                       (click)="enhanceWithAI()"
                       [disabled]="isLoadingAISuggestions || !editForm.get('description')?.value"
                     >
-                      <fa-icon icon="magic"></fa-icon> Améliorer avec IA
+                      <!-- Remplacé fa-icon par i avec classe fas -->
+                      <i class="fas fa-magic"></i> Améliorer avec IA
                     </button>
 
                     <button
@@ -113,7 +115,8 @@
                       (click)="suggestKeywords()"
                       [disabled]="isLoadingAISuggestions || !editForm.get('description')?.value"
                     >
-                      <fa-icon icon="tags"></fa-icon> Suggérer des mots-clés
+                      <!-- Remplacé fa-icon par i avec classe fas -->
+                      <i class="fas fa-tags"></i> Suggérer des mots-clés
                     </button>
 
                     <button
@@ -122,7 +125,8 @@
                       (click)="estimatePrice()"
                       [disabled]="isLoadingAISuggestions || !editForm.get('description')?.value"
                     >
-                      <fa-icon icon="dollar-sign"></fa-icon> Estimer le prix
+                      <!-- Remplacé fa-icon par i avec classe fas -->
+                      <i class="fas fa-dollar-sign"></i> Estimer le prix
                     </button>
                   </div>
 
