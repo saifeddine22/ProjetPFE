@@ -7,7 +7,7 @@ import { AnnonceDeleteDialogComponent } from './delete/annonce-delete-dialog.com
 import { AnnonceRoutingModule } from './route/annonce-routing.module';
 
 @NgModule({
-  imports: [SharedModule, AnnonceRoutingModule],
+  imports: [SharedModule, AnnonceRoutingModule, SharedModule],
   declarations: [AnnonceComponent, AnnonceDetailComponent, AnnonceUpdateComponent, AnnonceDeleteDialogComponent],
   entryComponents: [AnnonceDeleteDialogComponent],
 })
