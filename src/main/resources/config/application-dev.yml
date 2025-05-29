@@ -50,7 +50,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/bricovite
     username: postgres
-    password: sys
+    password: 123
     hikari:
       poolName: Hikari
       auto-commit: false
