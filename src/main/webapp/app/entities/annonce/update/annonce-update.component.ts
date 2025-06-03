@@ -86,26 +86,75 @@ export class AnnonceUpdateComponent implements OnInit {
 
   // Nouvelle méthode pour sélectionner automatiquement un utilisateur
   autoSelectUser(): void {
+    // Récupérer l'ID de l'utilisateur connecté depuis sessionStorage
+    const connectedUserIdString = sessionStorage.getItem('userConnectedId');
+    const connectedUserId = Number(connectedUserIdString);
+
+    console.log('=== DEBUG UTILISATEUR ===');
+    console.log('sessionStorage userConnectedId (string):', connectedUserIdString);
+    console.log('sessionStorage userConnectedId (number):', connectedUserId);
+    console.log('Tous les items sessionStorage:');
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const key = sessionStorage.key(i);
+      if (key) {
+        const value = sessionStorage.getItem(key);
+        console.log('  ' + key + ': ' + String(value));
+      }
+    }
+    console.log('=========================');
+
+    // Fonction pour trouver et sélectionner l'utilisateur connecté
+    const selectConnectedUser = (): void => {
+      if (this.usersSharedCollection.length > 0) {
+        console.log('Utilisateurs disponibles:', this.usersSharedCollection);
+
+        // Chercher l'utilisateur connecté dans la collection
+        const connectedUser = this.usersSharedCollection.find(user => user.id === connectedUserId);
+
+        if (connectedUser && connectedUserId && connectedUserId !== 0) {
+          this.editForm.patchValue({
+            user: connectedUser,
+          });
+          console.log('✅ Utilisateur connecté trouvé et sélectionné:');
+          console.log(connectedUser);
+        } else {
+          console.warn('❌ Utilisateur connecté non trouvé. Recherche par login...');
+
+          // Essayer de trouver par d'autres moyens (login stocké séparément)
+          const currentUserLogin = sessionStorage.getItem('currentUserLogin') ?? sessionStorage.getItem('userLogin');
+          console.log('Recherche par login:', currentUserLogin);
+
+          if (currentUserLogin) {
+            const userByLogin = this.usersSharedCollection.find(user => user.login === currentUserLogin);
+            if (userByLogin) {
+              this.editForm.patchValue({ user: userByLogin });
+              console.log('✅ Utilisateur trouvé par login:', userByLogin);
+              return;
+            }
+          }
+
+          // Fallback : utiliser le premier utilisateur
+          console.warn('⚠️ Utilisation du premier utilisateur par défaut');
+          const firstUser = this.usersSharedCollection[0];
+          this.editForm.patchValue({
+            user: firstUser,
+          });
+          console.log('Premier utilisateur sélectionné par défaut:');
+          console.log(firstUser);
+        }
+      }
+    };
+
     // Vérifier d'abord si les utilisateurs sont déjà chargés
     if (this.usersSharedCollection.length > 0 && !this.editForm.get('user')?.value) {
-      const firstUser = this.usersSharedCollection[0];
-      this.editForm.patchValue({
-        user: firstUser,
-      });
-      console.log('Utilisateur auto-sélectionné:');
-      console.log(firstUser);
+      selectConnectedUser();
     } else {
       // Sinon, attendre que les utilisateurs soient chargés
       const checkUsers = setInterval(() => {
         if (this.usersSharedCollection.length > 0) {
           clearInterval(checkUsers);
           if (!this.editForm.get('user')?.value) {
-            const firstUser = this.usersSharedCollection[0];
-            this.editForm.patchValue({
-              user: firstUser,
-            });
-            console.log('Utilisateur auto-sélectionné (après attente):');
-            console.log(firstUser);
+            selectConnectedUser();
           }
         }
       }, 100);
@@ -310,6 +359,19 @@ export class AnnonceUpdateComponent implements OnInit {
     // Relations - seulement les objets avec ID
     if (formValue.user?.id) {
       annonce.user = { id: formValue.user.id } as IUser;
+    } else {
+      // Fallback : utiliser l'utilisateur connecté si aucun n'est sélectionné
+      const connectedUserId = Number(sessionStorage.getItem('userConnectedId'));
+      if (connectedUserId && this.usersSharedCollection.length > 0) {
+        const connectedUser = this.usersSharedCollection.find(user => user.id === connectedUserId);
+        if (connectedUser) {
+          annonce.user = { id: connectedUser.id } as IUser;
+          console.log('Utilisateur connecté utilisé comme fallback:', connectedUser);
+        } else if (this.usersSharedCollection.length > 0) {
+          annonce.user = { id: this.usersSharedCollection[0].id } as IUser;
+          console.log('Premier utilisateur utilisé comme fallback:', this.usersSharedCollection[0]);
+        }
+      }
     }
 
     if (formValue.commune?.id) {

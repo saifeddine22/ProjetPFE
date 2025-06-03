@@ -20,7 +20,7 @@
             </div>
 
             <div>
-              <div class="card carte">
+              <div class="card carte" *ngIf="editForm.get('id')?.value">
                 <div id="map" class="map"></div>
                 <div id="popup" class="ol-popup">
                   <a href="#" id="popup-closer" class="ol-popup-closer"></a>
@@ -307,9 +307,9 @@
                     class="btn btn-outline-secondary btnCercle float-end"
                     (click)="previousState()"
                   >
-                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                    <i class="fas fa-ban"></i>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                   </button>
-                  <button type="button" class="btn btn-info me-2" (click)="debugForm()">Debug Form</button>
+
                   <button
                     type="submit"
                     id="save-entity"
@@ -317,7 +317,7 @@
                     [disabled]="editForm.invalid || isSaving"
                     class="btn btn-outline-bricoVite btnCercle float-end me-2"
                   >
-                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                    <i class="fas fa-save"></i>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                   </button>
                 </div>
               </div>
