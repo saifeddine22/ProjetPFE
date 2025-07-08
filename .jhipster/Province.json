@@ -1,0 +1,60 @@
+{
+  "applications": "*",
+  "changelogDate": "20220610103423",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "province",
+  "fields": [
+    {
+      "fieldName": "codeReg",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "codeProv",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "nomFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nomAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regionFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regionAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "geometry",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Province",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nomFr",
+      "otherEntityName": "commune",
+      "otherEntityRelationshipName": "province",
+      "relationshipName": "commune",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "nomFr",
+      "otherEntityName": "region",
+      "otherEntityRelationshipName": "province",
+      "relationshipName": "region",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

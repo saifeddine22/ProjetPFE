@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
+  <div class="container">
+    <div class="card pt-4 pb-4">
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+      <div class="row">
+        <div class="col-md-9 mx-auto">
+          <div *ngIf="region">
+            <div class="card-header">
+              <h2 data-cy="regionDetailsHeading"><span jhiTranslate="bricoviteApp.region.detail.title">Region</span></h2>
+            </div>
+            <div class="card-body">
+              <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="global.field.id">ID</span></dt>
+                <dd>
+                  <span>{{ region.id }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.region.codeReg">Code Reg</span></dt>
+                <dd>
+                  <span>{{ region.codeReg }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.region.nomFr">Nom Fr</span></dt>
+                <dd>
+                  <span>{{ region.nomFr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.region.nomAr">Nom Ar</span></dt>
+                <dd>
+                  <span>{{ region.nomAr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.region.geometry">Geometry</span></dt>
+                <dd>
+                  <span>{{ region.geometry }}</span>
+                </dd>
+              </dl>
+
+              <button type="submit" (click)="previousState()" class="btn btn-outline-info btnCercle" data-cy="entityDetailsBackButton">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+              </button>
+
+              <button type="button" [routerLink]="['/region', region.id, 'edit']" class="btn btn-outline-bricoVite btnCercle">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

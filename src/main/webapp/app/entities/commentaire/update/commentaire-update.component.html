@@ -1,0 +1,50 @@
+<form role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+  <div class="modal-header">
+    <h2
+      id="jhi-commentaire-heading"
+      data-cy="CommentaireCreateUpdateHeading"
+      jhiTranslate="bricoviteApp.commentaire.home.createOrEditLabel"
+    >
+      Create or edit a Commentaire
+    </h2>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <dl>
+      <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+        <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" jhiTranslate="bricoviteApp.commentaire.details" for="field_details">Details</label>
+        <input
+          type="text"
+          class="form-control"
+          name="details"
+          id="field_details"
+          data-cy="details"
+          required="true"
+          formControlName="details"
+        />
+      </div>
+      <div *ngIf="editForm.get(['details'])!.invalid && (editForm.get(['details'])!.dirty || editForm.get(['details'])!.touched)">
+        <small class="form-text text-danger" *ngIf="editForm.get(['details'])?.errors?.required" jhiTranslate="entity.validation.required">
+          This field is required.
+        </small>
+      </div>
+    </dl>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-outline-secondary" (click)="dismiss()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+
+    <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-outline-bricoVite">
+      <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+    </button>
+  </div>
+</form>

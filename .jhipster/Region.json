@@ -1,0 +1,40 @@
+{
+  "applications": "*",
+  "changelogDate": "20220610103422",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "region",
+  "fields": [
+    {
+      "fieldName": "codeReg",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "nomFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nomAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "geometry",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Region",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nomFr",
+      "otherEntityName": "province",
+      "otherEntityRelationshipName": "region",
+      "relationshipName": "province",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

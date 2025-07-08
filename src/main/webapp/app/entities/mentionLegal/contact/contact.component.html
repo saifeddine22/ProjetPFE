@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
+  <div class="container">
+    <div class="card pt-4 pb-4">
+      <div class="row">
+        <div class="col-md-9 mx-auto">
+          <div class="card-header">
+            <h2 data-cy="communeDetailsHeading"><span>Contactez Nous!</span></h2>
+          </div>
+
+          <div class="card-body">
+            <form>
+              <p>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="Email"
+                  aria-describedby="emailHelp"
+                  placeholder="Email"
+                  formControlName="Email"
+                />
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </p>
+              <p>
+                <input type="text" class="form-control" name="Fullname" placeholder="Full Name" formControlName="Fullname" />
+              </p>
+              <p>
+                <textarea class="form-control" formControlName="Comment" name="Comment" placeholder="Describe yourself here..."></textarea>
+              </p>
+              <p class="float-end">
+                <button type="submit" class="btn btn-outline-bricoVite btnCercle">Submit</button>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

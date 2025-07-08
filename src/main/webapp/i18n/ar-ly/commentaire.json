@@ -1,0 +1,27 @@
+{
+  "bricoviteApp": {
+    "commentaire": {
+      "home": {
+        "title": "التعليقات",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء تعليق جديد",
+        "createOrEditLabel": "إنشاء تعليق أو تحريره",
+        "notFound": "لم يتم العثور على تعليقات"
+      },
+      "created": "تم إنشاء التعليق",
+      "updated": "تم تحديث التعليق",
+      "deleted": "تم حذف التعليق",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف هذا التعليق؟"
+      },
+      "detail": {
+        "title": "تعليق"
+      },
+      "id": "ID",
+      "details": "التفاصيل",
+      "dateCommentaire": "تاريخ التعليق",
+      "user": "المستخدم",
+      "annonce": "إعلان"
+    }
+  }
+}

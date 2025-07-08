@@ -1,0 +1,112 @@
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
+  <div class="container">
+    <jhi-alert-error></jhi-alert-error>
+
+    <div class="card pt-4 pb-4">
+      <div class="row">
+        <div class="col-md-9 mx-auto">
+          <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-province-heading" data-cy="ProvinceCreateUpdateHeading" jhiTranslate="bricoviteApp.province.home.createOrEditLabel">
+              Create or edit a Province
+            </h2>
+
+            <div>
+              <jhi-alert-error></jhi-alert-error>
+
+              <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+                <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.province.codeReg" for="field_codeReg">Code Reg</label>
+                <input type="number" class="form-control" name="codeReg" id="field_codeReg" data-cy="codeReg" formControlName="codeReg" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.province.codeProv" for="field_codeProv">Code Prov</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="codeProv"
+                  id="field_codeProv"
+                  data-cy="codeProv"
+                  formControlName="codeProv"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.province.nomFr" for="field_nomFr">Nom Fr</label>
+                <input type="text" class="form-control" name="nomFr" id="field_nomFr" data-cy="nomFr" formControlName="nomFr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.province.nomAr" for="field_nomAr">Nom Ar</label>
+                <input type="text" class="form-control" name="nomAr" id="field_nomAr" data-cy="nomAr" formControlName="nomAr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.province.regionFr" for="field_regionFr">Region Fr</label>
+                <input type="text" class="form-control" name="regionFr" id="field_regionFr" data-cy="regionFr" formControlName="regionFr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.province.regionAr" for="field_regionAr">Region Ar</label>
+                <input type="text" class="form-control" name="regionAr" id="field_regionAr" data-cy="regionAr" formControlName="regionAr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.province.geometry" for="field_geometry">Geometry</label>
+                <input type="text" class="form-control" name="geometry" id="field_geometry" data-cy="geometry" formControlName="geometry" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.province.region" for="field_region">Region</label>
+                <select class="form-control" id="field_region" data-cy="region" name="region" formControlName="region">
+                  <option *ngIf="!editForm.get('region')!.value" [ngValue]="null" selected></option>
+                  <option
+                    [ngValue]="regionOption.id === editForm.get('region')!.value?.id ? editForm.get('region')!.value : regionOption"
+                    *ngFor="let regionOption of regionsSharedCollection; trackBy: trackRegionById"
+                  >
+                    {{ regionOption.nomFr }}
+                  </option>
+                </select>
+              </div>
+              <div *ngIf="editForm.get(['region'])!.invalid && (editForm.get(['region'])!.dirty || editForm.get(['region'])!.touched)">
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get(['region'])?.errors?.required"
+                  jhiTranslate="entity.validation.required"
+                >
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="button"
+                id="cancel-save"
+                data-cy="entityCreateCancelButton"
+                class="btn btn-outline-secondary btnCercle float-end"
+                (click)="previousState()"
+              >
+                <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+              </button>
+
+              <button
+                type="submit"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                [disabled]="editForm.invalid || isSaving"
+                class="btn btn-outline-bricoVite btnCercle float-end me-2"
+              >
+                <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

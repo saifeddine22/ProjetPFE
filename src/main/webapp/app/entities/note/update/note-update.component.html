@@ -1,0 +1,43 @@
+<form role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+  <div class="modal-header">
+    <h2 id="jhi-note-heading" data-cy="NoteCreateUpdateHeading" jhiTranslate="bricoviteApp.note.home.createOrEditLabel">
+      Create or edit a Note
+    </h2>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+
+    <dl>
+      <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+        <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+      </div>
+      <div class="row mb-3">
+        <ngb-rating class="ngb-rating" [max]="5" [(rate)]="starRating" [readonly]="false" formControlName="valeur">
+          <ng-template let-fill="fill">
+            <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
+              <span class="paintedStar" [style.width.%]="fill">★</span>★
+            </span>
+          </ng-template>
+        </ngb-rating>
+      </div>
+    </dl>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-outline-secondary" (click)="dismiss()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+    <button
+      type="submit"
+      id="save-entity"
+      data-cy="entityCreateSaveButton"
+      [disabled]="editForm.invalid || isSaving"
+      class="btn btn-outline-bricoVite"
+    >
+      <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+    </button>
+  </div>
+</form>

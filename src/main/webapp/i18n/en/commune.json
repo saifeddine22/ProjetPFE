@@ -1,0 +1,43 @@
+{
+  "bricoviteApp": {
+    "commune": {
+      "home": {
+        "title": "Communes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Commune",
+        "createOrEditLabel": "Create or edit a Commune",
+        "notFound": "No Communes found"
+      },
+      "created": "A new Commune is created with identifier {{ param }}",
+      "updated": "A Commune is updated with identifier {{ param }}",
+      "deleted": "A Commune is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Commune {{ id }}?"
+      },
+      "detail": {
+        "title": "Commune"
+      },
+      "id": "ID",
+      "codeReg": "Code Reg",
+      "codeProv": "Code Prov",
+      "provinceFr": "Province Fr",
+      "provinceAr": "Province Ar",
+      "regionFr": "Region Fr",
+      "regionAr": "Region Ar",
+      "cercleFr": "Cercle Fr",
+      "codeCercle": "Code Cercle",
+      "comFr": "Com Fr",
+      "codeCom": "Code Com",
+      "centreFr": "Centre Fr",
+      "codAc": "Cod Ac",
+      "comAr": "Com Ar",
+      "cc": "Cc",
+      "centreAr": "Centre Ar",
+      "nomAr": "Nom Ar",
+      "nomFr": "Nom Fr",
+      "geometry": "Geometry",
+      "annonce": "Annonce",
+      "province": "Province"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "bricoviteApp": {
+    "commentaire": {
+      "home": {
+        "title": "Commentaires",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Ajouter un Commentaire",
+        "createOrEditLabel": "Créer ou éditer un Commentaire",
+        "notFound": "Aucun Commentaire trouvé"
+      },
+      "created": "Commentaire ajouté",
+      "updated": "Commentaire a été mis à jour",
+      "deleted": "Commentaire a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer ce Commentaire?"
+      },
+      "detail": {
+        "title": "Commentaire"
+      },
+      "id": "ID",
+      "details": "Détails",
+      "dateCommentaire": "Date Commentaire",
+      "user": "User",
+      "annonce": "Annonce"
+    }
+  }
+}

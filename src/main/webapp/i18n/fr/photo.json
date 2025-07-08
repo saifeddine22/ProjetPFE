@@ -1,0 +1,27 @@
+{
+  "bricoviteApp": {
+    "photo": {
+      "home": {
+        "title": "Photos",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Photo",
+        "createOrEditLabel": "Créer ou éditer une Photo",
+        "notFound": "Aucune Photo trouvée"
+      },
+      "created": "Une nouvelle Photo a été créée",
+      "updated": "La Photo a été mise à jour",
+      "deleted": "La Photo a été supprimée",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer cette Photo?"
+      },
+      "detail": {
+        "title": "Photo"
+      },
+      "id": "ID",
+      "url": "Url",
+      "libelle": "Libelle",
+      "image": "Image",
+      "annonce": "Annonce"
+    }
+  }
+}

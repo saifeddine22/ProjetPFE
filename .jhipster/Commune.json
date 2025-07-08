@@ -1,0 +1,104 @@
+{
+  "applications": "*",
+  "changelogDate": "20220610103424",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "commune",
+  "fields": [
+    {
+      "fieldName": "codeReg",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "codeProv",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "provinceFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "provinceAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regionFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regionAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cercleFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codeCercle",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "comFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codeCom",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "centreFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codAc",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "comAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cc",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "centreAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nomAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nomFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "geometry",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Commune",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "titre",
+      "otherEntityName": "annonce",
+      "otherEntityRelationshipName": "commune",
+      "relationshipName": "annonce",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "nomFr",
+      "otherEntityName": "province",
+      "otherEntityRelationshipName": "commune",
+      "relationshipName": "province",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,188 @@
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
+  <div class="container" *ngIf="annonce">
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="card annonceDetails">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-header titreAnnonce">
+            <p data-cy="annonceDetailsHeading" class="h2">{{ annonce.titre }}</p>
+            <!-- Button trigger modal -->
+
+            <button
+              type="button"
+              (click)="this.afficherCarte()"
+              class="btn btn-bricoVite affichCarte btnCercle"
+              data-toggle="modal"
+              data-target=".bd-example-modal-lg"
+              jhiTranslate="bricoviteApp.annonce.afficherDansCarte"
+            >
+              Afficher dans la Carte
+            </button>
+
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="card">
+                    <div id="map" class="map"></div>
+                    <div id="popup" class="ol-popup">
+                      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                      <div id="popup-content" class="popup-content"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card text-bg-dark" style="max-height: 300px; min-height: 150px; height: auto; margin: 20px 0">
+            <ngb-carousel *ngIf="annonce.photos">
+              <ng-template *ngFor="let photo of annonce.photos" ngbSlide>
+                <div class="picsum-img-wrapper">
+                  <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" class="card-img" style="max-height: 298px" />
+                </div>
+                <div class="carousel-caption">
+                  <h3>BricoVite</h3>
+                </div>
+              </ng-template>
+            </ngb-carousel>
+          </div>
+          <div class="card-body">
+            <p *ngIf="annonce.user" class="card-title h4 utilisateur clearfix">
+              <span class="float-start">
+                <img src="content/images/jhipster_family_member_1_head-192.png" alt="" />
+                {{ annonce.user?.login }}
+              </span>
+              <a
+                class="btn btn-outline-bricoVite float-end btnCercle"
+                (click)="goToPersonneDetails(annonce.user?.id)"
+                jhiTranslate="bricoviteApp.annonce.contacter"
+                >Contacter</a
+              >
+            </p>
+            <p class="card-text cmProv clearfix">
+              <small class="text-muted float-start">{{ annonce.commune?.nomFr }} - {{ annonce.commune?.provinceFr }}</small>
+              <small class="text-muted float-end">{{ annonce.dateAnnonce | formatMediumDatetime }}</small>
+            </p>
+            <hr />
+            <dl class="row-md jh-entity-details">
+              <dt><span jhiTranslate="bricoviteApp.annonce.categorie">Catégorie</span></dt>
+              <dd>
+                <span>{{ annonce.activite?.categorieFr }}</span>
+              </dd>
+              <dt><span jhiTranslate="bricoviteApp.annonce.activite">Activite</span></dt>
+              <dd>
+                <span>{{ annonce.activite?.nomFr }}</span>
+              </dd>
+              <dt><span jhiTranslate="bricoviteApp.annonce.adresse">Adresse</span></dt>
+              <dd>
+                <span>{{ annonce.adresse }}</span>
+              </dd>
+              <dt><span jhiTranslate="bricoviteApp.annonce.description">Description</span></dt>
+              <dd>
+                <span>{{ annonce.description }}</span>
+              </dd>
+            </dl>
+          </div>
+          <button type="submit" (click)="previousState()" class="btn btn-outline-info float btnCercle" data-cy="entityDetailsBackButton">
+            <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+          </button>
+          <button
+            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+            class="btn btn-outline-bricoVite float-end jh-create-entity create-commentaire btnCercle"
+            (click)="addComment(commentaire)"
+          >
+            <fa-icon icon="plus"></fa-icon>
+            <span jhiTranslate="bricoviteApp.commentaire.home.createLabel"> Create a new commentaire </span>
+          </button>
+
+          <button
+            *jhiHasAnyAuthority="'ROLE_USER'"
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+            class="btn btn-outline-bricoVite float-end jh-create-entity create-note btnCercle"
+            (click)="addRating(note)"
+          >
+            <fa-icon icon="plus"></fa-icon>
+            <span jhiTranslate="bricoviteApp.note.home.createLabel"> Create a new note </span>
+          </button>
+
+          <button
+            *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+            class="btn btn-outline-bricoVite float-end btnCercle"
+            [hidden]="annonce.user?.id != userConnect"
+            [routerLink]="['/annonce', annonce.id, 'photos']"
+            jhiTranslate="bricoviteApp.annonce.editPhoto"
+          >
+            Edit photos
+          </button>
+          <div class="card-body">
+            <p class="card-header mb-4" jhiTranslate="bricoviteApp.commentaire.home.title">Commentaires</p>
+            <span *ngFor="let commentaire of annonce.commentaires">
+              <p class="card-text comment my-0">
+                <span>
+                  <img src="content/images/jhipster_family_member_0_head-192.png" alt="" />
+                  {{ commentaire.user?.login }} :
+                </span>
+                <span>{{ commentaire.details }}</span>
+              </p>
+              <p class="card-text overflow-hidden">
+                <small class="text-muted float-end">{{ commentaire.dateCommentaire }}</small>
+              </p>
+              <hr />
+            </span>
+          </div>
+        </div>
+        <div class="col-md-3 mx-auto">
+          <div class="card row disponibilite">
+            <div class="card-header" jhiTranslate="bricoviteApp.annonce.disponibiliteCadre">Disponibilité</div>
+            <div class="card-body">
+              <p>
+                <span
+                  class="btn btn-outline-success btnCercle"
+                  jhiTranslate="bricoviteApp.annonce.disponible"
+                  [hidden]="annonce.status == false"
+                >
+                </span>
+                <span
+                  class="btn btn-outline-danger btnCercle"
+                  jhiTranslate="bricoviteApp.annonce.indisponible"
+                  [hidden]="annonce.status == true"
+                >
+                </span>
+              </p>
+            </div>
+          </div>
+          <div class="card row">
+            <div class="card-header">
+              <span *ngIf="annonce.notes">
+                <p class="mb-0" jhiTranslate="bricoviteApp.annonce.note">
+                  Note :
+                  <small class="text-muted">{{ annonceService.moy(annonce.notes) | number: '1.1-2' }} / 5</small>
+                </p>
+              </span>
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+                <ngb-rating class="ngb-rating" [max]="5" [rate]="annonceService.updateRating()" [readonly]="true">
+                  <ng-template let-fill="fill">
+                    <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
+                      <span class="paintedStar" [style.width.%]="fill">★</span>★
+                    </span>
+                  </ng-template>
+                </ngb-rating>
+              </p>
+            </div>
+          </div>
+          <div class="card row">
+            <div class="card-header" jhiTranslate="bricoviteApp.annonce.publicite">Publicité</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

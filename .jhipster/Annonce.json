@@ -1,0 +1,91 @@
+{
+  "applications": "*",
+  "changelogDate": "20220610103420",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "annonce",
+  "fields": [
+    {
+      "fieldName": "titre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "adresse",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "dateAnnonce",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "latitude",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "longitude",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Annonce",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "photo",
+      "otherEntityRelationshipName": "annonce",
+      "relationshipName": "photo",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "details",
+      "otherEntityName": "commentaire",
+      "otherEntityRelationshipName": "annonce",
+      "relationshipName": "commentaire",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "valeur",
+      "otherEntityName": "note",
+      "otherEntityRelationshipName": "annonce",
+      "relationshipName": "note",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "firstName",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "annonce",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nomFr",
+      "otherEntityName": "commune",
+      "otherEntityRelationshipName": "annonce",
+      "relationshipName": "commune",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nomFr",
+      "otherEntityName": "activite",
+      "otherEntityRelationshipName": "annonce",
+      "relationshipName": "activite",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

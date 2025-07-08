@@ -1,0 +1,92 @@
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
+  <div class="container">
+    <jhi-alert-error></jhi-alert-error>
+
+    <div class="card pt-4 pb-4">
+      <div class="row">
+        <div class="col-md-9 mx-auto">
+          <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <p
+              id="jhi-personne-heading"
+              data-cy="PersonneCreateUpdateHeading"
+              jhiTranslate="bricoviteApp.personne.home.createOrEditLabel"
+              class="h2"
+            >
+              Create or edit a Personne
+            </p>
+
+            <div>
+              <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+                <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.personne.cnie" for="field_cnie">Cnie</label>
+                <input type="text" class="form-control" name="cnie" id="field_cnie" data-cy="cnie" formControlName="cnie" />
+                <div *ngIf="editForm.get('cnie')!.invalid && (editForm.get('cnie')!.dirty || editForm.get('cnie')!.touched)">
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('cnie')?.errors?.required"
+                    jhiTranslate="entity.validation.required"
+                  >
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.personne.tel" for="field_tel">Tel</label>
+                <input type="text" class="form-control" name="tel" id="field_tel" data-cy="tel" formControlName="tel" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.personne.user" for="field_user">User</label>
+                <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+                  <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
+                  <option
+                    [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+                    *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+                  >
+                    {{ userOption.login }}
+                  </option>
+                </select>
+              </div>
+              <div *ngIf="editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)">
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get(['user'])?.errors?.required"
+                  jhiTranslate="entity.validation.required"
+                >
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="button"
+                id="cancel-save"
+                data-cy="entityCreateCancelButton"
+                class="btn btn-outline-secondary btnCercle float-end"
+                (click)="previousState()"
+              >
+                <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+              </button>
+
+              <button
+                type="submit"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                [disabled]="editForm.invalid || isSaving"
+                class="btn btn-outline-bricoVite btnCercle float-end me-2"
+              >
+                <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

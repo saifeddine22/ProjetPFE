@@ -1,0 +1,37 @@
+{
+  "home": {
+    "title": "Besoin d'un service ou d'un coup de main?",
+    "subtitle": "Trouver le prestataire qu'il vous faut en quelques clics !",
+    "logged": {
+      "message": "Vous êtes connecté en tant que \"{{username}}\"."
+    },
+    "question": "Si vous avez des questions à propos de BricoVite :",
+    "link": {
+      "homepage": "Page d'accueil de Bricovite",
+      "stackoverflow": "Bricovite sur Stack Overflow",
+      "bugtracker": "Bricovite bug tracker",
+      "chat": "Bricovite public chat room",
+      "follow": "Suivez @Bricovite sur Twitter"
+    },
+    "like": "Si vous aimez Bricovite, donnez nous une étoile sur",
+    "github": "GitHub ",
+    "commentcamarche": "comment ça marche ?",
+    "proposeservice": "Je propose mes services",
+    "repondreannonce": "Répondre aux annonces.",
+    "chercheservice": "Je cherche un service",
+    "trouveservice": "Trouvez le service qu'il vous faut à l'aide du formulaire de recherche en saisissant vos critères.",
+    "cequiplait": "Ce qui va vous plaire",
+    "tempsgagne": "Temps gagné",
+    "compareservice": "Cherchez et comparez les services en quelques clics",
+    "espacesecurise": "Espace sécurisé",
+    "gardecontrole": "Gardez le contrôle sur vos données",
+    "grandevariete": "Grande variété",
+    "baseriche": "Accédez à une base de données riche",
+    "recherchecible": "Recherche ciblée",
+    "saisicriete": "Saisissez vos critères et trouvez le bon Prestataire.",
+    "compteperso": "Compte personnel",
+    "espacededie": "Votre espace dédié vous permet de gérer facilement votre activité",
+    "optimiser": "Optimiser",
+    "surveilleactivite": "Surveillez votre activité"
+  }
+}

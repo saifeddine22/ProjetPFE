@@ -1,0 +1,27 @@
+{
+  "bricoviteApp": {
+    "commentaire": {
+      "home": {
+        "title": "Comments",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Comment",
+        "createOrEditLabel": "Create or edit a Comment",
+        "notFound": "No Comments found"
+      },
+      "created": "comment has been created",
+      "updated": "comment has been updated",
+      "deleted": "comment has been deleted",
+      "delete": {
+        "question": "Are you sure you want to delete this Comment?"
+      },
+      "detail": {
+        "title": "Comment"
+      },
+      "id": "ID",
+      "details": "Details",
+      "dateCommentaire": "Date Comment",
+      "user": "User",
+      "annonce": "Annonce"
+    }
+  }
+}

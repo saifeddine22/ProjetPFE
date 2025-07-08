@@ -1,0 +1,25 @@
+{
+  "bricoviteApp": {
+    "note": {
+      "home": {
+        "title": "Notes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Note",
+        "createOrEditLabel": "Add a Note",
+        "notFound": "No Notes found"
+      },
+      "created": "A new Note is created",
+      "updated": "A Note is updated",
+      "deleted": "A Note is deleted",
+      "delete": {
+        "question": "Are you sure you want to delete this Note?"
+      },
+      "detail": {
+        "title": "Note"
+      },
+      "id": "ID",
+      "valeur": "Valeur",
+      "annonce": "Annonce"
+    }
+  }
+}

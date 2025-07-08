@@ -1,0 +1,190 @@
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
+  <div class="container">
+    <jhi-alert-error></jhi-alert-error>
+
+    <div class="card pt-4 pb-4">
+      <div class="row">
+        <div class="col-md-9 mx-auto">
+          <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-commune-heading" data-cy="CommuneCreateUpdateHeading" jhiTranslate="bricoviteApp.commune.home.createOrEditLabel">
+              Create or edit a Commune
+            </h2>
+
+            <div>
+              <jhi-alert-error></jhi-alert-error>
+
+              <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+                <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.codeReg" for="field_codeReg">Code Reg</label>
+                <input type="number" class="form-control" name="codeReg" id="field_codeReg" data-cy="codeReg" formControlName="codeReg" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.codeProv" for="field_codeProv">Code Prov</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="codeProv"
+                  id="field_codeProv"
+                  data-cy="codeProv"
+                  formControlName="codeProv"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.provinceFr" for="field_provinceFr">Province Fr</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="provinceFr"
+                  id="field_provinceFr"
+                  data-cy="provinceFr"
+                  formControlName="provinceFr"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.provinceAr" for="field_provinceAr">Province Ar</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="provinceAr"
+                  id="field_provinceAr"
+                  data-cy="provinceAr"
+                  formControlName="provinceAr"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.regionFr" for="field_regionFr">Region Fr</label>
+                <input type="text" class="form-control" name="regionFr" id="field_regionFr" data-cy="regionFr" formControlName="regionFr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.regionAr" for="field_regionAr">Region Ar</label>
+                <input type="text" class="form-control" name="regionAr" id="field_regionAr" data-cy="regionAr" formControlName="regionAr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.cercleFr" for="field_cercleFr">Cercle Fr</label>
+                <input type="text" class="form-control" name="cercleFr" id="field_cercleFr" data-cy="cercleFr" formControlName="cercleFr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.codeCercle" for="field_codeCercle">Code Cercle</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="codeCercle"
+                  id="field_codeCercle"
+                  data-cy="codeCercle"
+                  formControlName="codeCercle"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.comFr" for="field_comFr">Com Fr</label>
+                <input type="text" class="form-control" name="comFr" id="field_comFr" data-cy="comFr" formControlName="comFr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.codeCom" for="field_codeCom">Code Com</label>
+                <input type="number" class="form-control" name="codeCom" id="field_codeCom" data-cy="codeCom" formControlName="codeCom" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.centreFr" for="field_centreFr">Centre Fr</label>
+                <input type="text" class="form-control" name="centreFr" id="field_centreFr" data-cy="centreFr" formControlName="centreFr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.codAc" for="field_codAc">Cod Ac</label>
+                <input type="number" class="form-control" name="codAc" id="field_codAc" data-cy="codAc" formControlName="codAc" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.comAr" for="field_comAr">Com Ar</label>
+                <input type="text" class="form-control" name="comAr" id="field_comAr" data-cy="comAr" formControlName="comAr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.cc" for="field_cc">Cc</label>
+                <input type="number" class="form-control" name="cc" id="field_cc" data-cy="cc" formControlName="cc" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.centreAr" for="field_centreAr">Centre Ar</label>
+                <input type="text" class="form-control" name="centreAr" id="field_centreAr" data-cy="centreAr" formControlName="centreAr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.nomAr" for="field_nomAr">Nom Ar</label>
+                <input type="text" class="form-control" name="nomAr" id="field_nomAr" data-cy="nomAr" formControlName="nomAr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.nomFr" for="field_nomFr">Nom Fr</label>
+                <input type="text" class="form-control" name="nomFr" id="field_nomFr" data-cy="nomFr" formControlName="nomFr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.geometry" for="field_geometry">Geometry</label>
+                <input type="text" class="form-control" name="geometry" id="field_geometry" data-cy="geometry" formControlName="geometry" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.commune.province" for="field_province">Province</label>
+                <select class="form-control" id="field_province" data-cy="province" name="province" formControlName="province">
+                  <option *ngIf="!editForm.get('province')!.value" [ngValue]="null" selected></option>
+                  <option
+                    [ngValue]="provinceOption.id === editForm.get('province')!.value?.id ? editForm.get('province')!.value : provinceOption"
+                    *ngFor="let provinceOption of provincesSharedCollection; trackBy: trackProvinceById"
+                  >
+                    {{ provinceOption.nomFr }}
+                  </option>
+                </select>
+              </div>
+              <div
+                *ngIf="editForm.get(['province'])!.invalid && (editForm.get(['province'])!.dirty || editForm.get(['province'])!.touched)"
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get(['province'])?.errors?.required"
+                  jhiTranslate="entity.validation.required"
+                >
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="button"
+                id="cancel-save"
+                data-cy="entityCreateCancelButton"
+                class="btn btn-outline-secondary btnCercle float-end"
+                (click)="previousState()"
+              >
+                <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+              </button>
+
+              <button
+                type="submit"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                [disabled]="editForm.invalid || isSaving"
+                class="btn btn-outline-bricoVite btnCercle float-end me-2"
+              >
+                <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

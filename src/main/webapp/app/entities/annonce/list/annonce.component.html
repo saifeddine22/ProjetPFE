@@ -1,0 +1,264 @@
+<div class="annonceBg mt-5 pb-5">
+  <section class="pt-5 pb-5">
+    <div class="container">
+      <h2 id="page-heading" data-cy="AnnonceHeading">
+        <span jhiTranslate="bricoviteApp.annonce.home.title">Annonces</span>
+      </h2>
+      <form [formGroup]="editForm">
+        <div class="row">
+          <div class="col-md-5 col-sm-8 mb-2">
+            <button
+              *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+              id="jh-create-entity"
+              data-cy="entityCreateButton"
+              class="btn btn-outline-bricoVite jh-create-entity create-annonce btnCercle"
+              [routerLink]="['/annonce/new']"
+            >
+              <fa-icon icon="plus"></fa-icon>
+              <span jhiTranslate="bricoviteApp.annonce.home.createLabel"> Create a new Annonce </span>
+            </button>
+          </div>
+          <div class="col-md-7 col-sm-10 mb-2 clearfix overflow-hidden">
+            <div *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'" class="float-end">
+              <button *ngIf="isMesAnnonces" class="btn btn-bricoVite btnCercle" [routerLink]="['/annonce']">
+                <fa-icon icon="eye"></fa-icon>
+                <span jhiTranslate="bricoviteApp.annonce.home.toutesAnnonces"> Tous </span>
+              </button>
+              <button *ngIf="!isMesAnnonces" class="btn btn-outline-bricoVite btnCercle" [routerLink]="['/annonce', 'mesAnnonces']">
+                <fa-icon icon="eye"></fa-icon>
+                <span jhiTranslate="bricoviteApp.annonce.home.mesAnnonces"> Mes annonces </span>
+              </button>
+            </div>
+            <button class="btn btn-outline-bricoVite me-2 float-end btnCercle" (click)="loadPage()" [disabled]="isLoading">
+              <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+              <span jhiTranslate="bricoviteApp.annonce.home.refreshListLabel">Refresh List</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="col-sm-8 mx-auto">
+              <div class="card-header recherche">
+                <button
+                  class="btn btn-outline-bricoVite btnCercle"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseExample"
+                  aria-expanded="false"
+                  aria-controls="collapseExample"
+                  jhiTranslate="bricoviteApp.annonce.home.recherche"
+                >
+                  Recherche
+                </button>
+              </div>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body mb-5">
+                  <p>
+                    <select class="form-control" id="field_province" data-cy="province" name="province" formControlName="province">
+                      <option class="dropdown-item" selected [ngValue]="undefined">Choisir une Province</option>
+                      <option
+                        [ngValue]="provinceOption.id"
+                        *ngFor="let provinceOption of provincesSharedCollection; trackBy: trackProvinceById"
+                      >
+                        {{ provinceOption.nomFr }}
+                      </option>
+                    </select>
+                  </p>
+
+                  <p>
+                    <select
+                      class="form-control"
+                      id="field_categorie"
+                      data-cy="categorie"
+                      name="categorie"
+                      formControlName="categorie"
+                      (change)="onChekCategorie()"
+                    >
+                      <option class="dropdown-item" selected [ngValue]="undefined">Choisir une Catégorie</option>
+                      <option
+                        [ngValue]="categorieOption.id"
+                        *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById"
+                      >
+                        {{ categorieOption.nomFr }}
+                      </option>
+                    </select>
+                  </p>
+                  <p>
+                    <select class="form-control" id="field_activite" data-cy="activite" name="activite" formControlName="activite">
+                      <option class="dropdown-item" selected [ngValue]="undefined">Choisir une Activité</option>
+                      <option
+                        [ngValue]="activiteOption.id"
+                        *ngFor="let activiteOption of filterActivites(); trackBy: trackActiviteById"
+                        [hidden]="activiteOption.categorie?.id != onChekCategorie()"
+                      >
+                        {{ activiteOption.nomFr }}
+                      </option>
+                    </select>
+                  </p>
+                  <button
+                    id="jh-search-entity"
+                    data-cy="entitySearchButton"
+                    class="btn btn-outline-bricoVite jh-search-entity search-annonce"
+                    (click)="search()"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span> Chercher </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="card carte">
+        <div id="map" class="map"></div>
+        <div id="popup" class="ol-popup">
+          <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+          <div id="popup-content" class="popup-content"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+      <div class="alert alert-warning" id="no-result" *ngIf="annonces?.length === 0">
+        <span jhiTranslate="bricoviteApp.annonce.home.notFound">No annonces found</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9" id="entities" *ngIf="annonces && annonces.length > 0">
+          <div class="annonceContent" *ngFor="let annonce of annonces; trackBy: trackId">
+            <div class="card">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="img-thumbnail p-0">
+                    <span *ngFor="let photo of annonce.photos; let isFirst = first" [hidden]="!isFirst">
+                      <a [routerLink]="['/annonce', annonce.id, 'view']">
+                        <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" class="img-thumbnail" />
+                      </a>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-sm-6 card-body">
+                  <a [routerLink]="['/annonce', annonce.id, 'view']">
+                    <p class="h3 card-title">{{ annonce.titre }}</p>
+                    <p class="card-text">{{ annonce.activite?.nomFr }}</p>
+                    <p class="card-text cmProv">{{ annonce.commune?.nomFr }} - {{ annonce.commune?.provinceFr }}</p>
+                    <p class="card-text">
+                      <small class="text-muted">{{ annonce.dateAnnonce | formatMediumDatetime }}</small>
+                    </p>
+                  </a>
+                </div>
+                <div class="col-sm-2">
+                  <p *ngIf="annonce.notes">
+                    <span hidden>{{ annonceService.moy(annonce.notes) | number: '1.2-2' }}</span>
+                    <ngb-rating class="ngb-rating" [max]="5" [rate]="annonceService.updateRating()" [readonly]="true">
+                      <ng-template let-fill="fill">
+                        <span class="defaultStar" [class.filled]="fill === 100" [class.notfilled]="fill === 0">
+                          <span class="paintedStar" [style.width.%]="fill">★</span>★
+                        </span>
+                      </ng-template>
+                    </ngb-rating>
+                  </p>
+                  <p class="disponibilite">
+                    <span
+                      class="btn btn-outline-success btnCercle"
+                      jhiTranslate="bricoviteApp.annonce.disponible"
+                      [hidden]="annonce.status == false"
+                    >
+                    </span>
+                    <span
+                      class="btn btn-outline-danger btnCercle"
+                      jhiTranslate="bricoviteApp.annonce.indisponible"
+                      [hidden]="annonce.status == true"
+                    >
+                    </span>
+                  </p>
+                  <div class="btn-group float-end">
+                    <button
+                      *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+                      type="submit"
+                      [routerLink]="['/annonce', annonce.id, 'edit']"
+                      [hidden]="annonce.user?.id != userConnect"
+                      class="btn btn-outline-bricoVite btn-sm"
+                      data-cy="entityEditButton"
+                    >
+                      <fa-icon icon="pencil-alt"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                    </button>
+
+                    <button
+                      *jhiHasAnyAuthority="'ROLE_PRESTATAIRE'"
+                      [hidden]="annonce.user?.id != userConnect"
+                      type="submit"
+                      (click)="delete(annonce)"
+                      class="btn btn-outline-danger btn-sm"
+                      data-cy="entityDeleteButton"
+                    >
+                      <fa-icon icon="times"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 pubContent">
+          <div class="card mb-3">
+            <div class="card-header" jhiTranslate="bricoviteApp.annonce.home.rechercheRapide">Recherche rapide</div>
+            <div class="card-body">
+              <p class="card-text">
+                <input
+                  type="search"
+                  name="rechRapide"
+                  class="rechRapide"
+                  id="rechRapide"
+                  (keyup)="annonceService.search_fast()"
+                  placeholder="Recherche rapide..."
+                />
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" jhiTranslate="bricoviteApp.annonce.publicite">Publicité</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div *ngIf="annonces && annonces.length > 0">
+        <div class="d-flex justify-content-center">
+          <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <ngb-pagination
+            [collectionSize]="totalItems"
+            [(page)]="ngbPaginationPage"
+            [pageSize]="itemsPerPage"
+            [maxSize]="5"
+            [rotate]="true"
+            [boundaryLinks]="true"
+            (pageChange)="loadPage($event)"
+          ></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

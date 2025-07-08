@@ -1,0 +1,48 @@
+{
+  "applications": "*",
+  "changelogDate": "20220610103425",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "activite",
+  "fields": [
+    {
+      "fieldName": "nomFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nomAr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "categorieFr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "categorieAr",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Activite",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "titre",
+      "otherEntityName": "annonce",
+      "otherEntityRelationshipName": "activite",
+      "relationshipName": "annonce",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "nomFr",
+      "otherEntityName": "categorie",
+      "otherEntityRelationshipName": "activite",
+      "relationshipName": "categorie",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

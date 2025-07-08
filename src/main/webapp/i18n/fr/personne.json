@@ -1,0 +1,26 @@
+{
+  "bricoviteApp": {
+    "personne": {
+      "home": {
+        "title": "Personnes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Personne",
+        "createOrEditLabel": "Créer ou éditer une Personne",
+        "notFound": "Aucune Personne trouvée"
+      },
+      "created": "Une nouvelle Personne a été créée ",
+      "updated": "La Personne a été mise à jour",
+      "deleted": "La Personne a été supprimée",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer cette Personne ?"
+      },
+      "detail": {
+        "title": "Personne"
+      },
+      "id": "ID",
+      "cnie": "Cnie",
+      "tel": "Téléphone",
+      "user": "User"
+    }
+  }
+}

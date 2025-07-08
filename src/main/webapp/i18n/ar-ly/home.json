@@ -1,0 +1,37 @@
+{
+  "home": {
+    "title": "تحتاج إلى خدمة أو يد مساعدة؟",
+    "subtitle": "اعثر على العامل الذي تحتاجه ببضع نقرات!",
+    "logged": {
+      "message": "قمت بتسجيل الدخول كمستخدم \"{{username}}\"."
+    },
+    "question": "إذا كان لديك أي سؤال حول BricoVite:",
+    "link": {
+      "homepage": "JHipster homepage",
+      "stackoverflow": "JHipster on Stack Overflow",
+      "bugtracker": "JHipster bug tracker",
+      "chat": "JHipster public chat room",
+      "follow": "follow @jhipster on Twitter"
+    },
+    "like": "إذا كنت تحب JHipster، لا تنسى أن تعطي لنا نجم على",
+    "github": "GitHub",
+    "commentcamarche": "كيف تعمل ؟",
+    "proposeservice": "أقدم خدماتي",
+    "repondreannonce": "الرد على الإعلانات.",
+    "chercheservice": "أبحث عن خدمة",
+    "trouveservice": "ابحث عن الخدمة التي تحتاجها باستخدام نموذج البحث عن طريق إدخال المعايير الخاصة بك.",
+    "cequiplait": "ما سوف يعجبك",
+    "tempsgagne": "وقت موفر",
+    "compareservice": "بحث ومقارنة الخدمات في بضع نقرات",
+    "espacesecurise": "مساحة آمنة",
+    "gardecontrole": "حافظ على التحكم في بياناتك",
+    "grandevariete": "تنوع كبير",
+    "baseriche": "قاعدة بيانات غنية",
+    "recherchecible": "بحث مستهدف",
+    "saisicriete": "أدخل المعايير الخاصة بك وابحث عن المزود المناسب.",
+    "compteperso": "حساب شخصي",
+    "espacededie": "تسمح لك مساحتك المخصصة بإدارة نشاطك بسهولة",
+    "optimiser": "تحسين",
+    "surveilleactivite": "راقب نشاطك"
+  }
+}

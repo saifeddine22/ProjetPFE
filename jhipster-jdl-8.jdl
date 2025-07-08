@@ -1,0 +1,103 @@
+
+entity Personne {
+cnie String required unique
+tel String
+}
+
+
+entity Annonce {
+titre String required
+description String required
+adresse String required
+status Boolean
+dateAnnonce Instant
+latitude Double
+longitude Double
+}
+
+entity Photo {
+url String
+libelle String
+image ImageBlob
+}
+
+entity Region {
+codeReg Double
+nomFr String
+nomAr String
+geometry String
+}
+
+entity Province {
+codeReg Double
+codeProv Double
+nomFr String
+nomAr String
+regionFr String
+regionAr String
+geometry String
+}
+
+entity Commune {
+codeReg Double
+codeProv Double
+provinceFr String
+provinceAr String
+regionFr String
+regionAr String
+cercleFr String
+codeCercle Double
+comFr String
+codeCom Double
+centreFr String
+codAc Double
+comAr String
+cc Double
+centreAr String
+nomAr String
+nomFr String
+geometry String
+}
+
+entity Activite {
+nomFr String
+nomAr String
+categorieFr String
+categorieAr String
+}
+
+entity Categorie {
+nomFr String
+nomAr String
+}
+
+entity Commentaire {
+details String
+dateCommentaire Instant
+}
+
+entity Note {
+valeur Integer
+}
+
+relationship OneToMany {
+	Region{province(nomFr)} to Province{region(nomFr) required}
+    Province{commune(nomFr)} to Commune{province(nomFr) required}
+    Commune{annonce(titre)} to Annonce{commune(nomFr)}
+    Activite{annonce(titre)} to Annonce{activite(nomFr) required}
+    Categorie{activite(nomFr)} to Activite{categorie(nomFr) required}
+    Annonce to Photo{annonce}
+    Annonce{commentaire(details)} to Commentaire{annonce(titre)}
+    Annonce{note(valeur)} to Note{annonce(titre)}
+}
+relationship ManyToOne {
+	 Annonce{user(firstName) required} to User{annonce(titre)} 
+	 Commentaire{user(firstName) required} to User{commentaire(details)} 
+}
+
+relationship OneToOne {
+	 Personne{user(firstName) required} to User{personne(cnie)}
+}
+
+service all with serviceImpl
+paginate * with pagination

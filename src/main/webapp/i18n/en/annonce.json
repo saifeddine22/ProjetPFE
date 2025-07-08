@@ -1,0 +1,49 @@
+{
+  "bricoviteApp": {
+    "annonce": {
+      "home": {
+        "title": "Announcements",
+        "mesAnnonces": "my Announcements",
+        "toutesAnnonces": "All Announcements",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Annonce",
+        "createOrEditLabel": "Create or edit a Annonce",
+        "notFound": "No Annonces found",
+        "recherche": "Search",
+        "rechercheRapide": "Quick Search"
+      },
+      "publicite": "advertisement",
+      "created": "A new Annonce has been created",
+      "updated": "Announcement has been updated",
+      "deleted": "Annonce has been removed",
+      "delete": {
+        "question": "Are you sure you want to delete Annonce?"
+      },
+      "afficherDansCarte": "Display in Map",
+      "contacter": "Contact",
+      "editPhoto": "Edit photos",
+      "detail": {
+        "title": "Annonce"
+      },
+      "id": "ID",
+      "titre": "Title",
+      "description": "Description",
+      "adresse": "Adress",
+      "status": "Status",
+      "dateAnnonce": "Announcement Date",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "photo": "Photo",
+      "commentaire": "Comment",
+      "note": "Note",
+      "user": "Service provider",
+      "commune": "Commune",
+      "activite": "Activity",
+      "categorie": "Category",
+      "disponibilite": "Availability (Check if you are available)",
+      "disponibiliteCadre": "Availability",
+      "disponible": "Available",
+      "indisponible": "Unavailable"
+    }
+  }
+}

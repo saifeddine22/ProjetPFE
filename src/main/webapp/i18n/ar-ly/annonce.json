@@ -1,0 +1,49 @@
+{
+  "bricoviteApp": {
+    "annonce": {
+      "home": {
+        "title": "الإعلانات",
+        "mesAnnonces": "إعلاناتي",
+        "toutesAnnonces": "كافة الإعلانات",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء إعلان جديد",
+        "createOrEditLabel": "إنشاء أو تحرير إعلان",
+        "notFound": "لم يتم العثور على الإعلانات",
+        "recherche": "البحث",
+        "rechercheRapide": "البحث السريع"
+      },
+      "publicite": "إشهار",
+      "created": "تم إنشاء إعلان جديد",
+      "updated": "تم تحديث الإعلان",
+      "deleted": "تمت إزالة الإعلان",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف هذا الإعلان؟"
+      },
+      "afficherDansCarte": "العرض في الخريطة",
+      "contacter": "اتصال",
+      "editPhoto": "تعديل الصور",
+      "detail": {
+        "title": "إعلان"
+      },
+      "id": "ID",
+      "titre": "العنوان",
+      "description": "الوصف",
+      "adresse": "عنوان",
+      "status": "الحالة",
+      "dateAnnonce": "تاريخ الإعلان",
+      "latitude": "خط العرض",
+      "longitude": "خط الطول",
+      "photo": "صورة",
+      "commentaire": "تعليق",
+      "note": "تصنيف",
+      "user": "مقدم الخدمة",
+      "commune": "البلدية",
+      "activite": "النشاط",
+      "categorie": "الفئة",
+      "disponibilite": " (حدد هذا الخيار إذا كنت متاحًا) التوفر",
+      "disponibiliteCadre": "التوفر",
+      "disponible": "متاح",
+      "indisponible": "غير متاح"
+    }
+  }
+}

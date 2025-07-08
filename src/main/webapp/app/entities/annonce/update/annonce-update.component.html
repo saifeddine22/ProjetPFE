@@ -1,0 +1,330 @@
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
+  <div class="container">
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="card">
+      <div class="row">
+        <div class="col-md-9 mx-auto">
+          <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <div class="card-header titreAnnonce CrUp">
+              <p
+                id="jhi-annonce-heading"
+                data-cy="AnnonceCreateUpdateHeading"
+                jhiTranslate="bricoviteApp.annonce.home.createOrEditLabel"
+                class="h2"
+              >
+                Create or edit a Annonce
+              </p>
+            </div>
+
+            <div>
+              <div class="card carte" *ngIf="editForm.get('id')?.value">
+                <div id="map" class="map"></div>
+                <div id="popup" class="ol-popup">
+                  <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                  <div id="popup-content"></div>
+                </div>
+              </div>
+
+              <div class="card carte row pt-4 pb-4">
+                <div class="row mb-3" [hidden]="true">
+                  <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                  <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+                </div>
+
+                <!-- Titre avec suggestion IA -->
+                <div class="col-md-10 mx-auto mb-3">
+                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.titre" for="field_titre">Titre</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="titre" id="field_titre" data-cy="titre" formControlName="titre" />
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      (click)="suggestTitle()"
+                      [disabled]="isLoadingAISuggestions || !editForm.get('description')?.value"
+                    >
+                      <!-- Remplacé fa-icon par i avec classe fas -->
+                      <i class="fas fa-magic"></i>
+                      <span class="d-none d-md-inline"> Suggérer avec IA</span>
+                    </button>
+                  </div>
+
+                  <!-- Validation errors -->
+                  <div *ngIf="editForm.get('titre')!.invalid && (editForm.get('titre')!.dirty || editForm.get('titre')!.touched)">
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="editForm.get('titre')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
+                    >
+                      Ce champ est obligatoire.
+                    </small>
+                  </div>
+
+                  <!-- Suggestions de titre -->
+                  <div *ngIf="titleSuggestions" class="ai-suggestions mt-2 p-2 border rounded">
+                    <p><strong>Suggestion IA :</strong></p>
+                    <p>{{ titleSuggestions.title }}</p>
+                    <button type="button" class="btn btn-sm btn-primary" (click)="applyTitleSuggestion()">Appliquer</button>
+                  </div>
+                </div>
+
+                <!-- Description avec amélioration IA -->
+                <div class="col-md-10 mx-auto mb-3">
+                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.description" for="field_description">Description</label>
+                  <textarea
+                    type="text"
+                    rows="5"
+                    class="form-control"
+                    name="description"
+                    id="field_description"
+                    data-cy="description"
+                    formControlName="description"
+                  ></textarea>
+
+                  <!-- Validation errors -->
+                  <div
+                    *ngIf="
+                      editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)
+                    "
+                  >
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="editForm.get('description')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
+                    >
+                      Ce champ est obligatoire.
+                    </small>
+                  </div>
+
+                  <div class="d-flex mt-1">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary me-2"
+                      (click)="enhanceWithAI()"
+                      [disabled]="isLoadingAISuggestions || !editForm.get('description')?.value"
+                    >
+                      <!-- Remplacé fa-icon par i avec classe fas -->
+                      <i class="fas fa-magic"></i> Améliorer avec IA
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary me-2"
+                      (click)="suggestKeywords()"
+                      [disabled]="isLoadingAISuggestions || !editForm.get('description')?.value"
+                    >
+                      <!-- Remplacé fa-icon par i avec classe fas -->
+                      <i class="fas fa-tags"></i> Suggérer des mots-clés
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary"
+                      (click)="estimatePrice()"
+                      [disabled]="isLoadingAISuggestions || !editForm.get('description')?.value"
+                    >
+                      <!-- Remplacé fa-icon par i avec classe fas -->
+                      <i class="fas fa-dollar-sign"></i> Estimer le prix
+                    </button>
+                  </div>
+
+                  <!-- Loader -->
+                  <div *ngIf="isLoadingAISuggestions" class="mt-2">
+                    <div class="spinner-border text-primary spinner-border-sm" role="status">
+                      <span class="visually-hidden">Chargement...</span>
+                    </div>
+                    <span class="ms-2">Génération en cours...</span>
+                  </div>
+
+                  <!-- Suggestions de l'IA -->
+                  <div *ngIf="aiSuggestions" class="ai-suggestions mt-2 p-2 border rounded">
+                    <p><strong>Description améliorée :</strong></p>
+                    <p>{{ aiSuggestions.enhancedDescription }}</p>
+                    <button type="button" class="btn btn-sm btn-primary" (click)="applyDescriptionSuggestion()">Appliquer</button>
+                  </div>
+
+                  <!-- Suggestions de mots-clés -->
+                  <div *ngIf="keywordSuggestions && keywordSuggestions.length > 0" class="ai-suggestions mt-2 p-2 border rounded">
+                    <p><strong>Mots-clés suggérés :</strong></p>
+                    <div class="d-flex flex-wrap">
+                      <span *ngFor="let keyword of keywordSuggestions" class="badge bg-primary me-1 mb-1">{{ keyword }}</span>
+                    </div>
+                  </div>
+
+                  <!-- Estimation de prix -->
+                  <div *ngIf="priceSuggestions" class="ai-suggestions mt-2 p-2 border rounded">
+                    <p><strong>Estimation de prix :</strong></p>
+                    <p>Entre {{ priceSuggestions.minPrice }} et {{ priceSuggestions.maxPrice }} {{ priceSuggestions.currency }}</p>
+                    <small class="text-muted">Cette estimation est basée sur des services similaires dans votre région.</small>
+                  </div>
+                </div>
+
+                <div class="col-md-10 mx-auto mb-3">
+                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.adresse" for="field_adresse">Adresse</label>
+                  <textarea
+                    rows="2"
+                    type="text"
+                    class="form-control"
+                    name="adresse"
+                    id="field_adresse"
+                    data-cy="adresse"
+                    formControlName="adresse"
+                  ></textarea>
+                  <div *ngIf="editForm.get('adresse')!.invalid && (editForm.get('adresse')!.dirty || editForm.get('adresse')!.touched)">
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="editForm.get('adresse')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
+                    >
+                      This field is required.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-md-10 mx-auto mb-3" hidden>
+                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.latitude" for="field_latitude">Latitude</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="latitude"
+                    id="field_latitude"
+                    data-cy="latitude"
+                    formControlName="latitude"
+                  />
+                </div>
+
+                <div class="col-md-10 mx-auto mb-3" hidden>
+                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.longitude" for="field_longitude">Longitude</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="longitude"
+                    id="field_longitude"
+                    data-cy="longitude"
+                    formControlName="longitude"
+                  />
+                </div>
+
+                <div class="col-md-10 mx-auto mb-3">
+                  <p class="dispo">
+                    <label class="form-label" jhiTranslate="bricoviteApp.annonce.disponibilite" for="field_status">Disponibilité</label>
+                    <span>:</span>
+                    <input type="checkbox" class="form-check" name="status" id="field_status" data-cy="status" formControlName="status" />
+                  </p>
+                </div>
+
+                <div class="col-md-10 mx-auto mb-3">
+                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.dateAnnonce" for="field_dateAnnonce">Date Annonce</label>
+                  <div class="d-flex">
+                    <input
+                      [readonly]="true"
+                      id="field_dateAnnonce"
+                      data-cy="dateAnnonce"
+                      type="datetime-local"
+                      class="form-control"
+                      name="dateAnnonce"
+                      formControlName="dateAnnonce"
+                      placeholder="YYYY-MM-DD HH:mm"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-10 mx-auto mb-3">
+                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.categorie" for="field_categorie">Categorie</label>
+                  <select
+                    class="form-control"
+                    id="field_categorie"
+                    data-cy="categorie"
+                    name="categorie"
+                    formControlName="categorie"
+                    (change)="onChekCategorie()"
+                    [hidden]="editForm.get('id')!.value != null"
+                  >
+                    <option [ngValue]="null"></option>
+                    <option
+                      [ngValue]="
+                        categorieOption.id === editForm.get('categorie')!.value?.id ? editForm.get('categorie')!.value : categorieOption.id
+                      "
+                      *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById"
+                    >
+                      {{ categorieOption.nomFr }}
+                    </option>
+                  </select>
+                  <select
+                    class="form-control disabledSelect"
+                    id="field_activite"
+                    data-cy="activite"
+                    name="categorie"
+                    formControlName="activite"
+                    [hidden]="editForm.get('id')!.value == null"
+                  >
+                    <option *ngIf="!editForm.get('activite')!.value" [ngValue]="null" selected disabled></option>
+                    <option
+                      disabled
+                      [ngValue]="
+                        activiteOption.id === editForm.get('activite')!.value?.id ? editForm.get('activite')!.value : activiteOption
+                      "
+                      *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
+                    >
+                      {{ activiteOption.categorieFr }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-10 mx-auto mb-3">
+                  <label class="form-label" jhiTranslate="bricoviteApp.annonce.activite" for="field_activite">Activite</label>
+                  <select class="form-control" id="field_activite" data-cy="activite" name="activite" formControlName="activite">
+                    <option *ngIf="!editForm.get('activite')!.value" [ngValue]="null" selected></option>
+                    <option
+                      [ngValue]="
+                        activiteOption.id === editForm.get('activite')!.value?.id ? editForm.get('activite')!.value : activiteOption
+                      "
+                      *ngFor="let activiteOption of activitesSharedCollection; trackBy: trackActiviteById"
+                      [hidden]="activiteOption.categorie?.id != onChekCategorie()"
+                    >
+                      {{ activiteOption.nomFr }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  *ngIf="editForm.get(['activite'])!.invalid && (editForm.get(['activite'])!.dirty || editForm.get(['activite'])!.touched)"
+                >
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get(['activite'])?.errors?.required"
+                    jhiTranslate="entity.validation.required"
+                  >
+                    This field is required.
+                  </small>
+                </div>
+                <div class="col-md-10 mx-auto mb-3">
+                  <button
+                    type="button"
+                    id="cancel-save"
+                    data-cy="entityCreateCancelButton"
+                    class="btn btn-outline-secondary btnCercle float-end"
+                    (click)="previousState()"
+                  >
+                    <i class="fas fa-ban"></i>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    id="save-entity"
+                    data-cy="entityCreateSaveButton"
+                    [disabled]="editForm.invalid || isSaving"
+                    class="btn btn-outline-bricoVite btnCercle float-end me-2"
+                  >
+                    <i class="fas fa-save"></i>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

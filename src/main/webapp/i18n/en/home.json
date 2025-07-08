@@ -1,0 +1,37 @@
+{
+  "home": {
+    "title": "Need a service or a hand ?",
+    "subtitle": "Find the service provider you need in just a few clicks!",
+    "logged": {
+      "message": "You are logged in as user \"{{username}}\"."
+    },
+    "question": "If you have any question on JHipster:",
+    "link": {
+      "homepage": "JHipster homepage",
+      "stackoverflow": "JHipster on Stack Overflow",
+      "bugtracker": "JHipster bug tracker",
+      "chat": "JHipster public chat room",
+      "follow": "follow @jhipster on Twitter"
+    },
+    "like": "If you like JHipster, don't forget to give us a star on",
+    "github": "GitHub",
+    "commentcamarche": "how it works ?",
+    "proposeservice": "I offer my services",
+    "repondreannonce": "Respond to ads.",
+    "chercheservice": "I am looking for a service",
+    "trouveservice": "Find the service you need using the search form by entering your criteria.",
+    "cequiplait": "What will you like",
+    "tempsgagne": "time saved",
+    "compareservice": "Search and compare services in a few clicks",
+    "espacesecurise": "Secure space",
+    "gardecontrole": "Keep control over your data",
+    "grandevariete": "Wide variety",
+    "baseriche": "Access a rich database",
+    "recherchecible": "targeted search",
+    "saisicriete": "Enter your criteria and find the right provider.",
+    "compteperso": "Personal account",
+    "espacededie": "Your dedicated space allows you to easily manage your activity",
+    "optimiser": "Optimize",
+    "surveilleactivite": "Monitor your activity"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "bricoviteApp": {
+    "activite": {
+      "home": {
+        "title": "Activités",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Activité",
+        "createOrEditLabel": "Créer ou éditer une Activité",
+        "notFound": "Aucune Activité trouvée"
+      },
+      "created": "Une nouvelL'Activité a été créé",
+      "updated": "L'Activité a été mise à jour",
+      "deleted": "L'Activité a été supprimée",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer cette Activité ?"
+      },
+      "detail": {
+        "title": "Activité"
+      },
+      "id": "ID",
+      "nomFr": "Nom Fr",
+      "nomAr": "Nom Ar",
+      "categorieFr": "Catégorie Fr",
+      "categorieAr": "Catégorie Ar",
+      "annonce": "Annonce",
+      "categorie": "Catégorie"
+    }
+  }
+}

@@ -1,0 +1,179 @@
+<section class="mt-5 pt-5 pb-5">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2 id="page-heading" data-cy="CommuneHeading">
+          <span jhiTranslate="bricoviteApp.commune.home.title">Communes</span>
+
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-bricoVite btnCercle me-2" (click)="loadPage()" [disabled]="isLoading">
+              <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+              <span jhiTranslate="bricoviteApp.commune.home.refreshListLabel">Refresh List</span>
+            </button>
+
+            <button
+              id="jh-create-entity"
+              data-cy="entityCreateButton"
+              class="btn btn-outline-bricoVite btnCercle jh-create-entity create-commune"
+              [routerLink]="['/commune/new']"
+            >
+              <fa-icon icon="plus"></fa-icon>
+              <span jhiTranslate="bricoviteApp.commune.home.createLabel"> Create a new Commune </span>
+            </button>
+          </div>
+        </h2>
+      </div>
+      <div class="card-body">
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <div class="alert alert-warning" id="no-result" *ngIf="communes?.length === 0">
+          <span jhiTranslate="bricoviteApp.commune.home.notFound">No communes found</span>
+        </div>
+
+        <div class="table-responsive" id="entities" *ngIf="communes && communes.length > 0">
+          <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+              <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+                <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                <!-- <th scope="col" jhiSortBy="codeReg">
+                  <span jhiTranslate="bricoviteApp.commune.codeReg">Code Reg</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <!-- <th scope="col" jhiSortBy="codeProv">
+                  <span jhiTranslate="bricoviteApp.commune.codeProv">Code Prov</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <!-- <th scope="col" jhiSortBy="provinceFr">
+                  <span jhiTranslate="bricoviteApp.commune.provinceFr">Province Fr</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <!-- <th scope="col" jhiSortBy="provinceAr">
+                  <span jhiTranslate="bricoviteApp.commune.provinceAr">Province Ar</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <th scope="col" jhiSortBy="regionFr">
+                  <span jhiTranslate="bricoviteApp.commune.regionFr">Region Fr</span> <fa-icon icon="sort"></fa-icon>
+                </th>
+                <!-- <th scope="col" jhiSortBy="regionAr">
+                  <span jhiTranslate="bricoviteApp.commune.regionAr">Region Ar</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <th scope="col" jhiSortBy="cercleFr">
+                  <span jhiTranslate="bricoviteApp.commune.cercleFr">Cercle Fr</span> <fa-icon icon="sort"></fa-icon>
+                </th>
+                <!--   <th scope="col" jhiSortBy="codeCercle">
+                  <span jhiTranslate="bricoviteApp.commune.codeCercle">Code Cercle</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <th scope="col" jhiSortBy="comFr">
+                  <span jhiTranslate="bricoviteApp.commune.comFr">Com Fr</span> <fa-icon icon="sort"></fa-icon>
+                </th>
+                <!-- <th scope="col" jhiSortBy="codeCom">
+                  <span jhiTranslate="bricoviteApp.commune.codeCom">Code Com</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <!-- <th scope="col" jhiSortBy="centreFr">
+                  <span jhiTranslate="bricoviteApp.commune.centreFr">Centre Fr</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <!-- <th scope="col" jhiSortBy="codAc">
+                  <span jhiTranslate="bricoviteApp.commune.codAc">Cod Ac</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <!-- <th scope="col" jhiSortBy="comAr">
+                  <span jhiTranslate="bricoviteApp.commune.comAr">Com Ar</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <!-- <th scope="col" jhiSortBy="cc"><span jhiTranslate="bricoviteApp.commune.cc">Cc</span> <fa-icon icon="sort"></fa-icon></th>
+                <th scope="col" jhiSortBy="centreAr">
+                  <span jhiTranslate="bricoviteApp.commune.centreAr">Centre Ar</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <th scope="col" jhiSortBy="nomAr">
+                  <span jhiTranslate="bricoviteApp.commune.nomAr">Nom Ar</span> <fa-icon icon="sort"></fa-icon>
+                </th>
+                <th scope="col" jhiSortBy="nomFr">
+                  <span jhiTranslate="bricoviteApp.commune.nomFr">Nom Fr</span> <fa-icon icon="sort"></fa-icon>
+                </th>
+                <!-- <th scope="col" jhiSortBy="geometry">
+                  <span jhiTranslate="bricoviteApp.commune.geometry">Geometry</span> <fa-icon icon="sort"></fa-icon>
+                </th> -->
+                <th scope="col" jhiSortBy="province.nomFr">
+                  <span jhiTranslate="bricoviteApp.commune.province">Province</span> <fa-icon icon="sort"></fa-icon>
+                </th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let commune of communes; trackBy: trackId" data-cy="entityTable">
+                <td>
+                  <a [routerLink]="['/commune', commune.id, 'view']">{{ commune.id }}</a>
+                </td>
+                <!-- <td>{{ commune.codeReg }}</td>
+                <td>{{ commune.codeProv }}</td> -->
+                <!-- <td>{{ commune.provinceFr }}</td> -->
+                <!--  <td>{{ commune.provinceAr }}</td> -->
+                <td>{{ commune.regionFr }}</td>
+                <!-- <td>{{ commune.regionAr }}</td> -->
+                <!-- <td>{{ commune.cercleFr }}</td> -->
+                <!-- <td>{{ commune.codeCercle }}</td> -->
+                <td>{{ commune.comFr }}</td>
+                <!-- <td>{{ commune.codeCom }}</td> -->
+                <td>{{ commune.centreFr }}</td>
+                <!-- <td>{{ commune.codAc }}</td> -->
+                <!-- <td>{{ commune.comAr }}</td> -->
+                <!-- <td>{{ commune.cc }}</td>
+                <td>{{ commune.centreAr }}</td> -->
+                <td>{{ commune.nomAr }}</td>
+                <td>{{ commune.nomFr }}</td>
+                <!-- <td>{{ commune.geometry }}</td> -->
+                <td>
+                  <div *ngIf="commune.province">
+                    <a [routerLink]="['/province', commune.province?.id, 'view']">{{ commune.province?.nomFr }}</a>
+                  </div>
+                </td>
+                <td class="text-end">
+                  <div class="btn-group">
+                    <button
+                      type="submit"
+                      [routerLink]="['/commune', commune.id, 'view']"
+                      class="btn btn-outline-info btn-sm"
+                      data-cy="entityDetailsButton"
+                    >
+                      <fa-icon icon="eye"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                    </button>
+
+                    <button
+                      type="submit"
+                      [routerLink]="['/commune', commune.id, 'edit']"
+                      class="btn btn-outline-bricoVite btn-sm"
+                      data-cy="entityEditButton"
+                    >
+                      <fa-icon icon="pencil-alt"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                    </button>
+
+                    <button type="submit" (click)="delete(commune)" class="btn btn-outline-danger btn-sm" data-cy="entityDeleteButton">
+                      <fa-icon icon="times"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div *ngIf="communes && communes.length > 0">
+          <div class="d-flex justify-content-center">
+            <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <ngb-pagination
+              [collectionSize]="totalItems"
+              [(page)]="ngbPaginationPage"
+              [pageSize]="itemsPerPage"
+              [maxSize]="5"
+              [rotate]="true"
+              [boundaryLinks]="true"
+              (pageChange)="loadPage($event)"
+            ></ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

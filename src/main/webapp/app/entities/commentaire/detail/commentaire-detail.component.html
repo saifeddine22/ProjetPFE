@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
+  <div class="container">
+    <div class="card pt-4 pb-4">
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+      <div class="row">
+        <div class="col-md-9 mx-auto">
+          <div *ngIf="commentaire">
+            <div class="card-header">
+              <h2 data-cy="commentaireDetailsHeading"><span jhiTranslate="bricoviteApp.commentaire.detail.title">Commentaire</span></h2>
+            </div>
+            <div class="card-body">
+              <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="global.field.id">ID</span></dt>
+                <dd>
+                  <span>{{ commentaire.id }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commentaire.details">Details</span></dt>
+                <dd>
+                  <span>{{ commentaire.details }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commentaire.dateCommentaire">Date Commentaire</span></dt>
+                <dd>
+                  <span>{{ commentaire.dateCommentaire | formatMediumDatetime }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commentaire.user">User</span></dt>
+                <dd>
+                  <span>{{ commentaire.user?.login }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commentaire.annonce">Annonce</span></dt>
+                <dd>
+                  <div *ngIf="commentaire.annonce">
+                    <a [routerLink]="['/annonce', commentaire.annonce?.id, 'view']">{{ commentaire.annonce?.titre }}</a>
+                  </div>
+                </dd>
+              </dl>
+
+              <button type="submit" (click)="previousState()" class="btn btn-outline-info btnCercle" data-cy="entityDetailsBackButton">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+              </button>
+
+              <!-- <button type="button" [routerLink]="['/commentaire', commentaire.id, 'edit']" class="btn btn-outline-bricoVite btnCercle">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

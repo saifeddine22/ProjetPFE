@@ -1,0 +1,40 @@
+{
+  "applications": "*",
+  "changelogDate": "20220610103427",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "commentaire",
+  "fields": [
+    {
+      "fieldName": "details",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateCommentaire",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Commentaire",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "firstName",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "commentaire",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "titre",
+      "otherEntityName": "annonce",
+      "otherEntityRelationshipName": "commentaire",
+      "relationshipName": "annonce",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

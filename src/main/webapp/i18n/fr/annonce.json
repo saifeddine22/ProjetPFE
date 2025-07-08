@@ -1,0 +1,49 @@
+{
+  "bricoviteApp": {
+    "annonce": {
+      "home": {
+        "title": "Annonces",
+        "mesAnnonces": "Mes Annonces",
+        "toutesAnnonces": "Toutes les Annonces",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Annonce",
+        "createOrEditLabel": "Créer ou éditer une Annonce",
+        "notFound": "Aucune Annonce trouvée",
+        "recherche": "Recherche",
+        "rechercheRapide": "Recherche rapide"
+      },
+      "publicite": "Publicité",
+      "created": "Une nouvelle Annonce a été créée",
+      "updated": "L'Annonce a été mise à jour",
+      "deleted": "L'Annonce a été supprimée",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer cette Annonce?"
+      },
+      "afficherDansCarte": "Afficher dans la Carte",
+      "contacter": "Contacter",
+      "editPhoto": "Edit photos",
+      "detail": {
+        "title": "Annonce"
+      },
+      "id": "ID",
+      "titre": "Titre",
+      "description": "Description",
+      "adresse": "Adresse",
+      "status": "Status",
+      "dateAnnonce": "Date Annonce",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "photo": "Photo",
+      "commentaire": "Commentaire",
+      "note": "Note",
+      "user": "Prestataire",
+      "commune": "Commune",
+      "activite": "Activité",
+      "categorie": "Catégorie",
+      "disponibilite": "Disponibilité (Cocher si vous êtes disponible)",
+      "disponibiliteCadre": "Disponibilité",
+      "disponible": "Disponible",
+      "indisponible": "Indisponible"
+    }
+  }
+}

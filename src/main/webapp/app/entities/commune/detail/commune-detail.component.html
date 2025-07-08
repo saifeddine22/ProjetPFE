@@ -1,0 +1,113 @@
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
+  <div class="container">
+    <div class="card pt-4 pb-4">
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+      <div class="row">
+        <div class="col-md-9 mx-auto">
+          <div *ngIf="commune">
+            <div class="card-header">
+              <h2 data-cy="communeDetailsHeading"><span jhiTranslate="bricoviteApp.commune.detail.title">Commune</span></h2>
+            </div>
+
+            <div class="card-body">
+              <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="global.field.id">ID</span></dt>
+                <dd>
+                  <span>{{ commune.id }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.codeReg">Code Reg</span></dt>
+                <dd>
+                  <span>{{ commune.codeReg }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.codeProv">Code Prov</span></dt>
+                <dd>
+                  <span>{{ commune.codeProv }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.provinceFr">Province Fr</span></dt>
+                <dd>
+                  <span>{{ commune.provinceFr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.provinceAr">Province Ar</span></dt>
+                <dd>
+                  <span>{{ commune.provinceAr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.regionFr">Region Fr</span></dt>
+                <dd>
+                  <span>{{ commune.regionFr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.regionAr">Region Ar</span></dt>
+                <dd>
+                  <span>{{ commune.regionAr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.cercleFr">Cercle Fr</span></dt>
+                <dd>
+                  <span>{{ commune.cercleFr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.codeCercle">Code Cercle</span></dt>
+                <dd>
+                  <span>{{ commune.codeCercle }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.comFr">Com Fr</span></dt>
+                <dd>
+                  <span>{{ commune.comFr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.codeCom">Code Com</span></dt>
+                <dd>
+                  <span>{{ commune.codeCom }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.centreFr">Centre Fr</span></dt>
+                <dd>
+                  <span>{{ commune.centreFr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.codAc">Cod Ac</span></dt>
+                <dd>
+                  <span>{{ commune.codAc }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.comAr">Com Ar</span></dt>
+                <dd>
+                  <span>{{ commune.comAr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.cc">Cc</span></dt>
+                <dd>
+                  <span>{{ commune.cc }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.centreAr">Centre Ar</span></dt>
+                <dd>
+                  <span>{{ commune.centreAr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.nomAr">Nom Ar</span></dt>
+                <dd>
+                  <span>{{ commune.nomAr }}</span>
+                </dd>
+                <dt><span jhiTranslate="bricoviteApp.commune.nomFr">Nom Fr</span></dt>
+                <dd>
+                  <span>{{ commune.nomFr }}</span>
+                </dd>
+                <!-- <dt><span jhiTranslate="bricoviteApp.commune.geometry">Geometry</span></dt>
+                <dd>
+                  <span>{{ commune.geometry }}</span>
+                </dd> -->
+                <dt><span jhiTranslate="bricoviteApp.commune.province">Province</span></dt>
+                <dd>
+                  <div *ngIf="commune.province">
+                    <a [routerLink]="['/province', commune.province?.id, 'view']">{{ commune.province?.nomFr }}</a>
+                  </div>
+                </dd>
+              </dl>
+
+              <button type="submit" (click)="previousState()" class="btn btn-outline-info btnCercle" data-cy="entityDetailsBackButton">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+              </button>
+
+              <button type="button" [routerLink]="['/commune', commune.id, 'edit']" class="btn btn-outline-bricoVite btnCercle">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

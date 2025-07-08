@@ -1,0 +1,108 @@
+<div class="d-flex justify-content-center mt-5 pt-5 pb-5">
+  <div class="container">
+    <jhi-alert-error></jhi-alert-error>
+
+    <div class="card pt-4 pb-4">
+      <div class="row">
+        <div class="col-md-9 mx-auto">
+          <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-activite-heading" data-cy="ActiviteCreateUpdateHeading" jhiTranslate="bricoviteApp.activite.home.createOrEditLabel">
+              Create or edit a Activite
+            </h2>
+
+            <div>
+              <jhi-alert-error></jhi-alert-error>
+
+              <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+                <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.activite.nomFr" for="field_nomFr">Nom Fr</label>
+                <input type="text" class="form-control" name="nomFr" id="field_nomFr" data-cy="nomFr" formControlName="nomFr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.activite.nomAr" for="field_nomAr">Nom Ar</label>
+                <input type="text" class="form-control" name="nomAr" id="field_nomAr" data-cy="nomAr" formControlName="nomAr" />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.activite.categorieFr" for="field_categorieFr">Categorie Fr</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="categorieFr"
+                  id="field_categorieFr"
+                  data-cy="categorieFr"
+                  formControlName="categorieFr"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.activite.categorieAr" for="field_categorieAr">Categorie Ar</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="categorieAr"
+                  id="field_categorieAr"
+                  data-cy="categorieAr"
+                  formControlName="categorieAr"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="bricoviteApp.activite.categorie" for="field_categorie">Categorie</label>
+                <select class="form-control" id="field_categorie" data-cy="categorie" name="categorie" formControlName="categorie">
+                  <option *ngIf="!editForm.get('categorie')!.value" [ngValue]="null" selected></option>
+                  <option
+                    [ngValue]="
+                      categorieOption.id === editForm.get('categorie')!.value?.id ? editForm.get('categorie')!.value : categorieOption
+                    "
+                    *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById"
+                  >
+                    {{ categorieOption.nomFr }}
+                  </option>
+                </select>
+              </div>
+              <div
+                *ngIf="editForm.get(['categorie'])!.invalid && (editForm.get(['categorie'])!.dirty || editForm.get(['categorie'])!.touched)"
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get(['categorie'])?.errors?.required"
+                  jhiTranslate="entity.validation.required"
+                >
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="button"
+                id="cancel-save"
+                data-cy="entityCreateCancelButton"
+                class="btn btn-outline-secondary btnCercle float-end"
+                (click)="previousState()"
+              >
+                <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+              </button>
+
+              <button
+                type="submit"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                [disabled]="editForm.invalid || isSaving"
+                class="btn btn-outline-bricoVite btnCercle float-end me-2"
+              >
+                <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
